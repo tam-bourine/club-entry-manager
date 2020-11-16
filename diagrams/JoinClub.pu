@@ -1,0 +1,6 @@
+@startuml
+title 入部フロー
+入部申請者 -> SlackBot: Slackモーダルから入部申請フォームを送信
+SlackBot --> スプレッドシート: 該当部活タブの末尾に送信者の名前と入部日を追加
+SlackBot -> 入部申請者: 入部完了通知（審査なし）
+@enduml
