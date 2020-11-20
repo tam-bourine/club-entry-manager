@@ -1,0 +1,246 @@
+{
+    "openapi":"3.0.2",
+    "info": {
+        "title":"GAS API",
+        "version":"1.0",
+        "description": "GAS API"
+    },
+    "tags": [
+        {
+            "name": "club"
+        }
+    ],
+    "paths": {
+        "?action=regist": {
+            "post": {
+                "tags": ["club"],
+                "summary": "創部申請",
+                "description": "部活動シートの末尾に申請のあった部活を追加します。",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "club_name": {
+                                        "type": "string"
+                                    },
+                                    "club_description": {
+                                        "type": "string"
+                                    },
+                                    "captain": {
+                                        "type": "string"
+                                    },
+                                    "collaborator1": {
+                                        "type": "string"
+                                    },
+                                    "collaborator2": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "成功時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "201 Created"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "失敗時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "500 Internal Server Error"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "?action=approve": {
+            "post": {
+                "summary": "創部承認",
+                "description": "該当部活動の認可をTRUEにして、新しく部活動タブを作成する",
+                "tags": ["club"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "club_name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "成功時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "201 Created"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "失敗時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "500 Internal Server Error"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "?action=join": {
+            "post": {
+                "summary": "参加申請",
+                "description": "申請のあった該当部活動シートに、申請者の名前を追加",
+                "tags": ["club"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "club_name": {
+                                        "type": "string"
+                                    },
+                                    "member": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "成功時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "201 Created"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "失敗時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "500 Internal Server Error"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
