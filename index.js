@@ -17,7 +17,7 @@ const ws = new WorkflowStep('new_data', {
     await ack();// Slack からイベントを受信したことを確認するのにack関数は必須で呼び出す
     await configure({ blocks });// blocksを元にステップ設定モーダルをオープンする
   },
-  
+
   // save：モーダルから値が送信されると実行される
   save: async ({ ack, step, view, update }) => {
     await ack();
@@ -27,7 +27,7 @@ const ws = new WorkflowStep('new_data', {
     const description = values.task_description_input.description;
     const captain = values.task_captain_input.captain;
     const member = values.task_member_input.member;
-                
+
     const inputs = {// ステップ実行時にアプリが受け取ることを期待するデータの内容を表現するオブジェクト
       name: { value: name.value },
       description: { value: description.value },
@@ -48,9 +48,9 @@ const ws = new WorkflowStep('new_data', {
       }
     ];
     await update({ inputs, outputs });// update:ステップの設定を保存
-  
+
   },
-  
+
   // イベント受信した内容を元に色々な処理を記述(ワークフローから値が送信されたら実行される処理)
   execute: async ({ step, complete, fail }) => {
     console.log('---------- execute -----------');
