@@ -11,6 +11,84 @@
         }
     ],
     "paths": {
+        "?action=get": {
+            "get": {
+                "tags": ["club"],
+                "summary": "部活一覧取得",
+                "description": "部活動一覧の取得",
+                "responses": {
+                    "201": {
+                        "description": "成功時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "201 Created"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "clubs": {
+                                            "type": "array",
+                                            "example": [
+                                                {
+                                                    "id": "mor1kz9iskz9",
+                                                    "name": "フットサル部",
+                                                    "captain": "森一貴",
+                                                    "collaborator_1st": "千原健太",
+                                                    "collaborator_2nd": "森貴族",
+                                                    "official": true
+                                                },
+                                                {
+                                                    "id": "ch18ken",
+                                                    "name": "ほげ部",
+                                                    "captain": "千原健太",
+                                                    "collaborator_1st": "千原ケンタッキー",
+                                                    "collaborator_2nd": "鳥貴族",
+                                                    "official": true
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "失敗時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "500 Internal Server Error"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "?action=regist": {
             "post": {
                 "tags": ["club"],
