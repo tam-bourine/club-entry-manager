@@ -23,10 +23,10 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "club_name": {
+                                    "name": {
                                         "type": "string"
                                     },
-                                    "club_description": {
+                                    "description": {
                                         "type": "string"
                                     },
                                     "captain": {
