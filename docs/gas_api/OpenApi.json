@@ -62,6 +62,13 @@
                                         "success": {
                                             "type": "boolean",
                                             "example": true
+                                        },
+                                        "club": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": "mor1kz9iskz9",
+                                                "name": "フットサル部"
+                                            }
                                         }
                                     }
                                 }    
