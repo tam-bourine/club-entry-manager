@@ -32,10 +32,10 @@
                                     "captain": {
                                         "type": "string"
                                     },
-                                    "collaborator1": {
+                                    "collaborator_1st": {
                                         "type": "string"
                                     },
-                                    "collaborator2": {
+                                    "collaborator_2nd": {
                                         "type": "string"
                                     }
                                 }
