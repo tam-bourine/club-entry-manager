@@ -5,12 +5,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@slack/bolt": "^2.4.1"
+    "@slack/bolt": "^2.4.1",
+    "dotenv": "^8.2.0",
+    "ngrok": "^3.3.0"
   }
 }

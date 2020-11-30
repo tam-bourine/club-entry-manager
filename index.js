@@ -1,5 +1,6 @@
 const { App, WorkflowStep } = require('@slack/bolt');
-const blocks = require('./block.js');
+const blocks = require('./blocks/inputClub.js');
+require('dotenv').config();
 
 const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
@@ -10,15 +11,14 @@ app.message('hello', async ({ message, say }) => {
   await say(`Hey there <@${message.user}>!`);
 });
 
-// WorkflowStep インスタンスを生成
-const ws = new WorkflowStep('new_data', {
+const workflowStep = new WorkflowStep('new_data', {
   // edit：ステップをワークフローに追加する際に実行
   edit: async ({ ack, step, configure }) => {
-    await ack();// Slack からイベントを受信したことを確認するのにack関数は必須で呼び出す
-    await configure({ blocks });// blocksを元にステップ設定モーダルをオープンする
+    await ack();
+    await configure({ blocks });
   },
 
-  // save：モーダルから値が送信されると実行される
+  // save：ワークフローステップモーダルから値が送信されると実行される
   save: async ({ ack, step, view, update }) => {
     await ack();
 
@@ -26,16 +26,20 @@ const ws = new WorkflowStep('new_data', {
     const name = values.task_name_input.name;
     const description = values.task_description_input.description;
     const captain = values.task_captain_input.captain;
-    const member = values.task_member_input.member;
+    const member1 = values.task_member1_input.member1;
+    const member2 = values.task_member2_input.member2;
 
-    const inputs = {// ステップ実行時にアプリが受け取ることを期待するデータの内容を表現するオブジェクト
+    // ステップ実行時にアプリが受け取ることを期待するデータの内容を表現するオブジェクト
+    const inputs = {
       name: { value: name.value },
       description: { value: description.value },
       captain: { value: captain.value },
-      member: { value: member.value }
+      member1: { value: member1.value },
+      member2: { value: member2.value }
     };
 
-    const outputs = [// ステップ実行が正常に完了した際に次のステップに提供するデータの保存
+    // ステップ実行が正常に完了した際に次のステップに提供するデータの保存
+    const outputs = [
       {
         type: 'text',
         name: 'taskName',
@@ -47,30 +51,26 @@ const ws = new WorkflowStep('new_data', {
         label: 'Task description',
       }
     ];
-    await update({ inputs, outputs });// update:ステップの設定を保存
-
+    await update({ inputs, outputs });
   },
 
   // イベント受信した内容を元に色々な処理を記述(ワークフローから値が送信されたら実行される処理)
   execute: async ({ step, complete, fail }) => {
-    console.log('---------- execute -----------');
     const { inputs } = step;
-    console.log(inputs);
+    console.log({ inputs });
     const outputs = {
       name: inputs.name.value,
       description: inputs.description.value,
       captain: inputs.captain.value,
-      member: inputs.member.value
+      member1: inputs.member1.value,
+      member2: inputs.member2.value
     };
-    // もし全て OK なら
     await complete({ outputs });
   },
 });
 
-app.step(ws);
+app.step(workflowStep);
 
-
-// Start your app
 (async () => {
   await app.start(process.env.PORT || 3000);
   console.log('⚡️ Bolt app is running!');
