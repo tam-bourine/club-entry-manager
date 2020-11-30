@@ -7,13 +7,13 @@
     },
     "tags": [
         {
-            "name": "club"
+            "name": "clubs"
         }
     ],
     "paths": {
         "?action=get": {
             "get": {
-                "tags": ["club"],
+                "tags": ["clubs"],
                 "summary": "部活一覧取得",
                 "description": "部活動一覧の取得",
                 "responses": {
@@ -91,7 +91,7 @@
         },
         "?action=regist": {
             "post": {
-                "tags": ["club"],
+                "tags": ["clubs"],
                 "summary": "創部申請",
                 "description": "部活動シートの末尾に申請のあった部活を追加します。",
                 "requestBody": {
@@ -184,7 +184,7 @@
             "post": {
                 "summary": "創部承認",
                 "description": "該当部活動の認可をTRUEにして、新しく部活動タブを作成する",
-                "tags": ["club"],
+                "tags": ["clubs"],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -256,7 +256,7 @@
             "post": {
                 "summary": "参加申請",
                 "description": "申請のあった該当部活動シートに、申請者の名前を追加",
-                "tags": ["club"],
+                "tags": ["clubs"],
                 "requestBody": {
                     "required": true,
                     "content": {
