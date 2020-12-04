@@ -1,0 +1,335 @@
+{
+    "openapi":"3.0.2",
+    "info": {
+        "title":"GAS API",
+        "version":"1.0",
+        "description": "GAS API"
+    },
+    "tags": [
+        {
+            "name": "clubs"
+        }
+    ],
+    "paths": {
+        "?action=get": {
+            "get": {
+                "tags": ["clubs"],
+                "summary": "入部申請用 部活動一覧",
+                "description": "入部可能な部活動一覧の取得",
+                "responses": {
+                    "201": {
+                        "description": "成功時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "200 OK"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "clubs": {
+                                            "type": "array",
+                                            "example": [
+                                                {
+                                                    "id": "f00tsa1",
+                                                    "name": "フットサル部"
+                                                },
+                                                {
+                                                    "id": "ho1ge2fu3ga4",
+                                                    "name": "ほげ部"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "失敗時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "500 Internal Server Error"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "?action=regist": {
+            "post": {
+                "tags": ["clubs"],
+                "summary": "創部申請",
+                "description": "部活動シートの末尾に申請のあった部活を追加します。",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "club_name": {
+                                        "type": "string"
+                                    },
+                                    "club_description": {
+                                        "type": "string"
+                                    },
+                                    "captain_id": {
+                                        "type": "string"
+                                    },
+                                    "captain_name": {
+                                        "type": "string"
+                                    },
+                                    "collaborator_id_1st": {
+                                        "type": "string"
+                                    },
+                                    "collaborator_name_1st": {
+                                        "type": "string"
+                                    },
+                                    "collaborator_id_2nd": {
+                                        "type": "string"
+                                    },
+                                    "collaborator_name_2nd": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "成功時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "201 Created"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "club": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": "f00tsa1",
+                                                "name": "フットサル部"
+                                            }
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "失敗時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "500 Internal Server Error"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "?action=approve": {
+            "post": {
+                "summary": "創部承認",
+                "description": "該当部活動の認可をTRUEにして、新しく部活動タブを作成する",
+                "tags": ["clubs"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "club_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "成功時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "201 Created"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "失敗時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "500 Internal Server Error"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "?action=join": {
+            "post": {
+                "summary": "参加申請",
+                "description": "申請のあった該当部活動シートに、申請者の名前を追加",
+                "tags": ["clubs"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "club_id": {
+                                        "type": "string"
+                                    },
+                                    "member_id": {
+                                        "type": "string"
+                                    },
+                                    "member_name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "成功時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "201 Created"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "失敗時のレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "500 Internal Server Error"
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }    
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
