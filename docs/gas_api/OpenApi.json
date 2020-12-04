@@ -105,16 +105,16 @@
                                     "captain_name": {
                                         "type": "string"
                                     },
-                                    "collaborator1_id": {
+                                    "collaborator_id_1st": {
                                         "type": "string"
                                     },
-                                    "collaborator1_name": {
+                                    "collaborator_name_1st": {
                                         "type": "string"
                                     },
-                                    "collaborator2_id": {
+                                    "collaborator_id_2nd": {
                                         "type": "string"
                                     },
-                                    "collaborator2_name": {
+                                    "collaborator_name_2nd": {
                                         "type": "string"
                                     }
                                 }
