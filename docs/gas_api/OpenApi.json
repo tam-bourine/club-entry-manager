@@ -14,8 +14,8 @@
         "?action=get": {
             "get": {
                 "tags": ["clubs"],
-                "summary": "部活一覧取得",
-                "description": "部活動一覧の取得",
+                "summary": "入部申請用 部活動一覧",
+                "description": "入部可能な部活動一覧の取得",
                 "responses": {
                     "201": {
                         "description": "成功時のレスポンス",
@@ -26,11 +26,11 @@
                                     "properties": {
                                         "status": {
                                             "type": "integer",
-                                            "example": 201
+                                            "example": 200
                                         },
                                         "message": {
                                             "type": "string",
-                                            "example": "201 Created"
+                                            "example": "200 OK"
                                         },
                                         "success": {
                                             "type": "boolean",
@@ -40,20 +40,12 @@
                                             "type": "array",
                                             "example": [
                                                 {
-                                                    "id": "mor1kz9iskz9",
-                                                    "name": "フットサル部",
-                                                    "captain": "森一貴",
-                                                    "collaborator_1st": "千原健太",
-                                                    "collaborator_2nd": "森貴族",
-                                                    "official": true
+                                                    "id": "f00tsa1",
+                                                    "name": "フットサル部"
                                                 },
                                                 {
-                                                    "id": "ch18ken",
-                                                    "name": "ほげ部",
-                                                    "captain": "千原健太",
-                                                    "collaborator_1st": "千原ケンタッキー",
-                                                    "collaborator_2nd": "鳥貴族",
-                                                    "official": true
+                                                    "id": "ho1ge2fu3ga4",
+                                                    "name": "ほげ部"
                                                 }
                                             ]
                                         }
@@ -101,19 +93,28 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "name": {
+                                    "club_name": {
                                         "type": "string"
                                     },
-                                    "description": {
+                                    "club_description": {
                                         "type": "string"
                                     },
-                                    "captain": {
+                                    "captain_id": {
                                         "type": "string"
                                     },
-                                    "collaborator_1st": {
+                                    "captain_name": {
                                         "type": "string"
                                     },
-                                    "collaborator_2nd": {
+                                    "collaborator1_id": {
+                                        "type": "string"
+                                    },
+                                    "collaborator1_name": {
+                                        "type": "string"
+                                    },
+                                    "collaborator2_id": {
+                                        "type": "string"
+                                    },
+                                    "collaborator2_name": {
                                         "type": "string"
                                     }
                                 }
