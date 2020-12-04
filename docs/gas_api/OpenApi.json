@@ -145,7 +145,7 @@
                                         "club": {
                                             "type": "object",
                                             "example": {
-                                                "id": "mor1kz9iskz9",
+                                                "id": "f00tsa1",
                                                 "name": "フットサル部"
                                             }
                                         }
@@ -193,7 +193,7 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "id": {
+                                    "club_id": {
                                         "type": "string"
                                     }
                                 }
@@ -265,10 +265,13 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "id": {
+                                    "club_id": {
                                         "type": "string"
                                     },
-                                    "member": {
+                                    "member_id": {
+                                        "type": "string"
+                                    },
+                                    "member_name": {
                                         "type": "string"
                                     }
                                 }
