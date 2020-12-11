@@ -27,16 +27,43 @@ mkdir .vscode && touch .vscode/settings.json
 }
 ```
 
-### Slack App
-- Cloud Functions for Firebase
-    1. Cloud Functions for Firebaseの登録
-    2. プロジェクトを作成
-    3. firebase loginの解消方法(Esetでlocalhost:9005を開放)
-    4. アカウントをblazeに移行
-    5. デプロイ
-- Slack
-    1. Event SubscriptionsでURLを設定
-    2. Permissionsを設定
+### クローン・パッケージのインストール
+```shell
+git clone https://github.com/tam-bourine/club-manager.git
+cd club-manager
+npm install
+cd src/functions
+npm install
+cd ../..
+cp src/functions/.env.example src/functions/.env
+```
+
+### SlackApp
+1. [SlackAPI の your apps](https://api.slack.com/apps)で 任意の名前でBotを作成
+1. [SlackAPI](https://api.slack.com/)の Permissons で Bot Token Scopes を設定
+   ![image](https://user-images.githubusercontent.com/39648121/90381396-4980bf00-e0b8-11ea-85e4-390d38a41d55.png)
+    - channels:history
+    - chat:write
+    - groups:history
+    - im:history
+    - mpim:history
+    - workflow.steps:execute
+1. ワークスペースにインストール
+1. Basic Information の Singing Secretを src/functions/.envのに SLACK_SIGNING_SECRET 設定
+1. Permissionsの中にある、Bot User OAuth Access Token を src/functions/.env の SLACK_BOT_TOKEN に設定
+
+
+### Cloud Functions for Firebase
+1. Cloud Functions for Firebaseに登録して、Blazeプランに変更
+1. プロジェクトを作成
+1. 次を実行して、アカウントを選択
+    ```shell
+    firebase login
+    ```
+1. 次を実行
+    ```shell
+    firebase deploy --only functions
+    ```
 
 ### GAS
 1. スプレッドシートの作成
@@ -99,5 +126,5 @@ mkdir .vscode && touch .vscode/settings.json
     - .envの"API_URL="にコピーしたURLを貼り付ける
 9. 公開したURLをFirebase上の環境変数に適用
     ```shell
-    functions:config:set api.url="${コピーしたURL}
+    functions:config:set api.url="コピーしたURL"
     ```
