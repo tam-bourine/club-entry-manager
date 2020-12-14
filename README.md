@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Club Manager
+=======
+# club-manager
+>>>>>>> 337d7e4 (rename: readmeを大文字のREADMEに変更)
 ## 利用技術
 - SlackApp
     - Node.js v10
@@ -31,11 +35,17 @@ mkdir .vscode && touch .vscode/settings.json
 ```shell
 git clone https://github.com/tam-bourine/club-manager.git
 cd club-manager
+<<<<<<< HEAD
 npm install
 cd src/functions
 npm install
 cd ../..
 cp src/functions/.env.example src/functions/.env
+=======
+cd src/functions
+npm install
+cd ../..
+>>>>>>> 337d7e4 (rename: readmeを大文字のREADMEに変更)
 ```
 
 ### SlackApp

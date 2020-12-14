@@ -1,0 +1,7 @@
+{
+  "slack": {
+      "signing_secret": "",
+      "bot_token": "",
+      "port_number": ""
+  }
+}
