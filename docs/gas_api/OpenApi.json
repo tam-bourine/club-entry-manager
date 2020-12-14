@@ -93,28 +93,28 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "club_name": {
+                                    "clubName": {
                                         "type": "string"
                                     },
-                                    "club_description": {
+                                    "clubDescription": {
                                         "type": "string"
                                     },
-                                    "captain_id": {
+                                    "captainId": {
                                         "type": "string"
                                     },
-                                    "captain_name": {
+                                    "captainName": {
                                         "type": "string"
                                     },
-                                    "collaborator_id_1st": {
+                                    "collaboratorId1st": {
                                         "type": "string"
                                     },
-                                    "collaborator_name_1st": {
+                                    "collaboratorName1st": {
                                         "type": "string"
                                     },
-                                    "collaborator_id_2nd": {
+                                    "collaboratorId2nd": {
                                         "type": "string"
                                     },
-                                    "collaborator_name_2nd": {
+                                    "collaboratorName2nd": {
                                         "type": "string"
                                     }
                                 }
@@ -193,7 +193,7 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "club_id": {
+                                    "clubId": {
                                         "type": "string"
                                     }
                                 }
@@ -265,13 +265,13 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "club_id": {
+                                    "clubId": {
                                         "type": "string"
                                     },
-                                    "member_id": {
+                                    "memberId": {
                                         "type": "string"
                                     },
-                                    "member_name": {
+                                    "memberName": {
                                         "type": "string"
                                     }
                                 }
