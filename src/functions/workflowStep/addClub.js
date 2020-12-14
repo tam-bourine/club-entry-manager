@@ -1,10 +1,10 @@
 'use strict';
-const inputClubBlock = require('../blocks/inputClub.js');
+const blocks = require('../blocks/inputClub.js');
 
 // ステップをワークフローに追加する際に実行
 const editStep = async ({ ack, step, configure }) => {
   console.log({ step })
-  
+
   try {
     await ack();
     console.log('ワークフローステップと正常に通信できました');
@@ -13,7 +13,7 @@ const editStep = async ({ ack, step, configure }) => {
   }
 
   try {
-    await configure({ inputClubBlock });
+    await configure({ blocks });
     console.log('ワークフローステップ用のモーダルを表示できました');
   } catch(err) {
     console.error({ err });
@@ -60,9 +60,9 @@ const excuteStep = async ({ step, complete, fail }) => {
 
   try {
     await complete({ inputs });
-    console.log({ inputs });
+    console.log(inputs);
   } catch(err) {
-    // ワークフローのアクティビティにエラーメッセージが表示される
+    // ステップの実行が失敗した場合のエラーを表示
     await fail({ error: { message: err } });
   }
 }

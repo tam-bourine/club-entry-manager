@@ -2,7 +2,7 @@
 
 const functions = require('firebase-functions');
 const config = functions.config();
-const addClubStep = require('./workflowStep/addClub.js');
+const addClub = require('./workflowStep/addClub.js');
 const { App, ExpressReceiver, WorkflowStep } = require('@slack/bolt');
 
 const expressReceiver = new ExpressReceiver({
@@ -14,18 +14,19 @@ const expressReceiver = new ExpressReceiver({
 
 const app = new App({
   receiver: expressReceiver,
+  token: config.slack.bot_token,
   processBeforeResponse: true
 });
 
 app.error(console.log);
 
 // 創部申請用のワークフローから部活動の情報を取得する処理
-const addClubStep = new WorkflowStep('add_club', addClubStep);
+const addClubStep = new WorkflowStep('add_club', addClub);
 
 app.step(addClubStep);
 
 (async () => {
-  await app.start(config.PORT || 3000);
+  await app.start(config.slack.port_number || 3000);
   console.log('⚡️ Bolt app is running!');
 })();
 
