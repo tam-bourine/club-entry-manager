@@ -1,7 +1,7 @@
 # Club Manager
 ## 利用技術
 - SlackApp
-    - Node.js v12
+    - Node.js v10
     - Bolt for JavaScript
 - シートAPI
     - Google Apps Script
@@ -49,29 +49,75 @@ cp src/functions/.env.example src/functions/.env
     - mpim:history
     - workflow.steps:execute
 1. ワークスペースにインストール
-1. Basic Information の Singing Secretを src/functions/.envのに SLACK_SIGNING_SECRET 設定
+1. Basic Information の Singing Secretを src/functions/.envの SLACK_SIGNING_SECRET に設定
 1. Permissionsの中にある、Bot User OAuth Access Token を src/functions/.env の SLACK_BOT_TOKEN に設定
 
-
-### Cloud Functions for Firebase
-1. Cloud Functions for Firebaseに登録して、Blazeプランに変更
+1. [Firebaseコンソール](https://console.firebase.google.com/u/0/?hl=ja)にアクセス
 1. プロジェクトを作成
-1. 次を実行して、アカウントを選択
+    - <img width="861" alt="スクリーンショット 2020-12-14 10 41 44" src="https://user-images.githubusercontent.com/39648121/102048895-422db000-3e23-11eb-993b-42b5605b168d.png">
+    - <img width="772" alt="スクリーンショット 2020-12-14 10 41 54" src="https://user-images.githubusercontent.com/39648121/102048902-4659cd80-3e23-11eb-9a24-63c78c04b32b.png">
+    - <img width="901" alt="スクリーンショット 2020-12-14 10 42 12" src="https://user-images.githubusercontent.com/39648121/102048907-478afa80-3e23-11eb-9103-e4c6999b8ad3.png">
+    - <img width="734" alt="スクリーンショット 2020-12-14 10 43 10" src="https://user-images.githubusercontent.com/39648121/102048917-49ed5480-3e23-11eb-8f89-e8dbb04a6866.png">
+1. プロジェクトのプランをBlazeに移行
+    - <img width="809" alt="スクリーンショット 2020-12-14 10 50 03" src="https://user-images.githubusercontent.com/39648121/102048925-4c4fae80-3e23-11eb-979c-f4d155f46c14.png">
+    - <img width="646" alt="スクリーンショット 2020-12-14 10 50 17" src="https://user-images.githubusercontent.com/39648121/102048929-4d80db80-3e23-11eb-9dbd-2f2db392b8f4.png">
+    - 必要なら請求先アカウントを作成（ここでは説明は省く）
+    - <img width="535" alt="スクリーンショット 2020-12-14 10 51 07" src="https://user-images.githubusercontent.com/39648121/102048931-4eb20880-3e23-11eb-9a76-b4c176ea8ccb.png">
+    - 必要なら予算アラートを設定（ここでは説明は省く）
+    - <img width="534" alt="スクリーンショット 2020-12-14 10 51 20" src="https://user-images.githubusercontent.com/39648121/102048935-4fe33580-3e23-11eb-9cd6-5c4e0c078efb.png">
+1. アカウントを選択してFirebaseにログイン
     ```shell
     firebase login
     ```
-1. 次を実行
+1. projectsリストを確認
+    ```shell
+    firebase projects list
+    ```
+    - 次のようなリストが表示される
+    - <img width="751" alt="スクリーンショット 2020-12-14 10 43 57" src="https://user-images.githubusercontent.com/39648121/102048922-4b1e8180-3e23-11eb-9dae-00449c58db3e.png">
+1. projectsを選択
+    ```shell
+    firebase use [Project ID]
+    ```
+    ```shell
+    firebase projects list
+    ```
+    - Project Idの値のところにcurrentがついていればOK
+    - <img width="844" alt="スクリーンショット 2020-12-14 10 44 50" src="https://user-images.githubusercontent.com/39648121/102048924-4b1e8180-3e23-11eb-8853-2ef98ecc353a.png">
+1. 環境変数の設定
+    - SLACK_BOT_TOKENとSLACK_SIGNING_SECRETの内容は.envの内容に置き換えて実行する
+        ```shell
+        firebase functions:config:set slack.signing_secret='SLACK_SIGNING_SECRET' slack.bot_token='SLACK_BOT_TOKEN'
+        ```
+    - 例
+        ```shell
+        firebase functions:config:set slack.signing_secret='1a2b3c4d5e6f7g8h9i' slack.bot_token='xoxp-000011112222'
+        ```
+1. デプロイ
     ```shell
     firebase deploy --only functions
     ```
-
+1. Event Subscriptionsの設定
+    - SlackAppの設定でBasic Information→Event Subscriptionsに行き、次のURLを設定
+        - "https://us-central1-[プロジェクトID].cloudfunctions.net/slack"
+        - 例: https://us-central1-hoge1fuga2.cloudfunctions.net/slack
+        - ![スクリーンショット 2020-12-14 15 36 13](https://user-images.githubusercontent.com/39648121/102048937-51146280-3e23-11eb-982f-1c3241e54a87.png)
+        - ![スクリーンショット 2020-12-14 15 36 44](https://user-images.githubusercontent.com/39648121/102048938-51acf900-3e23-11eb-9f54-8148a779604b.png)
+    - Subscribe to bot eventsを開き、次のBot User Eventを追加
+        - message.channels
+        - message.groups
+        - message.im
+        - message.mpim
+        - workflow_step_execute
+        - ![スクリーンショット 2020-12-14 15 37 06](https://user-images.githubusercontent.com/39648121/102048940-52458f80-3e23-11eb-9e96-b7816c95878a.png)
+        - Save Changesをクリックして保存
 ### GAS
 1. スプレッドシートの作成
     - [https://drive.google.com/](https://drive.google.com/) を開いて画面左にある、「新規」ボタンを押す
     ![image](https://user-images.githubusercontent.com/39648121/101321714-22d5d680-38a9-11eb-8941-4c250afc909e.png)
     - 任意の名前をつけて保存する
     ![image](https://user-images.githubusercontent.com/39648121/101870006-182a8280-3bc4-11eb-89e5-18afe7620ae1.png)
-    <!-- 後々、setUpSheet()関数に変更 -->
+    <!-- 後々、setUpSheet()関数に変更予定 -->
     - シートの名前を「部活動一覧」に変更する
         ![image](https://user-images.githubusercontent.com/39648121/101871767-7d33a780-3bc7-11eb-875a-51849e3467f3.png)
     - シートの1行目に、次のカラム定義を入れる
@@ -126,5 +172,9 @@ cp src/functions/.env.example src/functions/.env
     - .envの"API_URL="にコピーしたURLを貼り付ける
 9. 公開したURLをFirebase上の環境変数に適用
     ```shell
-    functions:config:set api.url="コピーしたURL"
+    firebase functions:config:set api.url="[コピーしたURL]"
     ```
+    - 例: 
+        ```shell
+        firebase functions:config:set api.url="https://example.com"
+        ```
