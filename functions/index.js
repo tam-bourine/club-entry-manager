@@ -4,7 +4,8 @@ const config = functions.config();
 
 const { App, ExpressReceiver } = require("@slack/bolt");
 const expressReceiver = new ExpressReceiver({
-  signingSecret: config.slack.signing_secret,
+  signingSecret: process.env.SLACK_SIGNING_SECRET,
+  token: process.env.SLACK_BOT_TOKEN,
   endpoints: "/events",
   processBeforeResponse: true,
 });
