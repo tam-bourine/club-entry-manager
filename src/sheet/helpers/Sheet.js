@@ -1,6 +1,6 @@
 class Sheet {
   constructor(name)  {
-    this.name = name;
+    this.sheet = SpreadSheetApp.getActiveSpreadSheet.getSheetByName(name);
   }
 
   static getValues() {
