@@ -1,4 +1,4 @@
-# Club Manager
+# club-manager
 ## 利用技術
 - SlackApp
     - Node.js v10
