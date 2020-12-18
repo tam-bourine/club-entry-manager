@@ -5,18 +5,17 @@ class Club {
   }
 
   static all() {
-    
   }
 
   static find(id) {
     
   }
 
-  static create() {
+  static create(values) {
     
   }
 
-  static update() {
+  static update(id, values) {
     
   }
 }

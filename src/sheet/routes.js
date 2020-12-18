@@ -3,7 +3,7 @@ function doGet(e) {
   let res;
   switch(action) {
     case 'get': {
-      res = ClubsController.get(e);
+      res = ClubsController.get();
       break;
     }
     default: {
@@ -20,18 +20,19 @@ function doGet(e) {
 
 function doPost(e) {
   const action = e.parameter.action;
+  let params = JSON.parse(e.postDataAsString());
   let res;
   switch(action) {
     case 'regist': {
-      res = ClubsController.regist(e);
+      res = ClubsController.regist(params);
       break;
     }
     case 'approve': {
-      res = ClubsController.approve(e);
+      res = ClubsController.approve(params);
       break;
     }
     case 'join': {
-      res = ClubsController.join(e);
+      res = MembersController.join(params);
       break;
     }
     default: {

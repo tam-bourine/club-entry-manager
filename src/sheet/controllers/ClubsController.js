@@ -1,17 +1,13 @@
 class ClubsController {
-  static get(e) {
-    return [1,2,3,4,5,6,7,8,9];
+  static get() {
+    return [];
   }
 
-  static regist(e) {
-    return [id];
+  static regist(params) {
+    return params;
   }
 
-  static approve(e) {
-    return {};
-  }
-
-  static join(e) {
-    return {message: 'よろしーく'};
+  static approve(params) {
+    return params;
   }
 }
