@@ -1,1 +1,4 @@
-{"scriptId":"[ここにスクリプトIDを入れる]"}
+{
+    "scriptId": "[ここにスクリプトIDを入れる]",
+    "rootDir": "./src/gas"
+}

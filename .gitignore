@@ -1,6 +1,9 @@
 .DS_Store
 node_modules
 .clasp.json
+.node-version
 .vscode/
+!.vscode/settings.json
 .node-version
 src/functions/config.json
+**/**.log

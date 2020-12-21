@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 # Club Manager
-=======
-# club-manager
->>>>>>> 337d7e4 (rename: readmeを大文字のREADMEに変更)
+
 ## 利用技術
 - SlackApp
     - Node.js v10
@@ -95,7 +92,7 @@ cd ../..
     - Project Idの値のところにcurrentがついていればOK
     - <img width="844" alt="スクリーンショット 2020-12-14 10 44 50" src="https://user-images.githubusercontent.com/39648121/102048924-4b1e8180-3e23-11eb-8853-2ef98ecc353a.png">
 1. 環境変数の設定
-    - SLACK_BOT_TOKENとSLACK_SIGNING_SECRETの内容は src/functions/config.json の内容に置き換えて実行する
+    - singing_secretとbot_tokenの内容は src/functions/config.json の内容に置き換えて実行する
         ```shell
         firebase functions:config:set slack.signing_secret='signing_secret' slack.bot_token='bot_token'
         ```
@@ -192,3 +189,7 @@ cd ../..
         ```shell
         firebase functions:config:set api.url="https://example.com"
         ```
+=======
+
+## Setup
+>>>>>>> a615d52 (Airbnbのルールに従ったフォーマットにした & フォーマット自動化用ライブラリ追加 (#58))
