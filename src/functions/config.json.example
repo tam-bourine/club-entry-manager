@@ -3,5 +3,8 @@
       "signing_secret": "",
       "bot_token": "",
       "port_number": ""
+  },
+  "api": {
+    "url": ""
   }
 }
