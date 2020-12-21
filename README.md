@@ -47,8 +47,8 @@ cd ../..
     - mpim:history
     - workflow.steps:execute
 1. ワークスペースにインストール
-1. Basic Information の Singing Secretを src/functions/.envの SLACK_SIGNING_SECRET に設定
-1. Permissionsの中にある、Bot User OAuth Access Token を src/functions/.env の SLACK_BOT_TOKEN に設定
+1. Basic Information の Singing Secretを src/functions/config.jsonの signing_secret に設定
+1. Permissionsの中にある、Bot User OAuth Access Token を src/functions/config.json の bot_token に設定
 
 1. [Firebaseコンソール](https://console.firebase.google.com/u/0/?hl=ja)にアクセス
 1. プロジェクトを作成
@@ -83,9 +83,9 @@ cd ../..
     - Project Idの値のところにcurrentがついていればOK
     - <img width="844" alt="スクリーンショット 2020-12-14 10 44 50" src="https://user-images.githubusercontent.com/39648121/102048924-4b1e8180-3e23-11eb-8853-2ef98ecc353a.png">
 1. 環境変数の設定
-    - SLACK_BOT_TOKENとSLACK_SIGNING_SECRETの内容は.envの内容に置き換えて実行する
+    - SLACK_BOT_TOKENとSLACK_SIGNING_SECRETの内容は src/functions/config.json の内容に置き換えて実行する
         ```shell
-        firebase functions:config:set slack.signing_secret='SLACK_SIGNING_SECRET' slack.bot_token='SLACK_BOT_TOKEN'
+        firebase functions:config:set slack.signing_secret='signing_secret' slack.bot_token='bot_token'
         ```
     - 例
         ```shell
@@ -163,11 +163,15 @@ cd ../..
     ![image](https://user-images.githubusercontent.com/39648121/101870515-1a411100-3bc5-11eb-8f11-90b397ef0392.png)
     - 公開後のURLをコピー
     ![image](https://user-images.githubusercontent.com/39648121/101870625-5aa08f00-3bc5-11eb-9c17-18e13ad6d284.png)
-8. 公開したURLをSlackAppの.envに記入
-    - ```shell
-        cp functions/.env.example functions/.env
+8. 公開したURLをSlackAppの config.json に記入
+    - src/functions/config.json の url にコピーしたURLを貼り付ける
+    - 例
+        ```json
+        "api": {
+            "url": "https://example.com"
+        }
         ```
-    - .envの"API_URL="にコピーしたURLを貼り付ける
+
 9. 公開したURLをFirebase上の環境変数に適用
     ```shell
     firebase functions:config:set api.url="[コピーしたURL]"
