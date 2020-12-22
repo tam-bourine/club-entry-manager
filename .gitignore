@@ -3,3 +3,5 @@ node_modules
 .env
 .clasp.json
 .node-version
+.vscode/
+!.vscode/settings.json
