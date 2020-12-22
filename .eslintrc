@@ -6,7 +6,13 @@
     "plugin:node/recommended"
   ],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es6",
+        "endOfLines": "LF"
+      }
+    ],
     "no-unused-vars": "warn",
     "no-console": "off",
     "func-names": "off",
