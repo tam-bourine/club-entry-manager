@@ -9,8 +9,9 @@
     "prettier/prettier": [
       "error",
       {
+        "linebreak-style": ["error", "unix"],
         "trailingComma": "es6",
-        "endOfLines": "LF"
+        "endOfLine": "lf"
       }
     ],
     "no-unused-vars": "warn",
