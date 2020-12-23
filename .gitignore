@@ -5,3 +5,5 @@ node_modules
 .node-version
 .vscode/
 !.vscode/settings.json
+.node-version
+**/**.log
