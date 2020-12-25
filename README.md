@@ -2,9 +2,10 @@
 ## 利用技術
 - SlackApp
     - Node.js v10
-    - Bolt for JavaScript
+    - [Bolt for JavaScript](https://github.com/slackapi/bolt-js)
 - シートAPI
-    - Google Apps Script
+    - [Google Apps Script](https://developers.google.com/gsuite/aspects/appsscript?hl=ja)
+    - [clasp](https://github.com/google/clasp)
  
 ## セットアップ手順
 
