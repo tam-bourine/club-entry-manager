@@ -30,6 +30,14 @@ class Club {
     */
   }
 
+  static createSheet(name) {
+    /* 
+    引数clubNameを使って、メンバー保存用の新しいシートを作成
+    新しいシートの1行目にカラム定義を追加
+    不要な行と列を削除
+    */
+  }
+
   static update(id, params) {
     /*
     values = 全レコードを全カラム取得
