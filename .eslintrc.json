@@ -1,0 +1,24 @@
+{
+  "root": true,
+  "extends": [
+    "airbnb-base",
+    "plugin:prettier/recommended",
+    "plugin:node/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "linebreak-style": ["error", "unix"],
+        "trailingComma": "es6",
+        "endOfLine": "lf"
+      }
+    ],
+    "no-unused-vars": "warn",
+    "no-console": "off",
+    "func-names": "off",
+    "no-process-exit": "off",
+    "object-shorthand": "off",
+    "class-methods-use-this": "off"
+  }
+}
