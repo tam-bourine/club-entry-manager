@@ -23,14 +23,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Install SSH Key for Deploy
-        uses: shimataro/ssh-key-action@v1
+      - uses: actions/setup-node@v2-beta
         with:
-          private-key: ${{ secrets.PRIVATE_SSH_KEY }}
-          config: ${{ secrets.SSH_CONFIG }}
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "12.x"
       - run: npm run install:all
       - run: npm run lint
