@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install:all": "npm i --prefix src/functions",
+    "install:all": "npm i && npm i --prefix src/functions",
     "lint": "eslint --ext .js ./src --cache",
     "lint:fix": "eslint --fix --ext .js ./src --cache",
     "lint:all": "npm run lint --prefix src/functions"
