@@ -10,7 +10,7 @@
       "error",
       {
         "linebreak-style": ["error", "unix"],
-        "trailingComma": "es6",
+        "trailingComma": "es5",
         "endOfLine": "lf"
       }
     ],
