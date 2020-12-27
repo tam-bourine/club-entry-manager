@@ -1,0 +1,36 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - master
+      - "release*"
+      - "feat*"
+  pull_request:
+    branches:
+      - master
+      - "release*"
+      - "feat*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      matrix:
+        node-version: [11.15.0]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install SSH Key for Deploy
+        uses: shimataro/ssh-key-action@v1
+        with:
+          private-key: ${{ secrets.PRIVATE_SSH_KEY }}
+          config: ${{ secrets.SSH_CONFIG }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm run install:all
+      - run: npm run lint
