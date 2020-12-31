@@ -1,6 +1,5 @@
 // 配列をオブジェクトに変換
 function arrayToObjects(keys, values) {
-  
   return values;
 }
 

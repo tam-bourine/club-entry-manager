@@ -1,6 +1,8 @@
 class Club {
   constructor() {
-    this.sheet = SpreadSheetApp.getActiveSpreadSheet.getSheetByName('部活動一覧');
+    this.sheet = SpreadSheetApp.getActiveSpreadSheet.getSheetByName(
+      "部活動一覧"
+    );
   }
 
   static all() {
