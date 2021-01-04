@@ -82,7 +82,8 @@ cd ../..
         - "https://us-central1-[プロジェクトID].cloudfunctions.net/slack"
         - 例: https://us-central1-hoge1fuga2.cloudfunctions.net/slack
         - ![スクリーンショット 2020-12-14 15 36 13](https://user-images.githubusercontent.com/39648121/102048937-51146280-3e23-11eb-982f-1c3241e54a87.png)
-        - ![スクリーンショット 2020-12-14 15 36 44](https://user-images.githubusercontent.com/39648121/102048938-51acf900-3e23-11eb-9f54-8148a779604b.png)
+        - ![102048938-51acf900-3e23-11eb-9f54-8148a779604b](https://user-images.githubusercontent.com/39648121/103493791-baadec80-4e76-11eb-90dc-c52f71c92c63.png)
+
     - Subscribe to bot eventsを開き、次のBot User Eventを追加
         - message.channels
         - message.groups
