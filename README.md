@@ -51,7 +51,7 @@ cd ../..
     ```
 1. projectsリストを確認
     ```shell
-    firebase projects list
+    firebase projects:list
     ```
     - 次のようなリストが表示される
     - <img width="751" alt="スクリーンショット 2020-12-14 10 43 57" src="https://user-images.githubusercontent.com/39648121/102048922-4b1e8180-3e23-11eb-9dae-00449c58db3e.png">
@@ -60,7 +60,7 @@ cd ../..
     firebase use [Project ID]
     ```
     ```shell
-    firebase projects list
+    firebase projects:list
     ```
     - Project Idの値のところにcurrentがついていればOK
     - <img width="844" alt="スクリーンショット 2020-12-14 10 44 50" src="https://user-images.githubusercontent.com/39648121/102048924-4b1e8180-3e23-11eb-8853-2ef98ecc353a.png">
