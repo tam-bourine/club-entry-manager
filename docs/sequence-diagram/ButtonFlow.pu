@@ -23,6 +23,3 @@ else 却下した場合
     end
 end
 @enduml
-
-User 承認者, 部長, 部員
-Slack 承認ユーザーチャンネル, 創部申請用チャンネル
