@@ -1,0 +1,28 @@
+@startuml　
+title 承認・却下ワークフロー
+
+participant 創部申請者
+participant 承認者
+
+創部申請者 -> SlackApp: 創部申請
+SlackApp -> 承認者: 創部申請が届いたことを知らせる
+承認者 -> SlackApp: 承認画面ボタンをクリック
+SlackApp -> 承認者: 承認モーダルを表示
+
+alt 承認した場合
+    承認者 -> SlackApp: 承認ボタンを押す
+    SlackApp -> 創部申請者: 承認通知をユーザーグループを使って部員全員に行う
+else 却下した場合
+    承認者 -> SlackApp: 却下ボタンを押す
+    alt 理由が書かれていた場合
+        SlackApp -> 創部申請者: 却下されたことを通知
+    else 理由が書かれていなかった場合
+        SlackApp -> 承認者: 却下理由の入力を促す
+        承認者 -> SlackApp: 却下理由を送信
+        SlackApp -> 創部申請者: 却下されたことを通知
+    end
+end
+@enduml
+
+User 承認者, 部長, 部員
+Slack 承認ユーザーチャンネル, 創部申請用チャンネル
