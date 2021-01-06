@@ -6,7 +6,7 @@
 - シートAPI
     - [Google Apps Script](https://developers.google.com/gsuite/aspects/appsscript?hl=ja)
     - [clasp](https://github.com/google/clasp)
- - BaaS
+ - FaaS
    - [Firebase](https://firebase.google.com/?hl=ja)
 ## セットアップ手順
 
