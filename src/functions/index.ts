@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 
 const config = functions.config();
 const { App, ExpressReceiver, WorkflowStep } = require("@slack/bolt");
-const addClub = require("./workflowStep/addClub.ts");
+import { addClubStep } from "./workflowStep/addClub";
 
 const expressReceiver = new ExpressReceiver({
   signingSecret: config.slack.signing_secret,
@@ -20,9 +20,9 @@ const app = new App({
 app.error(console.log);
 
 // 創部申請用のワークフローから部活動の情報を取得する処理
-const addClubStep = new WorkflowStep("add_club", addClub);
+const workFlowAddClub = new WorkflowStep("add_club", addClubStep);
 
-app.step(addClubStep);
+app.step(workFlowAddClub);
 
 (async () => {
   await app.start(config.slack.port_number || 3000);

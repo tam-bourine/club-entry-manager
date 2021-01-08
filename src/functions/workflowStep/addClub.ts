@@ -70,10 +70,8 @@ const excuteStep = async ({ step, complete, fail }) => {
   }
 };
 
-const addClubStep = {
+export const addClubStep = {
   edit: editStep,
   save: saveStep,
   execute: excuteStep,
 };
-
-module.exports = addClubStep;
