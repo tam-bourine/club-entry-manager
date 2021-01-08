@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "install:all": "npm i && npm i --prefix src/functions",
-    "lint": "eslint --ext .js ./src --cache",
-    "lint:fix": "eslint --fix --ext .js ./src --cache",
+    "lint": "eslint --ext .ts ./src --cache",
+    "lint:fix": "eslint --fix --ext .ts ./src --cache",
     "lint:all": "npm run lint && npm run lint --prefix src/functions"
   },
   "keywords": [],
