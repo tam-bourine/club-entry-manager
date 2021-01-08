@@ -1,8 +1,8 @@
-const functions = require("firebase-functions");
+import * as functions from "firebase-functions";
+import { App, ExpressReceiver, WorkflowStep } from "@slack/bolt";
 
-const config = functions.config();
-const { App, ExpressReceiver, WorkflowStep } = require("@slack/bolt");
 import { addClubStep } from "./workflowStep/addClub";
+const config = functions.config();
 
 const expressReceiver = new ExpressReceiver({
   signingSecret: config.slack.signing_secret,
@@ -17,7 +17,11 @@ const app = new App({
   processBeforeResponse: true,
 });
 
-app.error(console.log);
+app.error((err) => {
+  return new Promise(() => {
+    console.log(err);
+  });
+});
 
 // 創部申請用のワークフローから部活動の情報を取得する処理
 const workFlowAddClub = new WorkflowStep("add_club", addClubStep);
