@@ -1,6 +1,6 @@
 /* eslint strict: [2, "global"] */
 
-const blocks = require("../blocks/inputClub.ts");
+import { inputClubModal } from "../blocks/inputClub";
 
 // ステップをワークフローに追加する際に実行
 const editStep = async ({ ack, step, configure }) => {
@@ -14,7 +14,7 @@ const editStep = async ({ ack, step, configure }) => {
   }
 
   try {
-    await configure({ blocks });
+    await configure({ inputClubModal });
     console.log("ワークフローステップ用のモーダルを表示できました");
   } catch (err) {
     console.error({ err });

@@ -90,12 +90,10 @@ const inputComponentMember2nd = {
   },
 };
 
-const inputClubModal = [
+export const inputClubModal = [
   inputComponentName,
   inputComponentDescription,
   inputComponentCaptain,
   inputComponentMember1st,
   inputComponentMember2nd,
 ];
-
-module.exports = inputClubModal;
