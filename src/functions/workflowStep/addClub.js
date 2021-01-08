@@ -1,7 +1,5 @@
 /* eslint strict: [2, "global"] */
 
-"use strict";
-
 const blocks = require("../blocks/inputClub.js");
 
 // ステップをワークフローに追加する際に実行
