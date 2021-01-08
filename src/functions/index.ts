@@ -19,7 +19,7 @@ const app = new App({
 
 app.error((err) => {
   return new Promise(() => {
-    console.log(err);
+    console.error({ err });
   });
 });
 
