@@ -7,3 +7,4 @@ node_modules
 !settings.json
 .node-version
 **/**.log
+.eslintcache
