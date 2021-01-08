@@ -1,8 +1,8 @@
 const greeter = (person: string) => {
-    return `Hello, ${person}!`;
-}
+  return `Hello, ${person}!`;
+};
 
 function testGreeter() {
-    const user = 'Panda 🐼';
-    Logger.log(greeter(user));
+  const user = "Panda 🐼";
+  Logger.log(greeter(user));
 }

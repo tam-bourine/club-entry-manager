@@ -1,6 +1,6 @@
 /* eslint strict: [2, "global"] */
 
-const blocks = require("../blocks/inputClub.js");
+const blocks = require("../blocks/inputClub.ts");
 
 // ステップをワークフローに追加する際に実行
 const editStep = async ({ ack, step, configure }) => {

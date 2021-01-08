@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 
 const config = functions.config();
 const { App, ExpressReceiver, WorkflowStep } = require("@slack/bolt");
-const addClub = require("./workflowStep/addClub.js");
+const addClub = require("./workflowStep/addClub.ts");
 
 const expressReceiver = new ExpressReceiver({
   signingSecret: config.slack.signing_secret,
