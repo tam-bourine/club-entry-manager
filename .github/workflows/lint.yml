@@ -35,5 +35,5 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: "12.x"
-      - run: npm run install:all
+      - run: npm install
       - run: npm run lint
