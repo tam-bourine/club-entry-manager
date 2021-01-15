@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "lib": [
-      "es2020"
-    ],
-    "experimentalDecorators": true
-  }
+    "lib": ["es2020"],
+    "experimentalDecorators": true,
+    "outDir": "./lib"
+  },
+  "include": ["src/functions/**/*"]
 }

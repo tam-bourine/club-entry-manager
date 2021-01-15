@@ -1,11 +1,11 @@
 {
   "functions": {
-    "source": "./src/functions/",
+    "source": ".",
     "hosting": {
-      "public": "./src/functions/"
+      "public": ".",
+      "ignore": ["./src/gas/**"]
     },
-    "predeploy": [
-      "npm --prefix \"$RESOURCE_DIR\" run lint"
-    ]
+    "runtime": "nodejs12",
+    "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run lint"]
   }
 }

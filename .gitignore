@@ -7,3 +7,4 @@ node_modules
 .node-version
 **/**.log
 .eslintcache
+lib
