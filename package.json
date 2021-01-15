@@ -10,7 +10,8 @@
     "firebase:shell": "firebase functions:shell",
     "firebase:start": "npm run shell",
     "firebase:deploy": "firebase deploy --only functions",
-    "firebase:logs": "firebase functions:log"
+    "firebase:logs": "firebase functions:log",
+    "build:firebase": "./node_modules/.bin/tsc"
   },
   "keywords": [],
   "author": "",
