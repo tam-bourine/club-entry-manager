@@ -2,7 +2,10 @@
   "compilerOptions": {
     "lib": ["es2020"],
     "experimentalDecorators": true,
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true
   },
   "include": ["src/functions/**/*"]
 }
