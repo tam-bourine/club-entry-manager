@@ -1,9 +1,28 @@
+import { WorkflowStep } from '@slack/bolt';
 /* eslint strict: [2, "global"] */
 
+import { Middleware } from "@slack/bolt";
+import { WorkflowStepEditMiddlewareArgs, WorkflowStepExecuteMiddlewareArgs, WorkflowStepSaveMiddleware, WorkflowStepSaveMiddlewareArgs } from '@slack/bolt/dist/WorkflowStep';
 import { inputClubModal } from "../blocks/inputClub";
 
+interface EditStepParams {
+  ack: WorkflowStepEditMiddlewareArgs["ack"],
+  step: WorkflowStepEditMiddlewareArgs["step"],
+  configure: WorkflowStepEditMiddlewareArgs["configure"]
+}
+interface SaveStepParams {
+  ack: WorkflowStepSaveMiddlewareArgs["ack"],
+  view: WorkflowStepSaveMiddlewareArgs["view"],
+  update: WorkflowStepSaveMiddlewareArgs["update"]
+}
+interface ExcuteStepParams {
+  step: WorkflowStepExecuteMiddlewareArgs["step"],
+  complete: WorkflowStepExecuteMiddlewareArgs["complete"],
+  fail: WorkflowStepExecuteMiddlewareArgs["fail"]
+}
+
 // ステップをワークフローに追加する際に実行
-const editStep = async ({ ack, step, configure }) => {
+const editStep = async ({ ack, step, configure }: EditStepParams) => {
   console.log({ step });
 
   try {
@@ -14,7 +33,7 @@ const editStep = async ({ ack, step, configure }) => {
   }
 
   try {
-    await configure({ inputClubModal });
+    await configure({ blocks: inputClubModal });
     console.log("ワークフローステップ用のモーダルを表示できました");
   } catch (err) {
     console.error({ err });
@@ -22,7 +41,7 @@ const editStep = async ({ ack, step, configure }) => {
 };
 
 // ワークフローステップモーダルから値が送信されると実行される
-const saveStep = async ({ ack, view, update }) => {
+const saveStep = async ({ ack, view, update }: SaveStepParams) => {
   try {
     await ack();
     console.log(
@@ -57,12 +76,12 @@ const saveStep = async ({ ack, view, update }) => {
 };
 
 // イベント受信した内容を元に色々な処理を記述(ワークフローから値が送信されたら実行される処理)
-const excuteStep = async ({ step, complete, fail }) => {
+const excuteStep = async ({ step, complete, fail }: ExcuteStepParams) => {
   // ワークフローから送られてきた部活動に関する情報
   const { inputs } = step;
 
   try {
-    await complete({ inputs });
+    await complete(inputs);
     console.log(inputs);
   } catch (err) {
     // ステップの実行が失敗した場合のエラーを表示

@@ -2,11 +2,11 @@ import * as functions from "firebase-functions";
 import { App, ExpressReceiver, WorkflowStep } from "@slack/bolt";
 
 import { addClubStep } from "./workflowStep/addClub";
+
 const config = functions.config();
 
 const expressReceiver = new ExpressReceiver({
   signingSecret: config.slack.signing_secret,
-  token: config.slack.bot_token,
   endpoints: "/events",
   processBeforeResponse: true,
 });

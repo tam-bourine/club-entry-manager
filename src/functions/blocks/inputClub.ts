@@ -90,6 +90,7 @@ const inputComponentMember2nd = {
   },
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export const inputClubModal = [
   inputComponentName,
   inputComponentDescription,
