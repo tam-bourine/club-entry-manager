@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "lint": "eslint --ext .ts ./src --cache",
     "lint:fix": "eslint --fix --ext .ts ./src --cache",
