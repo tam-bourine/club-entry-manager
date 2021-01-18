@@ -4,7 +4,7 @@ node_modules
 .clasp.json
 .node-version
 .vscode/*
-!settings.json
 .node-version
 **/**.log
 .eslintcache
+lib

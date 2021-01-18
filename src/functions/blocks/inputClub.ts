@@ -90,12 +90,11 @@ const inputComponentMember2nd = {
   },
 };
 
-const inputClubModal = [
+// eslint-disable-next-line import/prefer-default-export
+export const inputClubModal = [
   inputComponentName,
   inputComponentDescription,
   inputComponentCaptain,
   inputComponentMember1st,
   inputComponentMember2nd,
 ];
-
-module.exports = inputClubModal;
