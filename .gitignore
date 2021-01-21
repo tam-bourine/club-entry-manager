@@ -4,3 +4,4 @@ node_modules
 .clasp.json
 .vscode/
 .node-version
+out/docs/sequence-diagram
