@@ -2,7 +2,7 @@ import { WorkflowStep } from '@slack/bolt';
 /* eslint strict: [2, "global"] */
 
 import { Middleware } from "@slack/bolt";
-import { WorkflowStepEditMiddlewareArgs, WorkflowStepExecuteMiddlewareArgs, WorkflowStepSaveMiddleware, WorkflowStepSaveMiddlewareArgs } from '@slack/bolt/dist/WorkflowStep';
+import { WorkflowStepEditMiddlewareArgs, WorkflowStepExecuteMiddlewareArgs, WorkflowStepSaveMiddlewareArgs } from '@slack/bolt/dist/WorkflowStep';
 import { inputClubModal } from "../blocks/inputClub";
 
 interface EditStepParams {
