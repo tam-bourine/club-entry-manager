@@ -1,4 +1,4 @@
 **/**
-!*.gs
+!**/**.ts
 !appsscript.json
 .env
