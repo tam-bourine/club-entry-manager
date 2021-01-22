@@ -22,7 +22,7 @@ alt 承認する場合
     opt Kibelaの部活動/非公認フォルダーに記事作成済で、フォームに記事URLを入力している場合
         SlackApp ->> Kibela: 記事を部活動/公認フォルダーに移動
         Kibela -->> SlackApp: 完了
-        創部申請者 <- SlackApp:  チャンネル(notification/部活/管理部)にてKibela記事を公認フォルダーに移動したことを通知
+        SlackApp -> 創部申請者:  チャンネル(notification/部活/管理部)にてKibela記事を公認フォルダーに移動したことを通知
     end
 else 却下する場合
     承認者 -> SlackApp: 承認用モーダル内で却下理由を入力し、却下ボタンを押す
