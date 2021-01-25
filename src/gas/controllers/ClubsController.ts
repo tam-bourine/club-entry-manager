@@ -4,10 +4,6 @@ class ClubsController {
     return [];
   }
 
-  static regist(params: object) {
-    return params;
-  }
-
   static approve(params: object) {
     return params;
   }
