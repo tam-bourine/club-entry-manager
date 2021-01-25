@@ -1,7 +1,7 @@
 /* global ContentService MembersController ClubsController */
 // eslint-disable-next-line no-unused-vars
 function doGet(e) {
-  const action = e.parameter;
+  const { action } = e.parameter;
   let res;
   switch (action) {
     case "get": {
@@ -22,8 +22,8 @@ function doGet(e) {
 
 // eslint-disable-next-line no-unused-vars
 function doPost(e) {
-  const action = e.parameter;
-  const params = JSON.parse(e.postDataAsString());
+  const { action } = e.parameter;
+  const params = JSON.parse(e.postData.getDataAsString());
   let res;
   switch (action) {
     case "regist": {
