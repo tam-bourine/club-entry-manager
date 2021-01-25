@@ -26,10 +26,6 @@ function doPost(e) {
   const params = JSON.parse(e.postData.getDataAsString());
   let res;
   switch (action) {
-    case "regist": {
-      res = ClubsController.regist(params);
-      break;
-    }
     case "approve": {
       res = ClubsController.approve(params);
       break;
