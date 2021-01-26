@@ -93,11 +93,11 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "clubName": {
-                    "type": "string"
-                  },
-                  "clubDescription": {
-                    "type": "string"
+                  "club": {
+                    "type": "object"
+                    "example": {
+                      "name": "テニス部",
+                      "description: "〜〜する"
                   },
                   "captain": {
                     "type": "object",
