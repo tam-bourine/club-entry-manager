@@ -1,6 +1,35 @@
 @startuml
+
 title 入部フロー
-入部申請者 -> SlackApp: Slackモーダルから入部申請フォームを送信
-SlackApp --> スプレッドシート: 該当部活タブの末尾に送信者の名前と入部日を追加
-SlackApp -> 入部申請者: 入部完了通知（審査なし）
+
+autonumber
+participant 入部申請者 as entry
+participant "SlackApp" as slackap
+participant "スプレッドシート \n (GAS)" as gas
+participant Kibela as kibela
+
+entry -> slackap: Slash Command から入部申請フォームを要求
+slackap -> gas: 部活全権取得
+gas -> slackap: レスポンス
+slackap -> entry: 入部申請フォームを表示
+entry -> slackap: 入力された入部申請フォームのデータを受け取る
+slackap --> gas: 該当部活タブの末尾に送信者の名前と入部日を追加
+
+
+break  追加に失敗
+  gas -> slackap: 失敗したレスポンス
+  slackap -> entry: エラーレスポンス
+end
+
+gas -> slackap: 追加に成功したレスポンス
+slackap -> kibela: 部活記事のメンバーに `@piyota` の名前があるか検索、なければ末尾に追加
+
+alt Kibela API 追加に成功
+  kibela -> slackap: 成功レスポンス
+  slackap -> entry: 入部完了通知（審査なし）
+else Kibela API 追加に失敗
+  kibela -> slackap: 失敗レスポンス
+  slackap -> entry: 入部完了通知（Kibela API 失敗したので人力追加を促す）
+end
+
 @enduml
