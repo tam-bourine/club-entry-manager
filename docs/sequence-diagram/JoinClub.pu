@@ -9,7 +9,7 @@ participant "スプレッドシート \n (GAS)" as gas
 participant Kibela as kibela
 
 entry -> slackap: Slash Command から入部申請フォームを要求
-slackap -> gas: 部活全権取得
+slackap -> gas: 部活全件取得
 gas -> slackap: レスポンス
 slackap -> entry: 入部申請フォームを表示
 entry -> slackap: 入力された入部申請フォームのデータを受け取る
