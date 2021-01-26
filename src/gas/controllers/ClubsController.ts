@@ -5,9 +5,24 @@ class ClubsController {
   }
 
   static approve(params: object) {
-    const sheet = SpreadsheetApp.openById('129KSPJnEEE6do0mtV19gSr-IbfI8xDdDBjSmAhUrUN8');
-    const today = new Date();
-    sheet.appendRow([params.clubId, params.clubName, params.captainName, params.collaboratorName1st, params.collaboratorName2nd, today, '', params.captainId, params.collaboratorId1st, params.collaboratorId2nd]);
-    return params;
+    let response: object;
+    try {
+      const sheet_id: string = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
+      const sheet = SpreadsheetApp.openById(sheet_id);
+      const today: Date = new Date();
+      sheet.appendRow([params.clubId, params.clubName, params.captainName, params.collaboratorName1st, params.collaboratorName2nd, today, '', params.captainId, params.collaboratorId1st, params.collaboratorId2nd]);
+      response = {
+        "status": 201,
+        "message": "201 Created",
+        "success": true
+      }
+    } catch(error) {
+      response = {
+        "status": 500,
+        "message": "500 Internal Server Error",
+        "success": false
+      }
+    }
+    return response;
   }
 }
