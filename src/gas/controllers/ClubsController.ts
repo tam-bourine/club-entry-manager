@@ -7,8 +7,8 @@ class ClubsController {
   static approve(params: object) {
     let response: object;
     try {
-      const sheet_id: string = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
-      const sheet = SpreadsheetApp.openById(sheet_id);
+      const sheetId: string = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
+      const sheet = SpreadsheetApp.openById(sheetId);
       const today: Date = new Date();
       sheet.appendRow([
         params.clubId,
