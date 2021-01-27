@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "lib": ["es2020"],
+    "types": [
+      "@types/node",
+      "@types/google-apps-script"
+    ],
     "experimentalDecorators": true,
     "outDir": "./lib",
     "resolveJsonModule": true,

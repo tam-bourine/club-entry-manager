@@ -1,4 +1,4 @@
-/* global ContentService MembersController ClubsController */
+/* global MembersController ClubsController */
 // eslint-disable-next-line no-unused-vars
 function doGet(e) {
   const { action } = e.parameter;
