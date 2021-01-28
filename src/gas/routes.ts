@@ -1,8 +1,8 @@
 /* global MembersController ClubsController ParameterInterface */
 // eslint-disable-next-line no-unused-vars
-function doGet(e) {
+const doGet = (e) => {
   const { action } = e.parameter;
-  let res;
+  let res: object;
   switch (action) {
     case "get": {
       res = ClubsController.get();
@@ -18,10 +18,10 @@ function doGet(e) {
     }
   }
   return ContentService.createTextOutput(JSON.stringify(res)).setMimeType(ContentService.MimeType.JSON);
-}
+};
 
 // eslint-disable-next-line no-unused-vars
-function doPost(e) {
+const doPost = (e) => {
   const { action } = e.parameter;
 
   const params: ParameterInterface = JSON.parse(e.postData.getDataAsString());
@@ -45,4 +45,4 @@ function doPost(e) {
     }
   }
   return ContentService.createTextOutput(JSON.stringify(res)).setMimeType(ContentService.MimeType.JSON);
-}
+};
