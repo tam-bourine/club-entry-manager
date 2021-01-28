@@ -1,4 +1,4 @@
-/* global MembersController ClubsController */
+/* global MembersController ClubsController ParameterInterface */
 // eslint-disable-next-line no-unused-vars
 function doGet(e) {
   const { action } = e.parameter;
@@ -23,8 +23,9 @@ function doGet(e) {
 // eslint-disable-next-line no-unused-vars
 function doPost(e) {
   const { action } = e.parameter;
-  const params = JSON.parse(e.postData.getDataAsString());
-  let res;
+
+  const params: ParameterInterface = JSON.parse(e.postData.getDataAsString());
+  let res: object;
   switch (action) {
     case "approve": {
       res = ClubsController.approve(params);

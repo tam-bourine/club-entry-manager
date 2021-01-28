@@ -1,10 +1,11 @@
+/* global ParameterInterface */
 // eslint-disable-next-line no-unused-vars
 class ClubsController {
   static get() {
     return [];
   }
 
-  static approve(params: object) {
+  static approve(params: ParameterInterface) {
     let response: object;
     try {
       const sheetId: string = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
