@@ -7,8 +7,8 @@
     "node": "12.x"
   },
   "scripts": {
-    "lint": "eslint --ext .ts ./src --cache",
-    "lint:fix": "eslint --fix --ext .ts ./src --cache",
+    "lint": "eslint --ext './src/**/*.ts' --cache",
+    "lint:fix": "eslint --fix --ext './src/**/*.ts' --cache",
     "firebase:serve": "firebase emulators:start --only functions",
     "firebase:shell": "firebase functions:shell",
     "firebase:start": "npm run shell",
