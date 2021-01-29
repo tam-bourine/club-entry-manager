@@ -2,7 +2,7 @@ import { ResponseInterface } from "../types/ResponseInterface";
 import { ParameterInterface } from "../types/ParameterInterface";
 import { Util } from "../utils/Util";
 
-export default class ClubsController {
+export class ClubsController {
   static get() {
     return [];
   }
