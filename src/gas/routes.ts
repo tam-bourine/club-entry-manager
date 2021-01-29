@@ -2,10 +2,11 @@ import { Util } from "./utils/Util.ts";
 import { ClubsController } from "./controllers/ClubsController.ts";
 import { MembersController } from "./controllers/MembersController.ts";
 import { ParameterInterface } from "./types/ParameterInterface.ts";
+import { ResponseInterface } from "./types/ResponseInterface.ts";
 
 export const doGet = (e) => {
   const { action } = e.parameter;
-  let response: object;
+  let response: ResponseInterface;
   switch (action) {
     case "get": {
       response = ClubsController.get();
