@@ -4,7 +4,19 @@ import { MembersController } from "./controllers/MembersController";
 import { ParameterInterface } from "./types/ParameterInterface";
 import { ResponseInterface } from "./types/ResponseInterface";
 
-export const doGet = (e) => {
+interface DoGetParams extends GoogleAppsScript.Events.DoGet {
+  parameter: {
+    action: "get";
+  };
+}
+
+interface DoPostParams extends GoogleAppsScript.Events.DoPost {
+  parameter: {
+    action: "approve" | "join";
+  };
+}
+
+export const doGet = (e: DoGetParams) => {
   const { action } = e.parameter;
   let response: ResponseInterface;
   switch (action) {
@@ -21,10 +33,10 @@ export const doGet = (e) => {
   return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
 };
 
-export const doPost = (e) => {
+export const doPost = (e: DoPostParams) => {
   const { action } = e.parameter;
 
-  const params: ParameterInterface = JSON.parse(e.postData.getDataAsString());
+  const params = JSON.parse(e.postData.getDataAsString());
   let response: object;
   switch (action) {
     case "approve": {
