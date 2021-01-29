@@ -2,23 +2,23 @@
 // eslint-disable-next-line no-unused-vars
 const doGet = (e) => {
   const { action } = e.parameter;
-  let res: object;
+  let response: object;
   switch (action) {
     case "get": {
-      res = ClubsController.get();
+      response = ClubsController.get();
       break;
     }
     default: {
-      res = {
+      response = {
         status: 404,
         message: "404 Not Found",
         success: false,
       };
-      console.error(res);
+      console.error(response);
       break;
     }
   }
-  return ContentService.createTextOutput(JSON.stringify(res)).setMimeType(ContentService.MimeType.JSON);
+  return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -26,25 +26,25 @@ const doPost = (e) => {
   const { action } = e.parameter;
 
   const params: ParameterInterface = JSON.parse(e.postData.getDataAsString());
-  let res: object;
+  let response: object;
   switch (action) {
     case "approve": {
-      res = ClubsController.approve(params);
+      response = ClubsController.approve(params);
       break;
     }
     case "join": {
-      res = MembersController.join(params);
+      response = MembersController.join(params);
       break;
     }
     default: {
-      res = {
+      response = {
         status: 404,
         message: "404 Not Found",
         success: false,
       };
-      console.error(res);
+      console.error(response);
       break;
     }
   }
-  return ContentService.createTextOutput(JSON.stringify(res)).setMimeType(ContentService.MimeType.JSON);
+  return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
 };
