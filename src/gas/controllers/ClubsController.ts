@@ -4,7 +4,28 @@ import { Util } from "../utils/Util";
 
 export class ClubsController {
   static get() {
-    return [];
+    try {
+      const sheetId = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
+      if (sheetId) {
+        const sheet = SpreadsheetApp.openById(sheetId).getSheetByName("部活動一覧");
+        const data = sheet?.getRange(1, 1).getValues();
+        const clubs: ResponseInterface["clubs"] = [];
+        data?.map((value) => {
+          clubs.push({
+            id: value[0],
+            name: value[1],
+          });
+        });
+        return new Util().makeSuccess({
+          status: 200,
+          message: "200 OK",
+          clubs: clubs,
+        });
+      }
+    } catch (error) {
+      console.error({ error });
+      return new Util().makeError({ status: 500, message: "500 Internal Server Error" });
+    }
   }
 
   static approve(params: ParameterInterface) {
@@ -28,7 +49,7 @@ export class ClubsController {
         return new Util().makeSuccess({ status: 201, message: "201 Created" });
       }
     } catch (error) {
-      console.log({ error });
+      console.error({ error });
       return new Util().makeError({ status: 500, message: "500 Internal Server Error" });
     }
   }

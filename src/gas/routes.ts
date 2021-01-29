@@ -13,7 +13,9 @@ interface DoPostParams extends GoogleAppsScript.Events.DoPost {
 }
 
 const createOutput = (response?: ResponseInterface) => {
-  return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
+  return (
+    response && ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON)
+  );
 };
 
 export const doGet = (e: DoGetParams) => {
@@ -29,9 +31,9 @@ export const doGet = (e: DoGetParams) => {
 };
 
 export const doPost = (e: DoPostParams) => {
+  // FIXME: これで取れる？
+  const params = JSON.parse(e.postData.getDataAsString());
   const { action } = e.parameter;
-
-  const params = e.parameter;
   switch (action) {
     case "approve": {
       return createOutput(ClubsController.approve(params));
