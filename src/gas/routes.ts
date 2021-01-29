@@ -1,8 +1,8 @@
-import { Util } from "./utils/Util.ts";
-import { ClubsController } from "./controllers/ClubsController.ts";
-import { MembersController } from "./controllers/MembersController.ts";
-import { ParameterInterface } from "./types/ParameterInterface.ts";
-import { ResponseInterface } from "./types/ResponseInterface.ts";
+import { Util } from "./utils/Util";
+import { ClubsController } from "./controllers/ClubsController";
+import { MembersController } from "./controllers/MembersController";
+import { ParameterInterface } from "./types/ParameterInterface";
+import { ResponseInterface } from "./types/ResponseInterface";
 
 export const doGet = (e) => {
   const { action } = e.parameter;

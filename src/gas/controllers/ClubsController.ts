@@ -1,6 +1,6 @@
-import { ResponseInterface } from "../types/ResponseInterface.ts";
-import { ParameterInterface } from "../types/ParameterInterface.ts";
-import { Util } from "../utils/Util.ts";
+import { ResponseInterface } from "../types/ResponseInterface";
+import { ParameterInterface } from "../types/ParameterInterface";
+import { Util } from "../utils/Util";
 
 export default class ClubsController {
   static get() {
