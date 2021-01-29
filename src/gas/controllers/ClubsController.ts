@@ -34,6 +34,7 @@ class ClubsController {
         message: "500 Internal Server Error",
         success: false,
       };
+      console.error(response);
     }
     return response;
   }

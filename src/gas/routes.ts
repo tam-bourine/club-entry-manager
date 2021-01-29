@@ -14,6 +14,7 @@ const doGet = (e) => {
         message: "404 Not Found",
         success: false,
       };
+      console.error(res);
       break;
     }
   }
@@ -41,6 +42,7 @@ const doPost = (e) => {
         message: "404 Not Found",
         success: false,
       };
+      console.error(res);
       break;
     }
   }
