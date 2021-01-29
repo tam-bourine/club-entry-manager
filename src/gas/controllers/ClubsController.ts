@@ -1,4 +1,4 @@
-import { ParameterInterface } from './../types/ParameterInterface.ts';
+import { ParameterInterface } from "../types/ParameterInterface.ts";
 
 export default class ClubsController {
   static get() {
