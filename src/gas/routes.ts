@@ -1,6 +1,9 @@
-/* global MembersController ClubsController ParameterInterface */
-// eslint-disable-next-line no-unused-vars
-const doGet = (e) => {
+import { Util } from "./utils/Util.ts";
+import { ClubsController } from "./controllers/ClubsController.ts";
+import { MembersController } from "./controllers/MembersController.ts";
+import { ParameterInterface } from "./types/ParameterInterface.ts";
+
+export const doGet = (e) => {
   const { action } = e.parameter;
   let response: object;
   switch (action) {
@@ -9,7 +12,7 @@ const doGet = (e) => {
       break;
     }
     default: {
-      response = new Util().makeError({ status: 404, message: '404 Not Found' });
+      response = new Util().makeError({ status: 404, message: "404 Not Found" });
       console.error({ response });
       break;
     }
@@ -17,8 +20,7 @@ const doGet = (e) => {
   return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
 };
 
-// eslint-disable-next-line no-unused-vars
-const doPost = (e) => {
+export const doPost = (e) => {
   const { action } = e.parameter;
 
   const params: ParameterInterface = JSON.parse(e.postData.getDataAsString());
@@ -33,7 +35,7 @@ const doPost = (e) => {
       break;
     }
     default: {
-      response = new Util().makeError({ status: 404, message: '404 Not Found' });
+      response = new Util().makeError({ status: 404, message: "404 Not Found" });
       console.error({ response });
       break;
     }

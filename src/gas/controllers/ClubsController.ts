@@ -1,6 +1,6 @@
-/* global ParameterInterface */
-// eslint-disable-next-line no-unused-vars
-class ClubsController {
+import { ParameterInterface } from './../types/ParameterInterface.ts';
+
+export default class ClubsController {
   static get() {
     return [];
   }
