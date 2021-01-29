@@ -9,11 +9,7 @@ const doGet = (e) => {
       break;
     }
     default: {
-      response = {
-        status: 404,
-        message: "404 Not Found",
-        success: false,
-      };
+      response = new Util().makeError({ status: 404, message: '404 Not Found' });
       console.error({ response });
       break;
     }
@@ -37,11 +33,7 @@ const doPost = (e) => {
       break;
     }
     default: {
-      response = {
-        status: 404,
-        message: "404 Not Found",
-        success: false,
-      };
+      response = new Util().makeError({ status: 404, message: '404 Not Found' });
       console.error({ response });
       break;
     }
