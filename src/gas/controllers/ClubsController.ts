@@ -28,6 +28,7 @@ export class ClubsController {
         return new Util().makeSuccess({ status: 201, message: "201 Created" });
       }
     } catch (error) {
+      console.log({ error });
       return new Util().makeError({ status: 500, message: "500 Internal Server Error" });
     }
   }
