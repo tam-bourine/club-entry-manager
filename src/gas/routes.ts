@@ -5,53 +5,42 @@ import { ParameterInterface } from "./types/ParameterInterface";
 import { ResponseInterface } from "./types/ResponseInterface";
 
 interface DoGetParams extends GoogleAppsScript.Events.DoGet {
-  parameter: {
-    action: "get";
-  };
+  parameter: ParameterInterface;
 }
 
 interface DoPostParams extends GoogleAppsScript.Events.DoPost {
-  parameter: {
-    action: "approve" | "join";
-  };
+  parameter: ParameterInterface;
 }
+
+const createOutput = (response?: ResponseInterface) => {
+  return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
+};
 
 export const doGet = (e: DoGetParams) => {
   const { action } = e.parameter;
-  let response: ResponseInterface;
   switch (action) {
     case "get": {
-      response = ClubsController.get();
-      break;
+      return createOutput(ClubsController.get());
     }
     default: {
-      response = new Util().makeError({ status: 404, message: "404 Not Found" });
-      console.error({ response });
-      break;
+      return createOutput(new Util().makeError({ status: 404, message: "404 Not Found" }));
     }
   }
-  return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
 };
 
 export const doPost = (e: DoPostParams) => {
   const { action } = e.parameter;
 
-  const params = JSON.parse(e.postData.getDataAsString());
-  let response: object;
+  const params = e.parameter;
   switch (action) {
     case "approve": {
-      response = ClubsController.approve(params);
-      break;
+      return createOutput(ClubsController.approve(params));
     }
     case "join": {
-      response = MembersController.join(params);
-      break;
+      return createOutput(MembersController.join(params));
     }
     default: {
-      response = new Util().makeError({ status: 404, message: "404 Not Found" });
-      console.error({ response });
-      break;
+      return createOutput(new Util().makeError({ status: 404, message: "404 Not Found" }));
     }
   }
-  return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
 };

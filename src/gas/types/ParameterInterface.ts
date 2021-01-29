@@ -7,4 +7,5 @@ export interface ParameterInterface {
   captainId: string;
   collaboratorId1st: string;
   collaboratorId2nd: string;
+  action: string;
 }
