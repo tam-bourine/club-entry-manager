@@ -25,9 +25,9 @@ export default class ClubsController {
         params.collaboratorId1st,
         params.collaboratorId2nd,
       ]);
-      response = Util.makeSuccess({ status: 201, message: "201 Created" });
+      response = new Util().makeSuccess({ status: 201, message: "201 Created" });
     } catch (error) {
-      response = Util.makeError({ status: 500, message: "500 Internal Server Error" });
+      response = new Util().makeError({ status: 500, message: "500 Internal Server Error" });
       console.error({ response });
     }
     return response;
