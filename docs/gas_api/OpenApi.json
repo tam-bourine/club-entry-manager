@@ -94,10 +94,11 @@
                 "type": "object",
                 "properties": {
                   "club": {
-                    "type": "object"
+                    "type": "object",
                     "example": {
                       "name": "テニス部",
-                      "description: "〜〜する"
+                      "description": "〜〜する"
+                    }
                   },
                   "captain": {
                     "type": "object",
@@ -122,58 +123,58 @@
                 }
               }
             }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "成功時のレスポンス",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 201
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "201 Created"
-                    },
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "club": {
-                      "type": "object",
-                      "example": {
-                        "id": "f00tsa1",
-                        "name": "フットサル部"
+          },
+          "responses": {
+            "201": {
+              "description": "成功時のレスポンス",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "integer",
+                        "example": 201
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "201 Created"
+                      },
+                      "success": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "club": {
+                        "type": "object",
+                        "example": {
+                          "id": "f00tsa1",
+                          "name": "フットサル部"
+                        }
                       }
                     }
                   }
                 }
               }
-            }
-          },
-          "500": {
-            "description": "失敗時のレスポンス",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 500
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "500 Internal Server Error"
-                    },
-                    "success": {
-                      "type": "boolean",
-                      "example": false
+            },
+            "500": {
+              "description": "失敗時のレスポンス",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "integer",
+                        "example": 500
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "500 Internal Server Error"
+                      },
+                      "success": {
+                        "type": "boolean",
+                        "example": false
+                      }
                     }
                   }
                 }
