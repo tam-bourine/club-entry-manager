@@ -1,4 +1,6 @@
+import { ResponseInterface } from "../types/ResponseInterface.ts";
 import { ParameterInterface } from "../types/ParameterInterface.ts";
+import { Util } from "../utils/Util.ts";
 
 export default class ClubsController {
   static get() {
@@ -6,7 +8,7 @@ export default class ClubsController {
   }
 
   static approve(params: ParameterInterface) {
-    let response: object;
+    let response: ResponseInterface;
     try {
       const sheetId: string = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
       const sheet = SpreadsheetApp.openById(sheetId);
@@ -23,17 +25,9 @@ export default class ClubsController {
         params.collaboratorId1st,
         params.collaboratorId2nd,
       ]);
-      response = {
-        status: 201,
-        message: "201 Created",
-        success: true,
-      };
+      response = Util.makeSuccess({ status: 201, message: "201 Created" });
     } catch (error) {
-      response = {
-        status: 500,
-        message: "500 Internal Server Error",
-        success: false,
-      };
+      response = Util.makeError({ status: 500, message: "500 Internal Server Error" });
       console.error({ response });
     }
     return response;
