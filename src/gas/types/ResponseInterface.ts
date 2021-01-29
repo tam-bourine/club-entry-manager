@@ -1,5 +1,5 @@
 export interface ResponseInterface {
-  status: string;
+  status: number;
   message: string;
   success: boolean;
 }
