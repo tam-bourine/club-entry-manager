@@ -1,4 +1,4 @@
-export default class MembersController {
+export class MembersController {
   static join(parmas) {
     return parmas;
   }
