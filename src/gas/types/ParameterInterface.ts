@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-interface ParameterInterface {
+export interface ParameterInterface {
   clubId: string;
   clubName: string;
   captainName: string;
