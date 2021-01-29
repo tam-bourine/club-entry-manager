@@ -1,4 +1,4 @@
-import { ResponseInterface } from "../types/ResponseInterface.ts";
+import { ResponseInterface } from "../types/ResponseInterface";
 
 export default class Util {
   makeSuccess(response: ResponseInterface) {
