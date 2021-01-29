@@ -16,6 +16,16 @@
         "tags": ["clubs"],
         "summary": "入部申請用 部活動一覧",
         "description": "入部可能な部活動一覧の取得",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "action",
+            "schema": {
+              "type": "string"
+            },
+            "description": "GASでルーティング分けに使用"
+          }
+        ],
         "responses": {
           "201": {
             "description": "成功時のレスポンス",
@@ -86,6 +96,16 @@
         "tags": ["club"],
         "summary": "創部申請",
         "description": "部活動シートの末尾に申請のあった部活を追加します。",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "action",
+            "schema": {
+              "type": "string"
+            },
+            "description": "GASでルーティング分けに使用"
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -94,10 +114,11 @@
                 "type": "object",
                 "properties": {
                   "club": {
-                    "type": "object"
+                    "type": "object",
                     "example": {
                       "name": "テニス部",
-                      "description: "〜〜する"
+                      "description": "〜〜する"
+                    }
                   },
                   "captain": {
                     "type": "object",
@@ -122,58 +143,58 @@
                 }
               }
             }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "成功時のレスポンス",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 201
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "201 Created"
-                    },
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "club": {
-                      "type": "object",
-                      "example": {
-                        "id": "f00tsa1",
-                        "name": "フットサル部"
+          },
+          "responses": {
+            "201": {
+              "description": "成功時のレスポンス",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "integer",
+                        "example": 201
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "201 Created"
+                      },
+                      "success": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "club": {
+                        "type": "object",
+                        "example": {
+                          "id": "f00tsa1",
+                          "name": "フットサル部"
+                        }
                       }
                     }
                   }
                 }
               }
-            }
-          },
-          "500": {
-            "description": "失敗時のレスポンス",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 500
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "500 Internal Server Error"
-                    },
-                    "success": {
-                      "type": "boolean",
-                      "example": false
+            },
+            "500": {
+              "description": "失敗時のレスポンス",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "integer",
+                        "example": 500
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "500 Internal Server Error"
+                      },
+                      "success": {
+                        "type": "boolean",
+                        "example": false
+                      }
                     }
                   }
                 }
@@ -188,6 +209,16 @@
         "summary": "創部承認",
         "description": "該当部活動の認可をTRUEにして、新しく部活動タブを作成する",
         "tags": ["club"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "action",
+            "schema": {
+              "type": "string"
+            },
+            "description": "GASでルーティング分けに使用"
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -267,6 +298,16 @@
         "summary": "参加申請",
         "description": "申請のあった該当部活動シートに、申請者の名前を追加",
         "tags": ["club"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "action",
+            "schema": {
+              "type": "string"
+            },
+            "description": "GASでルーティング分けに使用"
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
