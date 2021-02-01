@@ -1,12 +1,12 @@
 import ResponseInterface from "../../types/ResponseInterface";
 import Utils from "../../shared/Utils";
 
-export default class Get {
+export default class GetController {
   constructor() {}
 
   util = new Utils();
 
-  read() {
+  show() {
     try {
       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("部活動一覧");
       const data = sheet?.getDataRange().getValues();

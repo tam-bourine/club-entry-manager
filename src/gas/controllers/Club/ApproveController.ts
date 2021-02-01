@@ -1,19 +1,19 @@
 import Utils from "../../shared/Utils";
 import ParameterInterface from "../../types/ParameterInterface";
 
-export default class Approve {
+export default class ApproveController {
   constructor() {}
 
   utils = new Utils();
 
-  update(params: ParameterInterface) {
+  create(params: ParameterInterface) {
     return this.utils.makeSuccess({
       status: 200,
       message: "200 OK",
     });
   }
 
-  create(params: ParameterInterface) {
+  update(params: ParameterInterface) {
     return this.utils.makeSuccess({
       status: 200,
       message: "200 OK",
