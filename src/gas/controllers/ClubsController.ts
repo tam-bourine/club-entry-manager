@@ -3,7 +3,11 @@ import ParameterInterface from "../types/ParameterInterface";
 import Util from "../utils/Util";
 
 export default class ClubsController {
-  static get() {
+  constructor() {}
+
+  util = new Util();
+
+  get() {
     try {
       const sheetId = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
       if (sheetId) {
@@ -24,11 +28,11 @@ export default class ClubsController {
       }
     } catch (error) {
       console.error({ error });
-      return new Util().makeError({ status: 500, message: "500 Internal Server Error" });
+      return this.util.makeError({ status: 500, message: "500 Internal Server Error" });
     }
   }
 
-  static approve(params: ParameterInterface) {
+  approve(params: ParameterInterface) {
     try {
       const sheetId = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
       if (sheetId) {
@@ -46,11 +50,11 @@ export default class ClubsController {
           params.collaboratorId1st,
           params.collaboratorId2nd,
         ]);
-        return new Util().makeSuccess({ status: 201, message: "201 Created" });
+        return this.util.makeSuccess({ status: 201, message: "201 Created" });
       }
     } catch (error) {
       console.error({ error });
-      return new Util().makeError({ status: 500, message: "500 Internal Server Error" });
+      return this.util.makeError({ status: 500, message: "500 Internal Server Error" });
     }
   }
 }

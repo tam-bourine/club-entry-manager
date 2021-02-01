@@ -20,9 +20,10 @@ const createOutput = (response?: ResponseInterface) => {
 
 const doGet = (e: DoGetParams) => {
   const { action } = e.parameter;
+  const clubsController = new ClubsController();
   switch (action) {
     case "get": {
-      return createOutput(ClubsController.get());
+      return createOutput(clubsController.get());
     }
     default: {
       return createOutput(new Util().makeError({ status: 404, message: "404 Not Found" }));
@@ -34,12 +35,14 @@ const doPost = (e: DoPostParams) => {
   // FIXME: これで取れる？
   const params = JSON.parse(e.postData.getDataAsString());
   const { action } = e.parameter;
+  const clubsController = new ClubsController();
+  const membersController = new MembersController();
   switch (action) {
     case "approve": {
-      return createOutput(ClubsController.approve(params));
+      return createOutput(clubsController.approve(params));
     }
     case "join": {
-      return createOutput(MembersController.join(params));
+      return createOutput(membersController.join(params));
     }
     default: {
       return createOutput(new Util().makeError({ status: 404, message: "404 Not Found" }));
