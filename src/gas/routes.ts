@@ -1,6 +1,9 @@
-import Util from "./utils/Util";
-import ClubsController from "./controllers/ClubsController";
-import MembersController from "./controllers/MembersController";
+import Utils from "./shared/Utils";
+import Get from "./controllers/clubs/Get";
+import Regist from "./controllers/club/Regist";
+import Approve from "./controllers/club/Approve";
+import Join from "./controllers/club/Join";
+
 import ParameterInterface from "./types/ParameterInterface";
 import ResponseInterface from "./types/ResponseInterface";
 
@@ -12,21 +15,18 @@ interface DoPostParams extends GoogleAppsScript.Events.DoPost {
   parameter: ParameterInterface;
 }
 
-const createOutput = (response?: ResponseInterface) => {
-  return (
-    response && ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON)
-  );
-};
-
 const doGet = (e: DoGetParams) => {
   const { action } = e.parameter;
-  const clubsController = new ClubsController();
+
+  const get = new Get();
+  const utils = new Utils();
+
   switch (action) {
     case "get": {
-      return createOutput(clubsController.get());
+      return utils.createOutput(get.read());
     }
     default: {
-      return createOutput(new Util().makeError({ status: 404, message: "404 Not Found" }));
+      return utils.createOutput(utils.makeError({ status: 404, message: "404 Not Found" }));
     }
   }
 };
@@ -35,20 +35,24 @@ const doPost = (e: DoPostParams) => {
   const { action } = e.parameter;
   // FIXME: これで取れる？
   const params = JSON.parse(e.postData.getDataAsString());
-  const clubsController = new ClubsController();
-  const membersController = new MembersController();
+
+  const regist = new Regist();
+  const approve = new Approve();
+  const join = new Join();
+  const utils = new Utils();
+
   switch (action) {
     case "regist": {
-      return createOutput(clubsController.regist(params));
+      return utils.createOutput(regist.create(params));
     }
     case "approve": {
-      return createOutput(clubsController.approve(params));
+      return utils.createOutput(approve.create(params));
     }
     case "join": {
-      return createOutput(membersController.join(params));
+      return utils.createOutput(join.update(params));
     }
     default: {
-      return createOutput(new Util().makeError({ status: 404, message: "404 Not Found" }));
+      return utils.createOutput(utils.makeError({ status: 404, message: "404 Not Found" }));
     }
   }
 };
