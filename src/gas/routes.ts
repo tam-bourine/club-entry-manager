@@ -46,6 +46,3 @@ const doPost = (e: DoPostParams) => {
     }
   }
 };
-
-exports.doGet = doGet;
-exports.doPost = doPost;
