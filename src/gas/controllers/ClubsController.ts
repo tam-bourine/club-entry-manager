@@ -12,7 +12,7 @@ export default class ClubsController {
       const sheetId = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
       if (sheetId) {
         const sheet = SpreadsheetApp.openById(sheetId).getSheetByName("部活動一覧");
-        const data = sheet?.getRange(1, 1).getValues();
+        const data = sheet?.getDataRange().getValues();
         const clubs: ResponseInterface["clubs"] = [];
         data?.map((value) => {
           clubs.push({
@@ -20,7 +20,7 @@ export default class ClubsController {
             name: value[1],
           });
         });
-        return new Util().makeSuccess({
+        return this.util.makeSuccess({
           status: 200,
           message: "200 OK",
           clubs: clubs,
