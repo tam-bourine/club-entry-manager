@@ -29,7 +29,7 @@ export default class ClubsController {
     }
   }
 
-  approve(params: ParameterInterface) {
+  regist(params: ParameterInterface) {
     try {
       const sheetId = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
       if (sheetId) {
@@ -54,4 +54,6 @@ export default class ClubsController {
       return this.util.makeError({ status: 500, message: "500 Internal Server Error" });
     }
   }
+
+  approve(param: ParameterInterface) {}
 }
