@@ -18,7 +18,7 @@ const createOutput = (response?: ResponseInterface) => {
   );
 };
 
-function doGet(e: DoGetParams) {
+const doGet = (e: DoGetParams) => {
   const { action } = e.parameter;
   const clubsController = new ClubsController();
   switch (action) {
@@ -29,9 +29,9 @@ function doGet(e: DoGetParams) {
       return createOutput(new Util().makeError({ status: 404, message: "404 Not Found" }));
     }
   }
-}
+};
 
-function doPost(e: DoPostParams) {
+const doPost = (e: DoPostParams) => {
   // FIXME: これで取れる？
   const params = JSON.parse(e.postData.getDataAsString());
   const { action } = e.parameter;
@@ -48,4 +48,4 @@ function doPost(e: DoPostParams) {
       return createOutput(new Util().makeError({ status: 404, message: "404 Not Found" }));
     }
   }
-}
+};
