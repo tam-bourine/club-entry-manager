@@ -1,4 +1,4 @@
-export interface ParameterInterface {
+export default interface ParameterInterface {
   clubId: string;
   clubName: string;
   captainName: string;

@@ -1,6 +1,6 @@
-import { ResponseInterface } from "../types/ResponseInterface";
+import ResponseInterface from "../types/ResponseInterface";
 
-export class Util {
+export default class Util {
   makeSuccess(response: ResponseInterface) {
     response.success = true;
     return response;
