@@ -1,5 +1,5 @@
 import ResponseInterface from "../../types/ResponseInterface";
-import Utils from "../../shared/Utils";
+import Utils from "../../shared/Response";
 
 export default class GetController {
   constructor() {}

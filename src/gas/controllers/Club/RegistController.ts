@@ -1,5 +1,5 @@
 import ParameterInterface from "../../types/ParameterInterface";
-import Utils from "../../shared/Utils";
+import Utils from "../../shared/Response";
 
 export default class RegistController {
   constructor() {}
