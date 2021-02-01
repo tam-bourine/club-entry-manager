@@ -1,6 +1,6 @@
 import ResponseInterface from "../../types/ResponseInterface";
 import Utils from "../../shared/Response";
-import Constants from "../../shared/Constants";
+// import Constants from "../../shared/Constants";
 
 export default class GetController {
   constructor() {}
@@ -9,8 +9,7 @@ export default class GetController {
 
   show() {
     try {
-      const sheetTabName =
-        Constants.SpreadSheet.SHEET_TAB_NAME || PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
+      const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
       if (sheetTabName) {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
         const data = sheet?.getDataRange().getValues();
