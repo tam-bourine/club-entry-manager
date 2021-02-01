@@ -1,4 +1,4 @@
-import Utils from "../../shared/Utils";
+import Utils from "../../shared/Response";
 import ParameterInterface from "../../types/ParameterInterface";
 
 export default class JoinController {
