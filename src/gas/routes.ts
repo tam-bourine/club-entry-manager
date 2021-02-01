@@ -32,12 +32,15 @@ const doGet = (e: DoGetParams) => {
 };
 
 const doPost = (e: DoPostParams) => {
+  const { action } = e.parameter;
   // FIXME: これで取れる？
   const params = JSON.parse(e.postData.getDataAsString());
-  const { action } = e.parameter;
   const clubsController = new ClubsController();
   const membersController = new MembersController();
   switch (action) {
+    case "regist": {
+      return createOutput(clubsController.regist(params));
+    }
     case "approve": {
       return createOutput(clubsController.approve(params));
     }
