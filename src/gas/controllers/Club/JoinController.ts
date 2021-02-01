@@ -1,7 +1,7 @@
 import Utils from "../../shared/Utils";
 import ParameterInterface from "../../types/ParameterInterface";
 
-export default class Join {
+export default class JoinController {
   utils = new Utils();
 
   update(params: ParameterInterface) {
