@@ -1,8 +1,8 @@
-import { ResponseInterface } from "../types/ResponseInterface";
-import { ParameterInterface } from "../types/ParameterInterface";
-import { Util } from "../utils/Util";
+import ResponseInterface from "../types/ResponseInterface";
+import ParameterInterface from "../types/ParameterInterface";
+import Util from "../utils/Util";
 
-export class ClubsController {
+export default class ClubsController {
   static get() {
     try {
       const sheetId = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");

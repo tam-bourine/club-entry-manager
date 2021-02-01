@@ -1,8 +1,8 @@
-import { Util } from "./utils/Util";
-import { ClubsController } from "./controllers/ClubsController";
-import { MembersController } from "./controllers/MembersController";
-import { ParameterInterface } from "./types/ParameterInterface";
-import { ResponseInterface } from "./types/ResponseInterface";
+import Util from "./utils/Util";
+import ClubsController from "./controllers/ClubsController";
+import MembersController from "./controllers/MembersController";
+import ParameterInterface from "./types/ParameterInterface";
+import ResponseInterface from "./types/ResponseInterface";
 
 interface DoGetParams extends GoogleAppsScript.Events.DoGet {
   parameter: ParameterInterface;
@@ -18,7 +18,7 @@ const createOutput = (response?: ResponseInterface) => {
   );
 };
 
-export const doGet = (e: DoGetParams) => {
+const doGet = (e: DoGetParams) => {
   const { action } = e.parameter;
   switch (action) {
     case "get": {
@@ -30,7 +30,7 @@ export const doGet = (e: DoGetParams) => {
   }
 };
 
-export const doPost = (e: DoPostParams) => {
+const doPost = (e: DoPostParams) => {
   // FIXME: これで取れる？
   const params = JSON.parse(e.postData.getDataAsString());
   const { action } = e.parameter;
@@ -46,3 +46,6 @@ export const doPost = (e: DoPostParams) => {
     }
   }
 };
+
+exports.doGet = doGet;
+exports.doPost = doPost;
