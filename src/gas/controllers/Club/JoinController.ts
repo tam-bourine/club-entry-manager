@@ -1,10 +1,10 @@
 import Utils from "../../shared/Response";
-import ParameterInterface from "../../types/ParameterInterface";
+import JoinInterface from "../../types/JoinInterface";
 
 export default class JoinController {
   utils = new Utils();
 
-  update(params: ParameterInterface) {
+  update(params: JoinInterface) {
     return this.utils.makeSuccess({
       status: 200,
       message: "200 OK",
