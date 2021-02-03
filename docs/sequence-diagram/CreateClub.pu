@@ -2,6 +2,10 @@
 
 title 承認・却下ワークフロー
 
+!define _HELP_CLUB_CHANNEL_ "#help_club"
+!define _Kibela_URL_ kibelaURL
+!define _CLUB_CHANNEL_ "#c_*"
+
 autonumber
 participant 創部申請者 as captain
 participant 承認者 as auth
@@ -10,13 +14,13 @@ participant SlackApp as slackapp
 participant "スプレッドシート(GAS)" as sheet
 participant Kibela as kibela
 
-captain -> slackapp: 任意のチャンネルからスラッシュコマンドを使って創部申請のもーだるを起動
+captain -> slackapp: 任意のチャンネルからスラッシュコマンドを使って創部申請のモーダルを起動
 slackapp --> captain: モーダルを表示
 captain --> slackapp: フォーム入力 & 送信
-note right: 必須項目\n(channelID, members, Kibela URL, reason)
+note right: 必須項目\n(channelID, clubName, members(部長, 副部長, 部員), _Kibela_URL_, description)
 slackapp --> captain: 創部申請完了モーダルを表示
-slackapp -> auth: 承認権限が参加している承認専用チャンネルに創部申請が届いたことを知らせる
-auth -> slackapp: 承認専用チャンネルに届いた創部申請情報に埋め込まれている承認画面ボタンをクリック
+slackapp -> auth: 承認権限が参加している承認専用チャンネル _HELP_CLUB_CHANNEL_ に創部申請が届いたことを知らせる
+auth -> slackapp: _HELP_CLUB_CHANNEL_ に届いた創部申請情報に埋め込まれている承認画面ボタンをクリック
 slackapp -> auth: 承認用モーダルを表示
 
 alt 承認する場合
@@ -34,27 +38,27 @@ alt 承認する場合
     sheet -->> slackapp: シートの処理が完了したレスポンス
     slackapp ->> kibela: Kibela API（創部ver）
 
-    break モーダルに添付された Kibela URL が存在しない場合
+    break モーダルに添付された _Kibela_URL_ が存在しない場合
         kibela -> slackapp: エラーメッセージ
         slackapp -->> auth: エラーメッセージ
         slackapp -->> captain: エラーメッセージ
     end
 
-    alt モーダルに添付された Kibela URL が「非公認」のフォルダに入ってない場合
+    alt モーダルに添付された _Kibela_URL_ が「非公認」のフォルダに入ってない場合
         kibela --> kibela: 「公認」に移動する
-    else モーダルに添付された Kibela URL が「部活」のフォルダに入ってない場合
+    else モーダルに添付された _Kibela_URL_ が「部活」のフォルダに入ってない場合
         kibela --> kibela: 「公認」に移動する
     end
 
     kibela -> slackapp: Kibela API が成功したレスポンス
-    slackapp -->> auth: 承認した内容が #help_club に流れる
-    slackapp -->> captain: 承認された結果を #c_* に @channel で流す
-    slackapp -->> slack: #notifications にシンプルな通知
+    slackapp -->> auth: 承認した内容が _HELP_CLUB_CHANNEL_ に流れる
+    slackapp -->> captain: 承認された結果を _CLUB_CHANNEL_ (創部申請を出した部活チャンネル) に @channel で流す
+    slackapp -->> slack: 全体通知チャンネル "#notifications'" にシンプルな通知
 
 else 却下する場合
     auth -> slackapp: 承認用モーダル内で却下理由を入力し、却下ボタンを押す
-    slackapp -->> auth: 却下した内容が #help_club に流れる
-    slackapp -->> captain: 却下された結果を #c_* に @channel で流す
+    slackapp -->> auth: 却下した内容が _HELP_CLUB_CHANNEL_ に流れる
+    slackapp -->> captain: 却下された結果を _CLUB_CHANNEL_ に @channel で流す
 end
 
 @enduml
