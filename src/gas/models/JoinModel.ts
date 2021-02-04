@@ -1,3 +1,1 @@
-export default class JoinModel {
-  constructor() {}
-}
+export default class JoinModel {}

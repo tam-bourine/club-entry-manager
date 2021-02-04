@@ -1,8 +1,6 @@
 import ResponseInterface from "../types/ResponseInterface";
 
 export default class Response {
-  constructor() {}
-
   makeSuccess(response: ResponseInterface) {
     response.success = true;
     return response;

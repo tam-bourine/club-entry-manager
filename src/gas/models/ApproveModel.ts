@@ -1,3 +1,1 @@
-export default class ApproveModel {
-  constructor() {}
-}
+export default class ApproveModel {}

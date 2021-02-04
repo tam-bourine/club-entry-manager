@@ -2,8 +2,6 @@ import Response from "../../shared/Response";
 import ApproveInterface from "../../types/ApproveInterface";
 
 export default class ApproveController {
-  constructor() {}
-
   res = new Response();
 
   create(params: ApproveInterface) {

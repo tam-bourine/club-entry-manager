@@ -2,8 +2,6 @@ import Utils from "../shared/Response";
 import RegistInterface from "../types/RegistInterface";
 
 export default class RegistModel {
-  constructor() {}
-
   private util = new Utils();
 
   addClub(params: RegistInterface) {
