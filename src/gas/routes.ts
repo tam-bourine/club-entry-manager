@@ -1,10 +1,5 @@
 import Response from "./shared/Response";
 import ParameterInterface from "./types/ParameterInterface";
-
-import GetController from "./controllers/Clubs/GetController";
-import RegistController from "./controllers/Club/RegistController";
-import ApproveController from "./controllers/Club/ApproveController";
-import JoinController from "./controllers/Club/JoinController";
 import GetView from "./views/Clubs/GetView";
 import ApproveView from "./views/Club/ApproveView";
 import RegistView from "./views/Club/RegistView";
