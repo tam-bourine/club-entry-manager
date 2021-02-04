@@ -2,7 +2,7 @@ import Response from "../../shared/Response";
 import ApproveInterface from "../../types/ApproveInterface";
 
 export default class ApproveController {
-  res = new Response();
+  private res = new Response();
 
   create(params: ApproveInterface) {
     return this.res.makeSuccess({

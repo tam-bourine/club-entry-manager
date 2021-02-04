@@ -2,7 +2,7 @@ import Response from "../../shared/Response";
 import JoinInterface from "../../types/JoinInterface";
 
 export default class JoinController {
-  res = new Response();
+  private res = new Response();
 
   update(params: JoinInterface) {
     return this.res.makeSuccess({

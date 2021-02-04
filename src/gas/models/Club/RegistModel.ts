@@ -1,8 +1,8 @@
-import Utils from "../shared/Response";
-import RegistInterface from "../types/RegistInterface";
+import Response from "../../shared/Response";
+import RegistInterface from "../../types/RegistInterface";
 
 export default class RegistModel {
-  private util = new Utils();
+  private res = new Response();
 
   addClub(params: RegistInterface) {
     try {
@@ -22,11 +22,11 @@ export default class RegistModel {
           params.collaboratorId1st,
           params.collaboratorId2nd,
         ]);
-        return this.util.makeSuccess({ status: 201, message: "201 Created" });
-      } else return this.util.makeError({ status: 500, message: "500 Internal Server Error" });
+        return this.res.makeSuccess({ status: 201, message: "201 Created" });
+      } else return this.res.makeError({ status: 500, message: "500 Internal Server Error" });
     } catch (error) {
       console.error({ error });
-      return this.util.makeError({ status: 500, message: "500 Internal Server Error" });
+      return this.res.makeError({ status: 500, message: "500 Internal Server Error" });
     }
   }
 }

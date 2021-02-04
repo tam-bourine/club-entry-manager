@@ -1,5 +1,5 @@
 import RegistInterface from "../../types/RegistInterface";
-import RegistModel from "../../models/RegistModel";
+import RegistModel from "../../models/Club/RegistModel";
 
 export default class RegistController {
   private regist = new RegistModel();
