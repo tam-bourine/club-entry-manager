@@ -2,8 +2,6 @@ import ResponseInterface from "../types/ResponseInterface";
 import Console from "./Console";
 
 export default class Response {
-  constructor() {}
-
   console = new Console();
 
   success(response: ResponseInterface) {
