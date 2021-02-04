@@ -45,15 +45,15 @@ const doPost = (e: DoPostParams) => {
 
   switch (action) {
     case "regist": {
-      return regist.create(params);
+      return res.success(regist.create(params));
     }
     // WIP
     case "approve": {
-      return approve.create(params);
+      return res.success(approve.create(params));
     }
     // WIP
     case "join": {
-      return join.update(params);
+      return res.success(join.update(params));
     }
     default: {
       return res.error(console.notFound);

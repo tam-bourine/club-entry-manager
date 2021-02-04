@@ -22,11 +22,11 @@ export default class RegistModel {
           params.collaboratorId1st,
           params.collaboratorId2nd,
         ]);
-        return this.res.success({ status: 201, message: "201 Created" });
-      } else return this.res.error({ status: 500, message: "500 Internal Server Error" });
+        return { status: 201, message: "201 Created" };
+      } else return { status: 500, message: "500 Internal Server Error" };
     } catch (error) {
       console.error({ error });
-      return this.res.error({ status: 500, message: "500 Internal Server Error" });
+      return { status: 500, message: "500 Internal Server Error" };
     }
   }
 }

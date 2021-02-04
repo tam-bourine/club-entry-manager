@@ -5,16 +5,16 @@ export default class ApproveController {
   private res = new Response();
 
   create(params: ApproveInterface) {
-    return this.res.success({
+    return {
       status: 200,
       message: "200 OK",
-    });
+    };
   }
 
   update(params: ApproveInterface) {
-    return this.res.success({
+    return {
       status: 200,
       message: "200 OK",
-    });
+    };
   }
 }
