@@ -13,7 +13,7 @@ export default class Utils {
     return response;
   }
 
-  createOutput(response?: ResponseInterface) {
+  createOutput(response: ResponseInterface) {
     return (
       response && ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON)
     );

@@ -25,7 +25,7 @@ export default class GetController {
           message: "200 OK",
           clubs: clubs,
         });
-      }
+      } else return this.util.makeError({ status: 500, message: "500 Internal Server Error" });
     } catch (error) {
       console.error({ error });
       return this.util.makeError({ status: 500, message: "500 Internal Server Error" });
