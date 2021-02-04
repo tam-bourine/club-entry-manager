@@ -3,7 +3,7 @@ import Response from "../../shared/Response";
 // import Constants from "../../shared/Constants";
 
 export default class GetController {
-  res = new Response();
+  private res = new Response();
 
   show() {
     try {
