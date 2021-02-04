@@ -5,7 +5,7 @@ import Response from "../../shared/Response";
 export default class GetController {
   res = new Response();
 
-  show() {
+  show(): ResponseInterface {
     try {
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
       if (sheetTabName) {
@@ -18,15 +18,12 @@ export default class GetController {
             name: value[1],
           });
         });
-        return this.res.success({
-          status: 200,
-          message: "200 OK",
-          clubs: clubs,
-        });
-      } else return this.res.error({ status: 500, message: "500 Internal Server Error" });
+
+        return { ...this.res.ok, clubs };
+      } else return this.res.internalServer;
     } catch (error) {
       console.error({ error });
-      return this.res.error({ status: 500, message: "500 Internal Server Error" });
+      return this.res.internalServer;
     }
   }
 }

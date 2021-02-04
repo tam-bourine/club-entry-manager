@@ -24,10 +24,11 @@ const doGet = (e: DoGetParams) => {
 
   switch (action) {
     case "get": {
+      // ここのres.successをswitchに置き換えるのはviewsの責務
       return res.success(get.show());
     }
     default: {
-      return res.error(console.notFound);
+      return res.error(res.notFound);
     }
   }
 };
@@ -56,7 +57,7 @@ const doPost = (e: DoPostParams) => {
       return join.update(params);
     }
     default: {
-      return res.error(console.notFound);
+      return res.error(res.notFound);
     }
   }
 };
