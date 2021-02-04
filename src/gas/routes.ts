@@ -1,4 +1,4 @@
-import Utils from "./shared/Response";
+import Response from './shared/Response';
 import ParameterInterface from "./types/ParameterInterface";
 
 import GetController from "./controllers/Clubs/GetController";
@@ -18,14 +18,14 @@ const doGet = (e: DoGetParams) => {
   const { action } = e.parameter;
 
   const get = new GetController();
-  const utils = new Utils();
+  const res = new Response();
 
   switch (action) {
     case "get": {
-      return utils.createOutput(get.show());
+      return res.createOutput(get.show());
     }
     default: {
-      return utils.createOutput(utils.makeError({ status: 404, message: "404 Not Found" }));
+      return res.createOutput(res.makeError({ status: 404, message: "404 Not Found" }));
     }
   }
 };
@@ -38,22 +38,22 @@ const doPost = (e: DoPostParams) => {
   const regist = new RegistController();
   const approve = new ApproveController();
   const join = new JoinController();
-  const utils = new Utils();
+  const res = new Response();
 
   switch (action) {
     case "regist": {
-      return utils.createOutput(regist.create(params));
+      return res.createOutput(regist.create(params));
     }
     // WIP
     case "approve": {
-      return utils.createOutput(approve.create(params));
+      return res.createOutput(approve.create(params));
     }
     // WIP
     case "join": {
-      return utils.createOutput(join.update(params));
+      return res.createOutput(join.update(params));
     }
     default: {
-      return utils.createOutput(utils.makeError({ status: 404, message: "404 Not Found" }));
+      return res.createOutput(res.makeError({ status: 404, message: "404 Not Found" }));
     }
   }
 };

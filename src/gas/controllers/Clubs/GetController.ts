@@ -1,11 +1,11 @@
 import ResponseInterface from "../../types/ResponseInterface";
-import Utils from "../../shared/Response";
+import Response from "../../shared/Response";
 // import Constants from "../../shared/Constants";
 
 export default class GetController {
   constructor() {}
 
-  util = new Utils();
+  res = new Response();
 
   show() {
     try {
@@ -20,7 +20,7 @@ export default class GetController {
             name: value[1],
           });
         });
-        return this.util.makeSuccess({
+        return this.res.makeSuccess({
           status: 200,
           message: "200 OK",
           clubs: clubs,
@@ -28,7 +28,7 @@ export default class GetController {
       } else return this.util.makeError({ status: 500, message: "500 Internal Server Error" });
     } catch (error) {
       console.error({ error });
-      return this.util.makeError({ status: 500, message: "500 Internal Server Error" });
+      return this.res.makeError({ status: 500, message: "500 Internal Server Error" });
     }
   }
 }

@@ -1,5 +1,4 @@
 import RegistInterface from "../../types/RegistInterface";
-import Utils from "../../shared/Response";
 import RegistModel from "../../models/RegistModel";
 
 export default class RegistController {
