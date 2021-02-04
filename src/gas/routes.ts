@@ -1,6 +1,5 @@
 import Utils from "./shared/Response";
 import ParameterInterface from "./types/ParameterInterface";
-import ResponseInterface from "./types/ResponseInterface";
 
 import GetController from "./controllers/Clubs/GetController";
 import RegistController from "./controllers/Club/RegistController";
