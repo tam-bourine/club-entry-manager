@@ -18,15 +18,15 @@ export default class GetController {
             name: value[1],
           });
         });
-        return this.res.makeSuccess({
+        return this.res.success({
           status: 200,
           message: "200 OK",
           clubs: clubs,
         });
-      } else return this.util.makeError({ status: 500, message: "500 Internal Server Error" });
+      } else return this.res.error({ status: 500, message: "500 Internal Server Error" });
     } catch (error) {
       console.error({ error });
-      return this.res.makeError({ status: 500, message: "500 Internal Server Error" });
+      return this.res.error({ status: 500, message: "500 Internal Server Error" });
     }
   }
 }
