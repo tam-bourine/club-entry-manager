@@ -1,4 +1,4 @@
-import ParameterInterface from "../../types/ParameterInterface";
+import RegistInterface from "../../types/RegistInterface";
 import Utils from "../../shared/Response";
 
 export default class RegistController {
@@ -6,7 +6,7 @@ export default class RegistController {
 
   util = new Utils();
 
-  create(params: ParameterInterface) {
+  create(params: RegistInterface) {
     try {
       const sheetId = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
       if (sheetId) {
