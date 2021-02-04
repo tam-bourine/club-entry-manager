@@ -7,6 +7,7 @@ export default class GetView {
   private get = new GetController();
 
   provide() {
+    // WIP レスポンスの分岐必要
     return this.res.success(this.get.show());
   }
 }
