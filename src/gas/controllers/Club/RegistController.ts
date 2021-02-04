@@ -1,10 +1,10 @@
 import RegistInterface from "../../types/RegistInterface";
-import Utils from "../../shared/Response";
+import Response from "../../shared/Response";
 
 export default class RegistController {
   constructor() {}
 
-  util = new Utils();
+  res = new Response();
 
   create(params: RegistInterface) {
     try {
@@ -24,11 +24,11 @@ export default class RegistController {
           params.collaboratorId1st,
           params.collaboratorId2nd,
         ]);
-        return this.util.makeSuccess({ status: 201, message: "201 Created" });
+        return this.res.makeSuccess({ status: 201, message: "201 Created" });
       }
     } catch (error) {
       console.error({ error });
-      return this.util.makeError({ status: 500, message: "500 Internal Server Error" });
+      return this.res.makeError({ status: 500, message: "500 Internal Server Error" });
     }
   }
 }

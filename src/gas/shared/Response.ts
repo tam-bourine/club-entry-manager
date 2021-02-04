@@ -1,6 +1,6 @@
 import ResponseInterface from "../types/ResponseInterface";
 
-export default class Utils {
+export default class Response {
   constructor() {}
 
   makeSuccess(response: ResponseInterface) {
