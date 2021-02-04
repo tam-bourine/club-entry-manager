@@ -1,21 +1,18 @@
 import ResponseInterface from "../types/ResponseInterface";
+import Console from "./Console";
 
 export default class Response {
   constructor() {}
 
-  makeSuccess(response: ResponseInterface) {
+  console = new Console();
+
+  success(response: ResponseInterface) {
     response.success = true;
-    return response;
+    return response && this.console.output(response);
   }
 
-  makeError(response: ResponseInterface) {
+  error(response: ResponseInterface) {
     response.success = false;
-    return response;
-  }
-
-  createOutput(response?: ResponseInterface) {
-    return (
-      response && ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON)
-    );
+    return response && this.console.output(response);
   }
 }
