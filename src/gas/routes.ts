@@ -6,6 +6,7 @@ import RegistController from "./controllers/Club/RegistController";
 import ApproveController from "./controllers/Club/ApproveController";
 import JoinController from "./controllers/Club/JoinController";
 import GetView from "./views/Clubs/GetView";
+import ApproveView from "./views/Club/ApproveView";
 
 interface DoGetParams extends GoogleAppsScript.Events.DoGet {
   parameter: ParameterInterface;
@@ -37,7 +38,7 @@ const doPost = (e: DoPostParams) => {
   const params = JSON.parse(e.postData.getDataAsString());
 
   const regist = new RegistController();
-  const approve = new ApproveController();
+  const approve = new ApproveView();
   const join = new JoinController();
   const res = new Response();
 
@@ -47,7 +48,7 @@ const doPost = (e: DoPostParams) => {
     }
     // WIP
     case "approve": {
-      return res.success(approve.create(params));
+      return approve.provide(params);
     }
     // WIP
     case "join": {
