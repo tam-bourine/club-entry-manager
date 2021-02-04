@@ -1,5 +1,5 @@
-import Response from "../shared/Response";
-import RegistInterface from "../types/RegistInterface";
+import Response from "../../shared/Response";
+import RegistInterface from "../../types/RegistInterface";
 
 export default class RegistModel {
   private res = new Response();
