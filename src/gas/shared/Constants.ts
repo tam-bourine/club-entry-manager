@@ -6,14 +6,14 @@
 // }
 
 export default class Constants {
-  static USER_ACTIONS: {
+  USER_ACTIONS = {
     DO_GET: {
-      GET: "get";
-    };
+      GET: "get",
+    },
     DO_POST: {
-      REGIST: "regist";
-      APPROVE: "approve";
-      JOIN: "join";
-    };
+      REGIST: "regist",
+      APPROVE: "approve",
+      JOIN: "join",
+    },
   };
 }

@@ -16,7 +16,9 @@ interface DoPostParams extends GoogleAppsScript.Events.DoPost {
 
 const doGet = (e: DoGetParams) => {
   const { action } = e.parameter;
-  const { USER_ACTIONS } = Constants;
+
+  const constants = new Constants();
+  const { USER_ACTIONS } = constants;
 
   const get = new GetController();
   const invalidAction = new InvalidActionController();
@@ -33,7 +35,9 @@ const doGet = (e: DoGetParams) => {
 
 const doPost = (e: DoPostParams) => {
   const { action } = e.parameter;
-  const { USER_ACTIONS } = Constants;
+
+  const constants = new Constants();
+  const { USER_ACTIONS } = constants;
 
   // FIXME: これで取れる？
   const params = JSON.parse(e.postData.getDataAsString());
