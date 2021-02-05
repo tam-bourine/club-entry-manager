@@ -7,7 +7,7 @@ export default class Response {
   notFound: ResponseInterface = { status: 404, message: "404 Not Found" };
   internalServer: ResponseInterface = { status: 500, message: "500 Internal Server Error" };
 
-  console = new Console();
+  private console = new Console();
 
   success(response: ResponseInterface) {
     response.success = true;
