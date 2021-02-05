@@ -12,20 +12,16 @@ export default class ApproveModel {
      * Approved : 公認セルを更新
      * Rejected : RegistModel.addClub で追加したクラブの Row を削除
      */
-    const { is_approved } = params;
+    const { clubId, is_approved } = params;
 
     if (is_approved) {
-      this.updateApprovedClub(params);
+      return this.updateApprovedClub(clubId);
     } else {
-      this.deleteRejectedClub(params);
+      return this.deleteRejectedClub(clubId);
     }
-
-    // @ts-ignore
-    return this.view.provide(params);
   }
 
-  private updateApprovedClub(params: ApproveInterface) {
-    const { clubId } = params;
+  private updateApprovedClub(clubId: ApproveInterface["clubId"]) {
     try {
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
       if (sheetTabName) {
@@ -50,5 +46,25 @@ export default class ApproveModel {
     }
   }
 
-  private deleteRejectedClub(params: ApproveInterface) {}
+  private deleteRejectedClub(clubId: ApproveInterface["clubId"]) {
+    try {
+      const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
+      if (sheetTabName) {
+        const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
+        const data = sheet?.getDataRange().getValues();
+        data?.map((value) => {
+          /**
+           * value[0] : id
+           */
+          if (value[0] === clubId) {
+            // WIP: clubId を見て deleteRows()
+          }
+        });
+        return this.view.provide(this.res.created);
+      } else return this.view.provide(this.res.internalServer);
+    } catch (error) {
+      console.error({ error });
+      return this.view.provide(this.res.internalServer);
+    }
+  }
 }
