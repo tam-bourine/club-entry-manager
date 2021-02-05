@@ -1,8 +1,11 @@
 import Response from "../../shared/Response";
 import RegistInterface from "../../types/RegistInterface";
+import RegistView from "../../views/Club/RegistView";
 
 export default class RegistModel {
   private res = new Response();
+
+  private regist = new RegistView();
 
   addClub(params: RegistInterface) {
     try {
@@ -22,11 +25,11 @@ export default class RegistModel {
           params.collaboratorId1st,
           params.collaboratorId2nd,
         ]);
-        return this.res.created;
-      } else return this.res.internalServer;
+        return this.regist.provide(this.res.created);
+      } else return this.regist.provide(this.res.internalServer);
     } catch (error) {
       console.error({ error });
-      return this.res.internalServer;
+      return this.regist.provide(this.res.internalServer);
     }
   }
 }
