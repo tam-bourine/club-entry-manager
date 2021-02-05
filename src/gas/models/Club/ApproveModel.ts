@@ -52,12 +52,12 @@ export default class ApproveModel {
       if (sheetTabName) {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
         const data = sheet?.getDataRange().getValues();
-        data?.map((value) => {
+        data?.map((value, index) => {
           /**
            * value[0] : id
            */
           if (value[0] === clubId) {
-            // WIP: clubId を見て deleteRows()
+            sheet?.deleteRow(index);
           }
         });
         return this.view.provide(this.res.created);
