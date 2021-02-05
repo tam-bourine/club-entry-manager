@@ -40,6 +40,7 @@ const doPost = (e: DoPostParams) => {
   const { USER_ACTIONS } = constants;
 
   // FIXME: これで取れる？
+  // TODO: リクエストの snake case はここで全て camel case に変えたい
   const params = JSON.parse(e.postData.getDataAsString());
 
   const regist = new RegistController();

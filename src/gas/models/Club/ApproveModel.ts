@@ -10,8 +10,7 @@ export default class ApproveModel {
      * Rejected : RegistModel.addClub で追加したクラブの Row を削除
      */
 
-    // FIXME
-    if (params.isApproved) {
+    if (params.is_approved) {
       this.updateApprovedClub();
     } else {
       this.deleteRejectedClub();
