@@ -12,6 +12,7 @@
   "plugins": ["@typescript-eslint", "prettier", "googleappsscript"],
   "extends": ["airbnb-base", "plugin:prettier/recommended", "prettier/@typescript-eslint"],
   "rules": {
+    "import/extensions": [".json", ".ts"],
     "prettier/prettier": [
       "error",
       {
@@ -26,5 +27,12 @@
     "no-process-exit": "off",
     "object-shorthand": "off",
     "class-methods-use-this": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.js"
+      }
+    }
   }
 }
