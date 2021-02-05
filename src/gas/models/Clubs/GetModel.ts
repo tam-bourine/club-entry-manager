@@ -5,7 +5,7 @@ import GetView from "../../views/Clubs/GetView";
 export default class GetModel {
   private res = new Response();
 
-  private get = new GetView();
+  private view = new GetView();
 
   fetchClubs() {
     try {
@@ -20,11 +20,11 @@ export default class GetModel {
             name: value[1],
           });
         });
-        return this.get.provide({ ...this.res.ok, clubs });
-      } else return this.get.provide(this.res.internalServer);
+        return this.view.provide({ ...this.res.ok, clubs });
+      } else return this.view.provide(this.res.internalServer);
     } catch (error) {
       console.error({ error });
-      return this.get.provide(this.res.internalServer);
+      return this.view.provide(this.res.internalServer);
     }
   }
 }

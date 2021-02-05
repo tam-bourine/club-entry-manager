@@ -5,7 +5,7 @@ import RegistView from "../../views/Club/RegistView";
 export default class RegistModel {
   private res = new Response();
 
-  private regist = new RegistView();
+  private view = new RegistView();
 
   addClub(params: RegistInterface) {
     try {
@@ -25,11 +25,11 @@ export default class RegistModel {
           params.collaboratorId1st,
           params.collaboratorId2nd,
         ]);
-        return this.regist.provide(this.res.created);
-      } else return this.regist.provide(this.res.internalServer);
+        return this.view.provide(this.res.created);
+      } else return this.view.provide(this.res.internalServer);
     } catch (error) {
       console.error({ error });
-      return this.regist.provide(this.res.internalServer);
+      return this.view.provide(this.res.internalServer);
     }
   }
 }

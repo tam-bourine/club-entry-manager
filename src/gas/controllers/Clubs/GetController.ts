@@ -3,9 +3,9 @@
 import GetModel from "../../models/Clubs/GetModel";
 
 export default class GetController {
-  private get = new GetModel();
+  private model = new GetModel();
 
   show() {
-    return this.get.fetchClubs();
+    return this.model.fetchClubs();
   }
 }

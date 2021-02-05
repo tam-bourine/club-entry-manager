@@ -2,17 +2,17 @@ import ApproveInterface from "../../types/ApproveInterface";
 import ApproveView from "../../views/Club/ApproveView";
 
 export default class ApproveModel {
-  private approve = new ApproveView();
+  private view = new ApproveView();
 
   addClub(params: ApproveInterface) {
     // FIXME
     // @ts-ignore
-    return this.approve.provide(params);
+    return this.view.provide(params);
   }
 
   confirmIsApproved(params: ApproveInterface) {
     // FIXME
     // @ts-ignore
-    return this.approve.provide(params);
+    return this.view.provide(params);
   }
 }

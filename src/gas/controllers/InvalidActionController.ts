@@ -2,9 +2,9 @@ import ResponseInterface from "../types/ResponseInterface";
 import InvalidActionView from "../views/InvalidActionView";
 
 export default class InvalidActionController {
-  private invalidAction = new InvalidActionView();
+  private view = new InvalidActionView();
 
   throwError() {
-    return this.invalidAction.provide();
+    return this.view.provide();
   }
 }

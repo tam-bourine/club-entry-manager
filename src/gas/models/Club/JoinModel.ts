@@ -2,11 +2,11 @@ import JoinInterface from "../../types/JoinInterface";
 import JoinView from "../../views/Club/JoinView";
 
 export default class JoinModel {
-  private join = new JoinView();
+  private view = new JoinView();
 
   addMember(params: JoinInterface) {
     // FIXME
     // @ts-ignore
-    return this.join.provide(params);
+    return this.view.provide(params);
   }
 }
