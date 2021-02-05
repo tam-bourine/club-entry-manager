@@ -1,13 +1,21 @@
-import GetController from "../../controllers/Clubs/GetController";
 import Response from "../../shared/Response";
+import ResponseInterface from "../../types/ResponseInterface";
 
 export default class GetView {
   private res = new Response();
 
-  private get = new GetController();
-
-  provide() {
-    // WIP レスポンスの分岐必要
-    return this.res.success(this.get.show());
+  provide(params: ResponseInterface) {
+    switch (params.status) {
+      case this.res.ok.status:
+        return this.res.success(params);
+      case this.res.created.status:
+        return this.res.success(params);
+      case this.res.notFound.status:
+        return this.res.error(params);
+      case this.res.internalServer.status:
+        return this.res.error(params);
+      default:
+        return this.res.error(params);
+    }
   }
 }

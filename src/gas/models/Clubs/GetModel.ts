@@ -1,8 +1,11 @@
 import Response from "../../shared/Response";
 import ResponseInterface from "../../types/ResponseInterface";
+import GetView from "../../views/Clubs/GetView";
 
 export default class GetModel {
   private res = new Response();
+
+  private get = new GetView();
 
   fetchClubs() {
     try {
@@ -17,11 +20,11 @@ export default class GetModel {
             name: value[1],
           });
         });
-        return { ...this.res.ok, clubs };
-      } else return this.res.internalServer;
+        return this.get.provide({ ...this.res.ok, clubs });
+      } else return this.get.provide(this.res.internalServer);
     } catch (error) {
       console.error({ error });
-      return this.res.internalServer;
+      return this.get.provide(this.res.internalServer);
     }
   }
 }
