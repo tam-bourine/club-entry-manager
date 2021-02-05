@@ -10,11 +10,11 @@ export default class RegistModel {
   addClub(params: RegistInterface) {
     const { club, collaborators, captain } = params;
     try {
-      const sheetId = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
-      if (sheetId) {
-        const sheet = SpreadsheetApp.openById(sheetId);
+      const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
+      if (sheetTabName) {
+        const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
         const today = new Date();
-        sheet.appendRow([
+        sheet?.appendRow([
           club.id,
           club.name,
           captain.name,
