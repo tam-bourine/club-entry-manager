@@ -1,4 +1,4 @@
-import ResponseInterface from "../types/ResponseInterface";
+import ResponseInterface from "./types/ResponseInterface";
 
 export default class Console {
   output(response?: ResponseInterface) {

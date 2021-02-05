@@ -1,4 +1,4 @@
-import JoinInterface from "../../types/JoinInterface";
+import JoinInterface from "../../shared/types/JoinInterface";
 import JoinView from "../../views/Club/JoinView";
 
 export default class JoinModel {

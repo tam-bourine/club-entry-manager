@@ -1,5 +1,5 @@
 import Response from "../../shared/Response";
-import ResponseInterface from "../../types/ResponseInterface";
+import ResponseInterface from "../../shared/types/ResponseInterface";
 
 export default class ApproveView {
   private res = new Response();

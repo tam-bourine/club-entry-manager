@@ -1,5 +1,5 @@
 import ApproveModel from "../../models/Club/ApproveModel";
-import ApproveInterface from "../../types/ApproveInterface";
+import ApproveInterface from "../../shared/types/ApproveInterface";
 
 export default class ApproveController {
   private model = new ApproveModel();

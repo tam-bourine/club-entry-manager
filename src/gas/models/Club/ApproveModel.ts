@@ -1,4 +1,4 @@
-import ApproveInterface from "../../types/ApproveInterface";
+import ApproveInterface from "../../shared/types/ApproveInterface";
 import ApproveView from "../../views/Club/ApproveView";
 
 export default class ApproveModel {

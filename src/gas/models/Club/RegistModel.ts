@@ -1,5 +1,5 @@
 import Response from "../../shared/Response";
-import RegistInterface from "../../types/RegistInterface";
+import RegistInterface from "../../shared/types/RegistInterface";
 import RegistView from "../../views/Club/RegistView";
 
 export default class RegistModel {

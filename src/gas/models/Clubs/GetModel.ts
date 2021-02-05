@@ -1,5 +1,5 @@
 import Response from "../../shared/Response";
-import ResponseInterface from "../../types/ResponseInterface";
+import ResponseInterface from "../../shared/types/ResponseInterface";
 import GetView from "../../views/Clubs/GetView";
 
 export default class GetModel {

@@ -1,4 +1,4 @@
-import ParameterInterface from "./types/ParameterInterface";
+import ParameterInterface from "./shared/types/ParameterInterface";
 import RegistController from "./controllers/Club/RegistController";
 import ApproveController from "./controllers/Club/ApproveController";
 import JoinController from "./controllers/Club/JoinController";
