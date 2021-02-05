@@ -116,6 +116,7 @@
                   "club": {
                     "type": "object",
                     "example": {
+                      "id": "piyofoo",
                       "name": "テニス部",
                       "description": "〜〜する"
                     }

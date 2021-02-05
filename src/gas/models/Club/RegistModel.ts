@@ -8,22 +8,23 @@ export default class RegistModel {
   private view = new RegistView();
 
   addClub(params: RegistInterface) {
+    const { club, collaborators, captain } = params;
     try {
       const sheetId = PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID");
       if (sheetId) {
         const sheet = SpreadsheetApp.openById(sheetId);
         const today = new Date();
         sheet.appendRow([
-          params.clubId,
-          params.clubName,
-          params.captainName,
-          params.collaboratorName1st,
-          params.collaboratorName2nd,
+          club.id,
+          club.name,
+          captain.name,
+          collaborators[0].name, // 発起人1
+          collaborators[1].name, // 発起人2
           today.toISOString(),
           "",
-          params.captainId,
-          params.collaboratorId1st,
-          params.collaboratorId2nd,
+          captain.slackId,
+          collaborators[0].slackId, // 発起人1
+          collaborators[1].slackId, // 発起人2
         ]);
         return this.view.provide(this.res.created);
       } else return this.view.provide(this.res.internalServer);

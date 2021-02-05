@@ -1,5 +1,6 @@
 export default interface RegistInterface {
-  clubId: {
+  club: {
+    id: string;
     name: string;
     description: string;
   };
