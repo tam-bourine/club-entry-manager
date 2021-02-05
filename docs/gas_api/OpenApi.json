@@ -235,6 +235,9 @@
                       "slackId": "19DPICZZ",
                       "name": "ピヨ橋ピヨ美"
                     }
+                  },
+                  "is_approved": {
+                    "type": "boolean"
                   }
                 }
               }
