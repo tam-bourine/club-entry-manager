@@ -4,7 +4,7 @@ import InvalidActionView from "../views/InvalidActionView";
 export default class InvalidActionController {
   private invalidAction = new InvalidActionView();
 
-  throwError(params: ResponseInterface) {
-    return this.invalidAction.provide(params);
+  throwError() {
+    return this.invalidAction.provide();
   }
 }

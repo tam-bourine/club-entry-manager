@@ -1,4 +1,3 @@
-import Response from "./shared/Response";
 import ParameterInterface from "./types/ParameterInterface";
 import RegistController from "./controllers/Club/RegistController";
 import ApproveController from "./controllers/Club/ApproveController";
@@ -20,14 +19,12 @@ const doGet = (e: DoGetParams) => {
   const get = new GetController();
   const invalidAction = new InvalidActionController();
 
-  const res = new Response();
-
   switch (action) {
     case "get": {
       return get.show();
     }
     default: {
-      return invalidAction.throwError(res.notFound);
+      return invalidAction.throwError();
     }
   }
 };
@@ -42,8 +39,6 @@ const doPost = (e: DoPostParams) => {
   const join = new JoinController();
   const invalidAction = new InvalidActionController();
 
-  const res = new Response();
-
   switch (action) {
     case "regist": {
       return regist.create(params);
@@ -57,7 +52,7 @@ const doPost = (e: DoPostParams) => {
       return join.update(params);
     }
     default: {
-      return invalidAction.throwError(res.notFound);
+      return invalidAction.throwError();
     }
   }
 };
