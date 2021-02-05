@@ -43,9 +43,8 @@ const doPost = (e: DoPostParams) => {
     case "regist": {
       return regist.create(params);
     }
-    // WIP
     case "approve": {
-      return approve.create(params);
+      return approve.update(params);
     }
     // WIP
     case "join": {
