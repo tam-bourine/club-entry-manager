@@ -4,6 +4,7 @@ import { App, ExpressReceiver } from "@slack/bolt";
 import { useNewClubCommand } from "./commands/newClub";
 
 const config = functions.config();
+const approvalChannelId = config.slack.approval_channel_id;
 
 const expressReceiver = new ExpressReceiver({
   signingSecret: config.slack.signing_secret,
@@ -22,7 +23,7 @@ app.error((err) => {
   });
 });
 
-useNewClubCommand(app);
+useNewClubCommand(app, approvalChannelId);
 
 (async () => {
   await app.start(config.slack.port_number || 3000);

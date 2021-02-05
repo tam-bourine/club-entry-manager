@@ -1,19 +1,20 @@
 // ブロックキットを使用しステップ設定モーダルのUIを構築
 const clubName = "部活動名";
 const description = "活動内容";
+const kibelaUrl = "Kibela URL"
 const captain = "部長名";
-const collaborator1st = "初期メンバー1";
-const collaborator2nd = "初期メンバー2";
+const subCaptain = "副部長名";
+const collaborator = "初期メンバー";
 
 const inputComponentName = {
   type: "input",
-  block_id: "task_name_input",
+  block_id: "club_name_input",
   element: {
     type: "plain_text_input",
     action_id: "name",
     placeholder: {
       type: "plain_text",
-      text: "Add a task name",
+      text: "部活動名を入力してください",
     },
   },
   label: {
@@ -24,13 +25,14 @@ const inputComponentName = {
 
 const inputComponentDescription = {
   type: "input",
-  block_id: "task_description_input",
+  block_id: "club_description_input",
   element: {
     type: "plain_text_input",
+    multiline: true,
     action_id: "description",
     placeholder: {
       type: "plain_text",
-      text: "Add a task name",
+      text: "活動内容とどの程度部費が必要かを入力してください",
     },
   },
   label: {
@@ -39,15 +41,32 @@ const inputComponentDescription = {
   },
 };
 
-const inputComponentCaptain = {
+const inputComponentKibelaUrl = {
   type: "input",
-  block_id: "task_captain_input",
+  block_id: "kibela_url_input",
   element: {
     type: "plain_text_input",
+    action_id: "url",
+    placeholder: {
+      type: "plain_text",
+      text: "KibelaのURLを入力してください",
+    },
+  },
+  label: {
+    type: "plain_text",
+    text: kibelaUrl,
+  },
+};
+
+const inputComponentCaptain = {
+  type: "input",
+  block_id: "captain_name_input",
+  element: {
+    type: "users_select",
     action_id: "captain",
     placeholder: {
       type: "plain_text",
-      text: "Add a task name",
+      text: "部長を選択してください",
     },
   },
   label: {
@@ -56,37 +75,37 @@ const inputComponentCaptain = {
   },
 };
 
-const inputComponentMember1st = {
+const inputComponentSubCaptain = {
   type: "input",
-  block_id: "task_member_1st_input",
+  block_id: "sub_captain_name_input",
   element: {
-    type: "plain_text_input",
-    action_id: "member_1st",
+    type: "users_select",
+    action_id: "sub_captain",
     placeholder: {
       type: "plain_text",
-      text: "Add a task name",
+      text: "副部長を選択してください",
     },
   },
   label: {
     type: "plain_text",
-    text: collaborator1st,
+    text: subCaptain,
   },
 };
 
-const inputComponentMember2nd = {
+const inputComponentMember = {
   type: "input",
-  block_id: "task_member_2nd_input",
+  block_id: "member_name_input",
   element: {
-    type: "plain_text_input",
-    action_id: "member_2nd",
+    type: "multi_users_select",
+    action_id: "member",
     placeholder: {
       type: "plain_text",
-      text: "Add a task name",
+      text: "部員を入力してください",
     },
   },
   label: {
     type: "plain_text",
-    text: collaborator2nd,
+    text: collaborator,
   },
 };
 
@@ -94,7 +113,8 @@ const inputComponentMember2nd = {
 export const inputClubModal = [
   inputComponentName,
   inputComponentDescription,
+  inputComponentKibelaUrl,
   inputComponentCaptain,
-  inputComponentMember1st,
-  inputComponentMember2nd,
+  inputComponentSubCaptain,
+  inputComponentMember,
 ];
