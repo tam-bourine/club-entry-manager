@@ -4,6 +4,7 @@ import ApproveController from "./controllers/Club/ApproveController";
 import JoinController from "./controllers/Club/JoinController";
 import GetController from "./controllers/Clubs/GetController";
 import InvalidActionController from "./controllers/InvalidActionController";
+import Constants from "./shared/Constants";
 
 interface DoGetParams extends GoogleAppsScript.Events.DoGet {
   parameter: ParameterInterface;
@@ -15,12 +16,13 @@ interface DoPostParams extends GoogleAppsScript.Events.DoPost {
 
 const doGet = (e: DoGetParams) => {
   const { action } = e.parameter;
+  const { USER_ACTIONS } = Constants;
 
   const get = new GetController();
   const invalidAction = new InvalidActionController();
 
   switch (action) {
-    case "get": {
+    case USER_ACTIONS.DO_GET.GET: {
       return get.show();
     }
     default: {
@@ -31,6 +33,8 @@ const doGet = (e: DoGetParams) => {
 
 const doPost = (e: DoPostParams) => {
   const { action } = e.parameter;
+  const { USER_ACTIONS } = Constants;
+
   // FIXME: これで取れる？
   const params = JSON.parse(e.postData.getDataAsString());
 
@@ -40,14 +44,14 @@ const doPost = (e: DoPostParams) => {
   const invalidAction = new InvalidActionController();
 
   switch (action) {
-    case "regist": {
+    case USER_ACTIONS.DO_POST.REGIST: {
       return regist.create(params);
     }
-    case "approve": {
+    case USER_ACTIONS.DO_POST.APPROVE: {
       return approve.update(params);
     }
     // WIP
-    case "join": {
+    case USER_ACTIONS.DO_POST.JOIN: {
       return join.update(params);
     }
     default: {
