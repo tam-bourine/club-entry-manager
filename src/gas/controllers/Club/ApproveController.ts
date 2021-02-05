@@ -1,14 +1,14 @@
-import Response from "../../shared/Response";
+import ApproveModel from "../../models/Club/ApproveModel";
 import ApproveInterface from "../../types/ApproveInterface";
 
 export default class ApproveController {
-  private res = new Response();
+  private approve = new ApproveModel();
 
   create(params: ApproveInterface) {
-    return this.res.ok;
+    return this.approve.addClub(params);
   }
 
   update(params: ApproveInterface) {
-    return this.res.ok;
+    return this.approve.confirmIsApproved(params);
   }
 }

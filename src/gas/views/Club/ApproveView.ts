@@ -1,12 +1,22 @@
 import ApproveController from "../../controllers/Club/ApproveController";
 import Response from "../../shared/Response";
+import ResponseInterface from "../../types/ResponseInterface";
 
 export default class ApproveView {
   private res = new Response();
 
-  private approve = new ApproveController();
-
-  provide(params: any) {
-    return this.res.success(this.approve.create(params));
+  provide(params: ResponseInterface) {
+    switch (params.status) {
+      case this.res.ok.status:
+        return this.res.success(params);
+      case this.res.created.status:
+        return this.res.success(params);
+      case this.res.notFound.status:
+        return this.res.error(params);
+      case this.res.internalServer.status:
+        return this.res.error(params);
+      default:
+        return this.res.error(params);
+    }
   }
 }
