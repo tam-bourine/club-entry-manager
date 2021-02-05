@@ -35,7 +35,7 @@ export default class ApproveModel {
             /**
              * 列7 : 公認
              */
-            sheet?.getRange(7, index).setValue("checked");
+            sheet?.getRange(index, 7).setValue("checked");
           }
         });
         return this.view.provide(this.res.created);
