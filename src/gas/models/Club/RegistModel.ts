@@ -19,7 +19,7 @@ export default class RegistModel {
           params.captainName,
           params.collaboratorName1st,
           params.collaboratorName2nd,
-          today,
+          today.toISOString(),
           "",
           params.captainId,
           params.collaboratorId1st,
