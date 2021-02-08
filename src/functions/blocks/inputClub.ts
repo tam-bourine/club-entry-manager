@@ -4,11 +4,11 @@ const description = "活動内容";
 const kibelaUrl = "Kibela URL"
 const captain = "部長名";
 const subCaptain = "副部長名";
-const collaborator = "初期メンバー";
+const member = "初期メンバー";
 
 const inputComponentName = {
   type: "input",
-  block_id: "club_name_input",
+  block_id: "club_name",
   element: {
     type: "plain_text_input",
     action_id: "name",
@@ -25,7 +25,7 @@ const inputComponentName = {
 
 const inputComponentDescription = {
   type: "input",
-  block_id: "club_description_input",
+  block_id: "club_description",
   element: {
     type: "plain_text_input",
     multiline: true,
@@ -43,7 +43,7 @@ const inputComponentDescription = {
 
 const inputComponentKibelaUrl = {
   type: "input",
-  block_id: "kibela_url_input",
+  block_id: "kibela_url",
   element: {
     type: "plain_text_input",
     action_id: "url",
@@ -60,7 +60,7 @@ const inputComponentKibelaUrl = {
 
 const inputComponentCaptain = {
   type: "input",
-  block_id: "captain_name_input",
+  block_id: "captain_name",
   element: {
     type: "users_select",
     action_id: "captain",
@@ -77,7 +77,7 @@ const inputComponentCaptain = {
 
 const inputComponentSubCaptain = {
   type: "input",
-  block_id: "sub_captain_name_input",
+  block_id: "sub_captain_name",
   element: {
     type: "users_select",
     action_id: "sub_captain",
@@ -94,18 +94,18 @@ const inputComponentSubCaptain = {
 
 const inputComponentMember = {
   type: "input",
-  block_id: "member_name_input",
+  block_id: "member_name",
   element: {
     type: "multi_users_select",
     action_id: "member",
     placeholder: {
       type: "plain_text",
-      text: "部員を入力してください",
+      text: "部員を選択してください",
     },
   },
   label: {
     type: "plain_text",
-    text: collaborator,
+    text: member,
   },
 };
 

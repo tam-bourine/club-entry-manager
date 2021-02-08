@@ -15,6 +15,7 @@ const expressReceiver = new ExpressReceiver({
 const app = new App({
   receiver: expressReceiver,
   token: config.slack.bot_token,
+  processBeforeResponse: true,
 });
 
 app.error((err) => {

@@ -5,7 +5,8 @@ export interface messageArg {
     kibela: string,
     captainId: string,
     subCaptainId: string,
-    membersId: string
-  },
-  collaboratorsId: messageArg[]
+    membersId: {
+      type: string, text: string
+    }[]
+  }
 }

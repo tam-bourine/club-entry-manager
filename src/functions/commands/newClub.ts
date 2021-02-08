@@ -35,30 +35,31 @@ export const useNewClubCommand = (app: App, approvalChannelId: string ) => {
     ack();
 
     const values = view.state.values;
-    // 創部申請の各項目
-    const clubInfo = {
-      name: values.club_name_input.name.value,
-      description: values.club_description_input.description.value,
-      kibela: values.kibela_url_input.url.value,
-      captainId: values.captain_name_input.captain.selected_user,
-      subCaptainId: values.sub_captain_name_input.sub_captain.selected_user,
-      membersId: values.member_name_input.member.selected_users
-    }
 
     // 初期メンバー表示用のフィールド作成
-    const collaboratorsId = clubInfo.membersId.map((member: string) => {
+    const membersField = values.member_name.member.selected_users.map((member: string) => {
       return {
-        "type": "mrkdwn",
-        "text": `*<@${member}>*`
+        type: "mrkdwn",
+        text: `*<@${member}>*`
       }
     })
+    
+    // 創部申請時に入力した各項目の情報
+    const clubInfo = {
+      name: values.club_name.name.value,
+      description: values.club_description.description.value,
+      kibela: values.kibela_url.url.value,
+      captainId: values.captain_name.captain.selected_user,
+      subCaptainId: values.sub_captain_name.sub_captain.selected_user,
+      membersId: membersField
+    }
 
     // 承認専用チャンネルに対して部活動申請情報を送信
     await client.chat.postMessage({
       token: client.token,
       channel: approvalChannelId,
       text: "部活動申請が届きました",
-      blocks: postMessageBlock({ clubInfo, collaboratorsId })
+      blocks: postMessageBlock({ clubInfo })
     })
     .catch((error) => {
       console.error({ error });
