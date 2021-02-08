@@ -1,16 +1,16 @@
 import { messageArg } from "../types/getMessage";
-import { clubLabel } from "../clubConfig";
-import { header, divider } from "../blocks/generalComponent";
+import { Club } from "../clubConfig";
+import { header, divider } from "./generalComponent";
 
 export const getMessageBlocks = ({ clubInfo }: messageArg) => {
   return [
-    header(clubLabel.title),
+    header(Club.Label.title),
     divider,
     {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*${clubLabel.clubName}*`,
+        text: `*${Club.Label.clubName}*`,
       },
     },
     {
@@ -25,7 +25,7 @@ export const getMessageBlocks = ({ clubInfo }: messageArg) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*${clubLabel.description}*`,
+        text: `*${Club.Label.description}*`,
       },
     },
     {
@@ -40,7 +40,7 @@ export const getMessageBlocks = ({ clubInfo }: messageArg) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*${clubLabel.kibelaUrl}*`,
+        text: `*${Club.Label.kibelaUrl}*`,
       },
     },
     {
@@ -55,7 +55,7 @@ export const getMessageBlocks = ({ clubInfo }: messageArg) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*${clubLabel.captain}*`,
+        text: `*${Club.Label.captain}*`,
       },
     },
     {
@@ -69,7 +69,7 @@ export const getMessageBlocks = ({ clubInfo }: messageArg) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*${clubLabel.subCaptain}*`,
+        text: `*${Club.Label.subCaptain}*`,
       },
     },
     {
@@ -83,7 +83,7 @@ export const getMessageBlocks = ({ clubInfo }: messageArg) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*${clubLabel.member}*`,
+        text: `*${Club.Label.member}*`,
       },
     },
     {

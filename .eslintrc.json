@@ -12,6 +12,13 @@
     "prettier/@typescript-eslint"
   ],
   "rules": {
+    "import/extensions": [ 
+      "error", 
+      "ignorePackages", 
+      { "js": "never", 
+        "ts": "never"
+      }
+    ],
     "prettier/prettier": [
       "error",
       {
@@ -25,6 +32,14 @@
     "func-names": "off",
     "no-process-exit": "off",
     "object-shorthand": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"]
+      }
+    }
   }
 }
