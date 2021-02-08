@@ -24,6 +24,7 @@ export default class ApproveModel {
   private updateApprovedClub(clubId: ApproveInterface["clubId"]) {
     try {
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
+      const approvedColumnNumber = 7;
       if (sheetTabName) {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
         const data = sheet?.getDataRange().getValues();
@@ -35,7 +36,7 @@ export default class ApproveModel {
             /**
              * 列7 : 公認
              */
-            sheet?.getRange(index, 7).setValue("checked");
+            sheet?.getRange(index, approvedColumnNumber).setValue("checked");
           }
         });
         return this.view.provide(this.res.created);
