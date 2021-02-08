@@ -1,5 +1,5 @@
 // ブロックキットを使用しステップ設定モーダルのUIを構築
-import { clubLabel, placeholder } from "../clubConfig";
+import { Club } from "../clubConfig";
 
 const inputComponentName = {
   type: "input",
@@ -9,12 +9,12 @@ const inputComponentName = {
     action_id: "name",
     placeholder: {
       type: "plain_text",
-      text: placeholder.clubName,
+      text: Club.Placeholder.clubName,
     },
   },
   label: {
     type: "plain_text",
-    text: clubLabel.clubName,
+    text: Club.Label.clubName,
   },
 };
 
@@ -27,12 +27,12 @@ const inputComponentDescription = {
     action_id: "description",
     placeholder: {
       type: "plain_text",
-      text: placeholder.description,
+      text: Club.Placeholder.description,
     },
   },
   label: {
     type: "plain_text",
-    text: clubLabel.description,
+    text: Club.Label.description,
   },
 };
 
@@ -44,12 +44,12 @@ const inputComponentKibelaUrl = {
     action_id: "url",
     placeholder: {
       type: "plain_text",
-      text: placeholder.kibelaUrl,
+      text: Club.Placeholder.kibelaUrl,
     },
   },
   label: {
     type: "plain_text",
-    text: clubLabel.kibelaUrl,
+    text: Club.Label.kibelaUrl,
   },
 };
 
@@ -61,12 +61,12 @@ const inputComponentCaptain = {
     action_id: "captain",
     placeholder: {
       type: "plain_text",
-      text: placeholder.captain,
+      text: Club.Placeholder.captain,
     },
   },
   label: {
     type: "plain_text",
-    text: clubLabel.captain,
+    text: Club.Label.captain,
   },
 };
 
@@ -78,12 +78,12 @@ const inputComponentSubCaptain = {
     action_id: "sub_captain",
     placeholder: {
       type: "plain_text",
-      text: placeholder.subCaptain,
+      text: Club.Placeholder.subCaptain,
     },
   },
   label: {
     type: "plain_text",
-    text: clubLabel.subCaptain,
+    text: Club.Label.subCaptain,
   },
 };
 
@@ -95,12 +95,12 @@ const inputComponentMember = {
     action_id: "member",
     placeholder: {
       type: "plain_text",
-      text: placeholder.member,
+      text: Club.Placeholder.member,
     },
   },
   label: {
     type: "plain_text",
-    text: clubLabel.member,
+    text: Club.Label.member,
   },
 };
 
