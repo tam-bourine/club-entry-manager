@@ -17,7 +17,7 @@ export default class RegistModel {
         sheet?.appendRow([
           club.id,
           club.name,
-          // FIXME:
+          // FIXME: #109
           /**
            * 変更の可能性あり
            * members: [
