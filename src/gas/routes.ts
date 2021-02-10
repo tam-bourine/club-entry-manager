@@ -39,8 +39,8 @@ const doPost = (e: DoPostParams) => {
   const constants = new Constants();
   const { USER_ACTIONS } = constants;
 
-  // FIXME: これで取れる？
-  // TODO: リクエストの snake case はここで全て camel case に変えたい
+  // FIXME: データ取れているが型がウソついているかも
+  // #114 https://github.com/tam-bourine/club-manager/issues/114
   const params = JSON.parse(e.postData.getDataAsString());
 
   const regist = new RegistController();
