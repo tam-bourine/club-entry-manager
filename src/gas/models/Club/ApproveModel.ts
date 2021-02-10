@@ -12,9 +12,9 @@ export default class ApproveModel {
      * Approved : 公認セルを更新
      * Rejected : RegistModel.addClub で追加したクラブの Row を削除
      */
-    const { clubId, is_approved } = params;
+    const { clubId, isApproved } = params;
 
-    if (is_approved) {
+    if (isApproved) {
       return this.updateApprovedClub(clubId);
     } else {
       return this.deleteRejectedClub(clubId);

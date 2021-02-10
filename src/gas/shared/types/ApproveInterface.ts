@@ -4,5 +4,5 @@ export default interface ApproveInterface {
     slackId: string;
     name: string;
   };
-  is_approved: boolean;
+  isApproved: boolean;
 }

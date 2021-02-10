@@ -237,7 +237,7 @@
                       "name": "ピヨ橋ピヨ美"
                     }
                   },
-                  "is_approved": {
+                  "isApproved": {
                     "type": "boolean"
                   }
                 }
