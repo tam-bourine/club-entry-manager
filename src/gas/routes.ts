@@ -41,6 +41,7 @@ const doPost = (e: DoPostParams) => {
 
   // FIXME: データ取れているが型がウソついているかも
   // #114 https://github.com/tam-bourine/club-manager/issues/114
+  // @ts-ignore
   const params = JSON.parse(e.postData.getDataAsString());
 
   const regist = new RegistController();
