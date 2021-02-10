@@ -1,3 +1,4 @@
+import Constants from "../../shared/Constants";
 import Response from "../../shared/Response";
 import ApproveInterface from "../../shared/types/ApproveInterface";
 import ApproveView from "../../views/Club/ApproveView";
@@ -6,6 +7,8 @@ export default class ApproveModel {
   private res = new Response();
 
   private view = new ApproveView();
+
+  private constants = new Constants();
 
   updateClub(params: ApproveInterface) {
     /**
@@ -24,7 +27,6 @@ export default class ApproveModel {
   private updateApprovedClub(clubId: ApproveInterface["clubId"]) {
     try {
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
-      const approvedColumnNumber = 7;
       if (sheetTabName) {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
         const data = sheet?.getDataRange().getValues();
@@ -37,7 +39,7 @@ export default class ApproveModel {
             /**
              * 列7 : 公認
              */
-            sheet?.getRange(index, approvedColumnNumber).setValue(isApproved);
+            sheet?.getRange(index, this.constants.SPREAD_SHEET.APPROVED_COLUMN_NUMBER).setValue(isApproved);
           }
         });
         return this.view.provide(this.res.created);

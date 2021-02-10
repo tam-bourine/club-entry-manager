@@ -17,4 +17,8 @@ export default class Constants {
       JOIN: "join",
     },
   };
+
+  SPREAD_SHEET = {
+    APPROVED_COLUMN_NUMBER: 7,
+  };
 }
