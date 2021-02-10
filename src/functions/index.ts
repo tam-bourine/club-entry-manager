@@ -1,9 +1,10 @@
 import * as functions from "firebase-functions";
-import { App, ExpressReceiver, WorkflowStep } from "@slack/bolt";
+import { App, ExpressReceiver } from "@slack/bolt";
 
-import { addClubStep } from "./workflowStep/addClub";
+import { useNewClubCommand } from "./commands/newClub";
 
 const config = functions.config();
+const approvalChannelId = config.slack.approval_channel_id;
 
 const expressReceiver = new ExpressReceiver({
   signingSecret: config.slack.signing_secret,
@@ -23,10 +24,7 @@ app.error((err) => {
   });
 });
 
-// 創部申請用のワークフローから部活動の情報を取得する処理
-const workFlowAddClub = new WorkflowStep("add_club", addClubStep);
-
-app.step(workFlowAddClub);
+useNewClubCommand(app, approvalChannelId);
 
 (async () => {
   await app.start(config.slack.port_number || 3000);
