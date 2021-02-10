@@ -17,7 +17,7 @@ export default class RegistModel {
         sheet?.appendRow([
           club.id,
           club.name,
-          // FIXME: #109
+          // FIXME: #109 https://github.com/tam-bourine/club-manager/issues/109
           /**
            * 変更の可能性あり
            * members: [
