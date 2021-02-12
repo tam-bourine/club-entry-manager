@@ -2,7 +2,8 @@
   "slack": {
       "signing_secret": "",
       "bot_token": "",
-      "port_number": ""
+      "port_number": "",
+      "approval_channel_id": ""
   },
   "api": {
     "gas_url": ""

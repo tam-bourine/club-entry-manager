@@ -8,8 +8,8 @@
   },
   "scripts": {
     "build": "./node_modules/.bin/tsc",
-    "lint": "eslint --ext \"./src/**/*.ts\" --cache",
-    "lint:fix": "eslint --fix --ext \"./src/**/*.ts\" --cache",
+    "lint": "eslint --ext './src/**/*.ts' './**/*.json' --cache",
+    "lint:fix": "eslint --fix --ext './src/**/*.ts' './**/*.json' --cache",
     "firebase:serve": "firebase emulators:start --only functions",
     "firebase:shell": "firebase functions:shell",
     "firebase:start": "npm run shell",
@@ -50,6 +50,7 @@
     "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-plugin-googleappsscript": "^1.0.3",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-json": "^2.1.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-promise": "^4.2.1",
