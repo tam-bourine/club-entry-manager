@@ -11,3 +11,13 @@ export interface messageArg {
     }[];
   };
 }
+
+export interface sectionArg {
+  text:
+    | string
+    | {
+        type: string;
+        text: string;
+      }[];
+  textType: string;
+}

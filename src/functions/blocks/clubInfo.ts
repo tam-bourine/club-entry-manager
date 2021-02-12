@@ -1,94 +1,22 @@
 import { messageArg } from "../types/getMessage";
 import { Club } from "../clubConfig";
-import { header, divider } from "./generalComponent";
+import { header, divider, section } from "./generalComponent";
 
 export const getMessageBlocks = ({ clubInfo }: messageArg) => {
   return [
     header(Club.Label.title),
     divider,
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*${Club.Label.clubName}*`,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "plain_text",
-        text: `${clubInfo.name}`,
-        emoji: true,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*${Club.Label.description}*`,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "plain_text",
-        text: `${clubInfo.description}`,
-        emoji: true,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*${Club.Label.kibelaUrl}*`,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "plain_text",
-        text: `${clubInfo.kibela}`,
-        emoji: true,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*${Club.Label.captain}*`,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*<@${clubInfo.captainId}>*`,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*${Club.Label.subCaptain}*`,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*<@${clubInfo.subCaptainId}>*`,
-      },
-    },
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: `*${Club.Label.member}*`,
-      },
-    },
-    {
-      type: "section",
-      fields: clubInfo.membersId,
-    },
+    section({ text: Club.Label.clubName, textType: "label" }),
+    section({ text: clubInfo.name, textType: "plain_text" }),
+    section({ text: Club.Label.description, textType: "label" }),
+    section({ text: clubInfo.description, textType: "plain_text" }),
+    section({ text: Club.Label.kibelaUrl, textType: "label" }),
+    section({ text: clubInfo.kibela, textType: "plain_text" }),
+    section({ text: Club.Label.captain, textType: "label" }),
+    section({ text: clubInfo.captainId, textType: "mrkdwn" }),
+    section({ text: Club.Label.subCaptain, textType: "label" }),
+    section({ text: clubInfo.subCaptainId, textType: "mrkdwn" }),
+    section({ text: Club.Label.member, textType: "label" }),
+    section({ text: clubInfo.membersId, textType: "fields" }),
   ];
 };
