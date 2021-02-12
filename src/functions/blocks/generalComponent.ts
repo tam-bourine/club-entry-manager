@@ -15,49 +15,34 @@ export const divider = {
   type: "divider",
 };
 
-export const section = ({ text, textType }: sectionArg) => {
-  switch (textType) {
-    case "label": {
-      return {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: `*${text}*`,
-        },
-      };
-    }
-    case "plain_text": {
-      return {
-        type: "section",
-        text: {
-          type: textType,
-          text,
-          emoji: true,
-        },
-      };
-    }
-    case "mrkdwn": {
-      return {
-        type: "section",
-        text: {
-          type: textType,
-          text,
-        },
-      };
-    }
-    case "fields": {
-      return {
-        type: "section",
-        fields: text,
-      };
-    }
-    default:
-      return {
-        type: "section",
-        text: {
-          type: "plain_text",
-          text: "Error",
-        },
-      };
-  }
-};
+const label = ({ text }: sectionArg) => ({
+  type: "section",
+  text: {
+    type: "mrkdwn",
+    text: `*${text}*`,
+  },
+});
+
+const plainText = ({ text }: sectionArg) => ({
+  type: "section",
+  text: {
+    type: "plain_text",
+    text,
+    emoji: true,
+  },
+});
+
+const mrkdwn = ({ text }: sectionArg) => ({
+  type: "section",
+  text: {
+    type: "mrkdwn",
+    text,
+  },
+});
+
+const fields = ({ text }: sectionArg) => ({
+  type: "section",
+  fields: text,
+});
+
+export { label, plainText, mrkdwn, fields };

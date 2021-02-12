@@ -1,22 +1,22 @@
 import { messageArg } from "../types/getMessage";
 import { Club } from "../clubConfig";
-import { header, divider, section } from "./generalComponent";
+import { header, divider, fields, plainText, label, mrkdwn } from "./generalComponent";
 
 export const getMessageBlocks = ({ clubInfo }: messageArg) => {
   return [
     header(Club.Label.title),
     divider,
-    section({ text: Club.Label.clubName, textType: "label" }),
-    section({ text: clubInfo.name, textType: "plain_text" }),
-    section({ text: Club.Label.description, textType: "label" }),
-    section({ text: clubInfo.description, textType: "plain_text" }),
-    section({ text: Club.Label.kibelaUrl, textType: "label" }),
-    section({ text: clubInfo.kibela, textType: "plain_text" }),
-    section({ text: Club.Label.captain, textType: "label" }),
-    section({ text: clubInfo.captainId, textType: "mrkdwn" }),
-    section({ text: Club.Label.subCaptain, textType: "label" }),
-    section({ text: clubInfo.subCaptainId, textType: "mrkdwn" }),
-    section({ text: Club.Label.member, textType: "label" }),
-    section({ text: clubInfo.membersId, textType: "fields" }),
+    label({ text: Club.Label.clubName }),
+    plainText({ text: clubInfo.name }),
+    label({ text: Club.Label.description }),
+    plainText({ text: clubInfo.description }),
+    label({ text: Club.Label.kibelaUrl }),
+    plainText({ text: clubInfo.kibela }),
+    label({ text: Club.Label.captain }),
+    mrkdwn({ text: clubInfo.captainId }),
+    label({ text: Club.Label.subCaptain }),
+    mrkdwn({ text: clubInfo.subCaptainId }),
+    label({ text: Club.Label.member }),
+    fields({ text: clubInfo.membersId }),
   ];
 };
