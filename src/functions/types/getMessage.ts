@@ -19,5 +19,4 @@ export interface sectionArg {
         type: string;
         text: string;
       }[];
-  textType?: string;
 }
