@@ -116,6 +116,7 @@
                   "club": {
                     "type": "object",
                     "example": {
+                      "id": "piyofoo",
                       "name": "テニス部",
                       "description": "〜〜する"
                     }
@@ -235,6 +236,9 @@
                       "slackId": "19DPICZZ",
                       "name": "ピヨ橋ピヨ美"
                     }
+                  },
+                  "isApproved": {
+                    "type": "boolean"
                   }
                 }
               }
