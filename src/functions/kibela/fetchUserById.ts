@@ -1,3 +1,3 @@
-export const getId = () => {};
+export const getSlackId = () => {};
 
-export const fetchUserById = () => {};
+export const fetchUserByEmail = () => {};
