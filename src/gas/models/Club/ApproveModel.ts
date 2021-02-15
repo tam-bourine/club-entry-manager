@@ -35,20 +35,11 @@ export default class ApproveModel {
       if (sheetTabName) {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
         const data = sheet?.getDataRange().getValues();
-        const isApproved = true;
-        data?.map((value, index) => {
-          /**
-           * value[0] : id
-           */
-          /**
-           * 列7 : 公認
-           */
-          return (
-            value[0] === clubId &&
-            sheet?.getRange(index, this.constants.SPREAD_SHEET.APPROVED_COLUMN_NUMBER).setValue(isApproved)
-          );
+        // WIP: 動いとらん
+        const foo = data?.reduce((acc, cur, index) => {
+          return [{ targetColumnNumber: cur.findIndex((elem) => elem === clubId), targetRowNumber: index }];
         });
-        return this.view.provide(this.res.created);
+        return this.view.provide({ status: 8274081, message: `${foo![0].targetColumnNumber}` });
       }
       return this.view.provide(this.res.internalServer);
     } catch (error) {
