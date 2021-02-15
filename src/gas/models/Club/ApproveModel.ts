@@ -10,6 +10,8 @@ export default class ApproveModel {
 
   private constants = new Constants();
 
+  private isApproved = false;
+
   updateClub(params: ApproveInterface) {
     /**
      * Approved : 公認セルを更新
@@ -17,7 +19,11 @@ export default class ApproveModel {
      */
     const { clubId, isApproved } = params;
 
-    if (isApproved) {
+    // return this.view.provide({ status: 2000000000, message: `${clubId} was isApproved: ${isApproved}` });
+
+    this.isApproved = isApproved;
+
+    if (this.isApproved) {
       return this.updateApprovedClub(clubId);
     }
     return this.deleteRejectedClub(clubId);
