@@ -1,6 +1,6 @@
 import { App } from "@slack/bolt";
 import { inputClubModal } from "../blocks/inputClub";
-import { getMessageBlocks } from "../blocks/getMessage";
+import { getMessageBlocks } from "./../blocks/messages/modal";
 /* eslint strict: [2, "global"] */
 
 const viewsId = "newClubId";

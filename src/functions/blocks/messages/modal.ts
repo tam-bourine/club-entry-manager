@@ -1,6 +1,7 @@
-import { messageArg } from "../types/getMessage";
-import { Club } from "../clubConfig";
-import * as generalComponents from "./generalComponent";
+// import { Club } from "../clubConfig";
+import * as generalComponents from "./../generalComponents";
+import { messageArg } from "../../types/getMessage";
+import { Club } from "../../clubConfig";
 
 export const getMessageBlocks = ({ clubInfo }: messageArg) => [
   generalComponents.header(Club.Label.title),
