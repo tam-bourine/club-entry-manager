@@ -1,29 +1,28 @@
-import { sectionArg } from "../types/getMessage";
+import { sectionArgType } from "../types/getMessage";
 
-export const header = (title: string) => {
-  return {
-    type: "header",
-    text: {
-      type: "plain_text",
-      text: title,
-      emoji: true,
-    },
-  };
-};
+export const header = (title: string) => ({
+  type: "header",
+  text: {
+    type: "plain_text",
+    text: title,
+    emoji: true,
+  },
+});
 
 export const divider = {
   type: "divider",
 };
 
-const label = ({ text }: sectionArg) => ({
+const label = (title: string) => ({
   type: "section",
   text: {
     type: "mrkdwn",
-    text: `*${text}*`,
+    text: `*${title}*`,
   },
 });
 
-const plainText = ({ text }: sectionArg) => ({
+const plainText = ({ title, text }: { title: string; text: sectionArgType }) => ({
+  ...label(title),
   type: "section",
   text: {
     type: "plain_text",
@@ -32,7 +31,8 @@ const plainText = ({ text }: sectionArg) => ({
   },
 });
 
-const mrkdwn = ({ text }: sectionArg) => ({
+const mrkdwn = ({ title, text }: { title: string; text: sectionArgType }) => ({
+  ...label(title),
   type: "section",
   text: {
     type: "mrkdwn",
@@ -40,9 +40,10 @@ const mrkdwn = ({ text }: sectionArg) => ({
   },
 });
 
-const fields = ({ text }: sectionArg) => ({
+const fields = ({ title, text }: { title: string; text: sectionArgType }) => ({
+  ...label(title),
   type: "section",
   fields: text,
 });
 
-export { label, plainText, mrkdwn, fields };
+export { plainText, mrkdwn, fields };
