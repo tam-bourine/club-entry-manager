@@ -13,7 +13,7 @@ export const divider = {
   type: "divider",
 };
 
-const label = (title: string) => ({
+const sectionLabel = (title: string) => ({
   type: "section",
   text: {
     type: "mrkdwn",
@@ -21,8 +21,8 @@ const label = (title: string) => ({
   },
 });
 
-const plainText = ({ title, text }: { title: string; text: sectionArgType }) => ({
-  ...label(title),
+const sectionPlainText = ({ title, text }: { title: string; text: sectionArgType }) => ({
+  ...sectionLabel(title),
   type: "section",
   text: {
     type: "plain_text",
@@ -31,8 +31,8 @@ const plainText = ({ title, text }: { title: string; text: sectionArgType }) => 
   },
 });
 
-const mrkdwn = ({ title, text }: { title: string; text: sectionArgType }) => ({
-  ...label(title),
+const sectionMrkdwn = ({ title, text }: { title: string; text: sectionArgType }) => ({
+  ...sectionLabel(title),
   type: "section",
   text: {
     type: "mrkdwn",
@@ -40,10 +40,10 @@ const mrkdwn = ({ title, text }: { title: string; text: sectionArgType }) => ({
   },
 });
 
-const fields = ({ title, text }: { title: string; text: sectionArgType }) => ({
-  ...label(title),
+const sectionFields = ({ title, text }: { title: string; text: sectionArgType }) => ({
+  ...sectionLabel(title),
   type: "section",
   fields: text,
 });
 
-export { plainText, mrkdwn, fields };
+export { sectionPlainText, sectionMrkdwn, sectionFields };

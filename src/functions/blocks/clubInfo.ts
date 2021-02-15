@@ -1,16 +1,16 @@
 import { messageArg } from "../types/getMessage";
 import { Club } from "../clubConfig";
-import { header, divider, fields, plainText, mrkdwn } from "./generalComponent";
+import * as generalComponents from "./generalComponent";
 
 export const getMessageBlocks = ({ clubInfo }: messageArg) => {
   return [
-    header(Club.Label.title),
-    divider,
-    plainText({ title: Club.Label.clubName, text: clubInfo.name }),
-    plainText({ title: Club.Label.description, text: clubInfo.description }),
-    plainText({ title: Club.Label.kibelaUrl, text: clubInfo.kibela }),
-    mrkdwn({ title: Club.Label.captain, text: clubInfo.captainId }),
-    mrkdwn({ title: Club.Label.subCaptain, text: clubInfo.subCaptainId }),
-    fields({ title: Club.Label.member, text: clubInfo.membersId }),
+    generalComponents.header(Club.Label.title),
+    generalComponents.divider,
+    generalComponents.sectionPlainText({ title: Club.Label.clubName, text: clubInfo.name }),
+    generalComponents.sectionPlainText({ title: Club.Label.description, text: clubInfo.description }),
+    generalComponents.sectionPlainText({ title: Club.Label.kibelaUrl, text: clubInfo.kibela }),
+    generalComponents.sectionMrkdwn({ title: Club.Label.captain, text: clubInfo.captainId }),
+    generalComponents.sectionMrkdwn({ title: Club.Label.subCaptain, text: clubInfo.subCaptainId }),
+    generalComponents.sectionFields({ title: Club.Label.member, text: clubInfo.membersId }),
   ];
 };
