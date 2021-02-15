@@ -23,6 +23,7 @@ alt 承認する場合
     auth -> slackapp: 承認用モーダルに表示された承認ボタンを押す
     slackapp --> sheet: シートの創部APIをコール(GAS)
     sheet -> sheet: 部活まとめタブの最終行に新規部活名をインサート
+    slackapp --> sheet: シートの承認APIをコール（GAS)
     sheet -> sheet: 新規部活タブを作成し内容を埋める
 
     opt シート創部APIコール失敗
