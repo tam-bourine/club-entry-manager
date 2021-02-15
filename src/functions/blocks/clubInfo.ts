@@ -1,6 +1,6 @@
 import { messageArg } from "../types/getMessage";
 import { Club } from "../clubConfig";
-import { header, divider, fields, plainText, label, mrkdwn } from "./generalComponent";
+import { header, divider, fields, plainText, label, mrkdwn, button } from "./generalComponent";
 
 export const getMessageBlocks = ({ clubInfo }: messageArg) => {
   return [
@@ -18,5 +18,6 @@ export const getMessageBlocks = ({ clubInfo }: messageArg) => {
     mrkdwn({ text: clubInfo.subCaptainId }),
     label({ text: Club.Label.member }),
     fields({ text: clubInfo.membersId }),
+    button({ buttonOptions: clubInfo.button }),
   ];
 };
