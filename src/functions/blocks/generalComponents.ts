@@ -1,4 +1,4 @@
-import { sectionArgType } from "../types/getMessage";
+import { SectionArgType } from "../types/Messages";
 
 export const header = (title: string) => ({
   type: "header",
@@ -21,7 +21,7 @@ const sectionLabel = (title: string) => ({
   },
 });
 
-const sectionPlainText = ({ title, text }: { title: string; text: sectionArgType }) => ({
+const sectionPlainText = ({ title, text }: { title: string; text: SectionArgType }) => ({
   ...sectionLabel(title),
   type: "section",
   text: {
@@ -31,7 +31,7 @@ const sectionPlainText = ({ title, text }: { title: string; text: sectionArgType
   },
 });
 
-const sectionMrkdwn = ({ title, text }: { title: string; text: sectionArgType }) => ({
+const sectionMrkdwn = ({ title, text }: { title: string; text: SectionArgType }) => ({
   ...sectionLabel(title),
   type: "section",
   text: {
@@ -40,7 +40,7 @@ const sectionMrkdwn = ({ title, text }: { title: string; text: sectionArgType })
   },
 });
 
-const sectionFields = ({ title, text }: { title: string; text: sectionArgType }) => ({
+const sectionFields = ({ title, text }: { title: string; text: SectionArgType }) => ({
   ...sectionLabel(title),
   type: "section",
   fields: text,

@@ -1,9 +1,9 @@
 // import { Club } from "../clubConfig";
 import * as generalComponents from "./../generalComponents";
-import { messageArg } from "../../types/getMessage";
+import { ClubInfoArg } from "../../types/Messages";
 import { Club } from "../../clubConfig";
 
-export const getMessageBlocks = ({ clubInfo }: messageArg) => [
+export const getMessageBlocks = ({ clubInfo }: ClubInfoArg) => [
   generalComponents.header(Club.Label.title),
   generalComponents.divider,
   generalComponents.sectionPlainText({ title: Club.Label.clubName, text: clubInfo.name }),
