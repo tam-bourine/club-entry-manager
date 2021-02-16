@@ -249,7 +249,7 @@
         },
         "responses": {
           "201": {
-            "description": "成功時のレスポンス",
+            "description": "承認成功時のレスポンス",
             "content": {
               "application/json": {
                 "schema": {
@@ -262,6 +262,30 @@
                     "message": {
                       "type": "string",
                       "example": "201 Created"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "却下成功時のレスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "200 OK"
                     },
                     "success": {
                       "type": "boolean",
