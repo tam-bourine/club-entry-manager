@@ -2,7 +2,7 @@
   "columns": {
     "部員名": "string",
     "部員_SlackID": "string",
-    "入部日": "string",
-    "退部日": "string"
+    "入部日": "date",
+    "退部日": "date"
   }
 }
