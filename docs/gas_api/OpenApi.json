@@ -325,7 +325,7 @@
     },
     "?action=join": {
       "post": {
-        "summary": "参加申請",
+        "summary": "入部申請",
         "description": "申請のあった該当部活動シートに、申請者の名前を追加",
         "tags": ["club"],
         "parameters": [
@@ -346,7 +346,8 @@
                 "type": "object",
                 "properties": {
                   "clubId": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "fugapiyo"
                   },
                   "member": {
                     "type": "object",
