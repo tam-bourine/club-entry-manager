@@ -1,4 +1,4 @@
-export interface messageArg {
+export interface ClubInfoArg {
   clubInfo: {
     name: string;
     description: string;
@@ -12,11 +12,9 @@ export interface messageArg {
   };
 }
 
-export interface sectionArg {
-  text:
-    | string
-    | {
-        type: string;
-        text: string;
-      }[];
-}
+export type SectionArgType =
+  | string
+  | {
+      type: string;
+      text: string;
+    }[];
