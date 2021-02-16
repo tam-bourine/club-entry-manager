@@ -119,7 +119,8 @@
                       "name": "テニス部",
                       "description": "〜〜する",
                       "budgetUse": "テニス用具やドリンクの購入",
-                      "kibelaUrl": "https://kibe.la/"
+                      "kibelaUrl": "https://kibe.la/",
+                      "channelId": "C02DAE19"
                     }
                   },
                   "captain": {
