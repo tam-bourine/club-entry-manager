@@ -13,7 +13,7 @@ participant Kibela as kibela
 captain -> slackapp: 任意のチャンネルからスラッシュコマンドを使って創部申請のモーダルを起動
 slackapp --> captain: モーダルを表示
 captain --> slackapp: フォーム入力 & 送信
-note right: 必須項目\n(channelID, members, Kibela URL, reason)
+note right: 必須項目\n(name, description, budgetUse, channelId, kibelaUrl, captain, members)
 slackapp --> sheet: シートの創部APIをコール(GAS)
 sheet -> sheet: 部活まとめタブの最終行に新規部活名をインサート
 
