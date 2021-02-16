@@ -118,7 +118,9 @@
                     "example": {
                       "id": "piyofoo",
                       "name": "テニス部",
-                      "description": "〜〜する"
+                      "description": "〜〜する",
+                      "budgetUse": "テニス用具やドリンクの購入",
+                      "kibelaUrl": "https://kibe.la/"
                     }
                   },
                   "captain": {
@@ -128,7 +130,7 @@
                       "name": "キャプテンキッド"
                     }
                   },
-                  "collaborators": {
+                  "members": {
                     "type": "array",
                     "example": [
                       {
