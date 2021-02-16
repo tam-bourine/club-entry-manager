@@ -5,6 +5,7 @@
     "部活名": "string",
     "部費利用目的": "string",
     "Kibela_url": "string",
+    "Slackチャンネル": "string",
     "申請日": "date",
     "公認": "boolean",
     "承認者_SlackID": "string",
