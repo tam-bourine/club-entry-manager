@@ -116,7 +116,6 @@
                   "club": {
                     "type": "object",
                     "example": {
-                      "id": "piyofoo",
                       "name": "テニス部",
                       "description": "〜〜する",
                       "budgetUse": "テニス用具やドリンクの購入",
@@ -171,8 +170,8 @@
                     "club": {
                       "type": "object",
                       "example": {
-                        "id": "f00tsa1",
-                        "name": "フットサル部"
+                        "id": "fugapiyo",
+                        "name": "テニス部"
                       }
                     }
                   }
@@ -230,7 +229,8 @@
                 "type": "object",
                 "properties": {
                   "clubId": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "fugapiyo"
                   },
                   "authorizer": {
                     "type": "object",
