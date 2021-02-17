@@ -6,7 +6,8 @@
     "outDir": "./lib",
     "resolveJsonModule": true,
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "esModuleInterop": true
   },
   "include": ["src/functions/**/*", "src/gas/**/*"]
 }
