@@ -1,20 +1,13 @@
-import * as functions from "firebase-functions";
-import { App, ExpressReceiver } from "@slack/bolt";
+import { App } from "@slack/bolt";
+import * as dotenv from "dotenv";
 
 import { useNewClubCommand } from "./commands/newClub";
 
-const config = functions.config();
-const approvalChannelId = config.slack.approval_channel_id;
-
-const expressReceiver = new ExpressReceiver({
-  signingSecret: config.slack.signing_secret,
-  endpoints: "/events",
-  processBeforeResponse: true,
-});
+dotenv.config();
 
 const app = new App({
-  receiver: expressReceiver,
-  token: config.slack.bot_token,
+  token: process.env.SLACK_BOT_TOKEN!,
+  appToken: process.env.SLACK_APP_TOKEN!,
   processBeforeResponse: true,
 });
 
@@ -24,11 +17,9 @@ app.error((err) => {
   });
 });
 
-useNewClubCommand(app, approvalChannelId);
+useNewClubCommand(app, process.env.SLACK_APPROVAL_CHANNEL_ID!);
 
 (async () => {
-  await app.start(config.slack.port_number || 3000);
+  await app.start(Number(process.env.BOLT_PORT) || 3000);
   console.log("⚡️ Bolt app is running!");
 })();
-
-exports.slack = functions.https.onRequest(expressReceiver.app);
