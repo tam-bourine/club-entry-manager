@@ -1,1 +1,1 @@
-export * as kibela from "./kibela";
+export * as Kibela from "./kibela";
