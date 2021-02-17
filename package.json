@@ -39,10 +39,13 @@
     "dotenv": "^8.2.0",
     "firebase-admin": "^9.2.0",
     "firebase-functions": "^3.11.0",
+    "graphql": "^15.5.0",
+    "graphql-tag": "^2.11.0",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@types/google-apps-script": "^1.0.20",
+    "@types/graphql": "^14.5.0",
     "@types/node": ">=10",
     "@types/node-fetch": "^2.5.8",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
