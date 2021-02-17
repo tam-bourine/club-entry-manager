@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 
-dotenv.config({ path: `envs/.env.${process.env.STAGE}` });
+dotenv.config();
 
 export namespace Config {
   export namespace Kibela {
