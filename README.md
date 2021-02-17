@@ -169,9 +169,11 @@ cd ../..
 
 ※ClubManagerのSlackAppに招待してもらっている前提
 
+#### .envの作成
+
 `cp .env.example .env`で.envをコピーし、その中にある各値を以下の手順で取得 & 貼り付けしていく。
 
-#### [SLACK_APP_TOKEN]
+##### [SLACK_APP_TOKEN]
 
 赤枠をクリック(モーダルを開く)
 
@@ -181,15 +183,19 @@ cd ../..
 
 ![basicInfo2](https://user-images.githubusercontent.com/39585292/108169657-57cd9780-713c-11eb-86d1-ec9ebbe02561.png)
 
-#### [SLACK_BOT_TOKEN]
+#####  [SLACK_BOT_TOKEN]
 
 赤枠内のCopyをクリック
 
 ![InstallApp](https://user-images.githubusercontent.com/39585292/108169749-76339300-713c-11eb-9c7b-e76df49731f9.png)
 
-#### [SLACK_APPROVAL_CHANNEL_ID]
+#####  [SLACK_APPROVAL_CHANNEL_ID]
 
 開発用チャンネルのIDを`Copy link`を押して、
 https://tam-bourine.slack.com/archives/xxxxx のxxxxをコピー(今回はコピー済)
 
 ![copyLink](https://user-images.githubusercontent.com/39585292/108169784-85b2dc00-713c-11eb-863d-2da8df918d98.png)
+
+#### サーバ起動方法
+
+`npm run serve`でbolt起動
