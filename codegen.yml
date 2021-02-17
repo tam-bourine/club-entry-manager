@@ -1,0 +1,10 @@
+schema:
+  - https://tambourine.kibe.la/api/v1:
+      method: POST
+      headers:
+        Authorization: Bearer xxx
+overwrite: true
+generates:
+  ./src/functions/types/kibela.d.ts:
+      plugins:
+        - typescript
