@@ -167,7 +167,7 @@ cd ../..
 
 ### SocketModeでの開発方法
 
-※ClubManagerのSlackAppに招待してもらっている前提
+※club-managerのSlackAppに招待してもらっている前提
 
 #### .envの作成
 
