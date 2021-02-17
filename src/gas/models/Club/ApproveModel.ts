@@ -32,7 +32,6 @@ export default class ApproveModel {
       if (sheetTabName) {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
         const data = sheet?.getDataRange().getValues();
-        // WIP: 動いとらん
         const existsClubInRow = data?.map((rowData, rowIndex) => {
           return rowData.includes(clubId) && rowIndex;
         });
