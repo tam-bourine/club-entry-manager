@@ -4,10 +4,10 @@ require("dotenv").config();
 module.exports = {
   schema: [
     {
-      "https://tambourine.kibe.la/api/v1": {
+      [`https://${process.env.KIBELA_TEAM_NAME}.kibe.la/api/v1`]: {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${process.env.CODEGEN_AUTH_TOKEN}`,
+          Authorization: `Bearer ${process.env.KIBELA_ACCESS_TOKEN}`,
         },
       },
     },
