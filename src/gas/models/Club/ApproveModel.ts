@@ -14,8 +14,8 @@ export default class ApproveModel {
 
   updateClub(params: ApproveInterface) {
     /**
-     * Approved : 公認セルを更新
-     * Rejected : RegistModel.addClub で追加したクラブの Row を削除
+     * Approved : 公認セルを TRUE で更新
+     * Rejected : 公認セルを FALSE で更新
      */
     const { clubId, isApproved } = params;
 
@@ -46,6 +46,11 @@ export default class ApproveModel {
             sheet?.getRange(exists + 1, this.constants.SPREAD_SHEET.APPROVED_COLUMN_NUMBER).setValue(this.isApproved)
           );
         });
+        /**
+         * もし club が Sheets 上に存在しなかった場合は result が全て false になる => not found を返す
+         */
+        if (result?.every((elem) => typeof elem === "boolean")) return this.view.provide(this.res.notFound);
+        return this.view.provide(this.res.created);
       }
       return this.view.provide(this.res.internalServer);
     } catch (error) {
