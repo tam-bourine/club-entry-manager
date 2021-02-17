@@ -14,7 +14,7 @@ module.exports = {
   ],
   overwrite: true,
   generates: {
-    "./src/functions/types/kibela.d.ts": {
+    "./@types/kibela.d.ts": {
       plugins: ["typescript"],
     },
   },
