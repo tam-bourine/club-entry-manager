@@ -23,10 +23,7 @@ export default class ApproveModel {
 
     this.isApproved = isApproved;
 
-    if (this.isApproved) {
-      return this.updateApprovedClub(clubId);
-    }
-    return this.deleteRejectedClub(clubId);
+    return this.updateApprovedClub(clubId);
   }
 
   private updateApprovedClub(clubId: ApproveInterface["clubId"]) {
@@ -36,31 +33,19 @@ export default class ApproveModel {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
         const data = sheet?.getDataRange().getValues();
         // WIP: 動いとらん
-        const foo = data?.reduce((acc, cur, index) => {
-          return [{ targetColumnNumber: cur.findIndex((elem) => elem === clubId), targetRowNumber: index }];
+        const existsClubInRow = data?.map((rowData, rowIndex) => {
+          return rowData.includes(clubId) && rowIndex;
         });
-        return this.view.provide({ status: 8274081, message: `${foo![0].targetColumnNumber}` });
-      }
-      return this.view.provide(this.res.internalServer);
-    } catch (error) {
-      console.error({ error });
-      return this.view.provide(this.res.internalServer);
-    }
-  }
-
-  private deleteRejectedClub(clubId: ApproveInterface["clubId"]) {
-    try {
-      const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
-      if (sheetTabName) {
-        const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
-        const data = sheet?.getDataRange().getValues();
-        data?.map((value, index) => {
+        const result = existsClubInRow?.map((exists) => {
           /**
-           * value[0] : id
+           * exists : Row に club が存在する場合その Row の index, 存在しない場合は false
+           *          Sheets の Row は 1 開始なので exists + 1 で合わせる
            */
-          return value[0] === clubId && sheet?.deleteRow(index);
+          return (
+            exists &&
+            sheet?.getRange(exists + 1, this.constants.SPREAD_SHEET.APPROVED_COLUMN_NUMBER).setValue(this.isApproved)
+          );
         });
-        return this.view.provide(this.res.created);
       }
       return this.view.provide(this.res.internalServer);
     } catch (error) {
