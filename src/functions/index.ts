@@ -1,11 +1,11 @@
 import { App } from "@slack/bolt";
 import { useNewClubCommand } from "./commands/newClub";
-import { Bolt, Slack } from "./constant";
+import { Config } from "./constant";
 
 const app = new App({
   socketMode: true,
-  token: Slack.Bot.TOKEN,
-  appToken: Slack.App.TOKEN,
+  token: Config.Slack.Bot.TOKEN,
+  appToken: Config.Slack.App.TOKEN,
 });
 
 app.error((err) => {
@@ -14,9 +14,9 @@ app.error((err) => {
   });
 });
 
-useNewClubCommand(app, Slack.APPROVAL_CHANNEL_ID);
+useNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
 
 (async () => {
-  await app.start(Bolt.PORT ?? 3000);
+  await app.start(Config.Bolt.PORT ?? 3000);
   console.log("⚡️ Bolt app is running!");
 })();
