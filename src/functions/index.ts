@@ -1,5 +1,6 @@
 import { App } from "@slack/bolt";
 import * as dotenv from "dotenv";
+import { Kibela } from "./api";
 
 import { useNewClubCommand } from "./commands/newClub";
 
@@ -22,4 +23,7 @@ useNewClubCommand(app, process.env.SLACK_APPROVAL_CHANNEL_ID!);
 (async () => {
   await app.start(parseInt(process.env.BOLT_PORT!, 10) ?? 3000);
   console.log("⚡️ Bolt app is running!");
+
+  const group = await Kibela.getGroup();
+  console.log(group);
 })();
