@@ -19,9 +19,8 @@ export default class ApproveModel {
 
     if (isApproved) {
       return this.updateApprovedClub(clubId);
-    } else {
-      return this.deleteRejectedClub(clubId);
     }
+    return this.deleteRejectedClub(clubId);
   }
 
   private updateApprovedClub(clubId: ApproveInterface["clubId"]) {
@@ -35,15 +34,17 @@ export default class ApproveModel {
           /**
            * value[0] : id
            */
-          if (value[0] === clubId) {
-            /**
-             * 列7 : 公認
-             */
-            sheet?.getRange(index, this.constants.SPREAD_SHEET.APPROVED_COLUMN_NUMBER).setValue(isApproved);
-          }
+          /**
+           * 列7 : 公認
+           */
+          return (
+            value[0] === clubId &&
+            sheet?.getRange(index, this.constants.SPREAD_SHEET.APPROVED_COLUMN_NUMBER).setValue(isApproved)
+          );
         });
         return this.view.provide(this.res.created);
-      } else return this.view.provide(this.res.internalServer);
+      }
+      return this.view.provide(this.res.internalServer);
     } catch (error) {
       console.error({ error });
       return this.view.provide(this.res.internalServer);
@@ -60,12 +61,11 @@ export default class ApproveModel {
           /**
            * value[0] : id
            */
-          if (value[0] === clubId) {
-            sheet?.deleteRow(index);
-          }
+          return value[0] === clubId && sheet?.deleteRow(index);
         });
         return this.view.provide(this.res.created);
-      } else return this.view.provide(this.res.internalServer);
+      }
+      return this.view.provide(this.res.internalServer);
     } catch (error) {
       console.error({ error });
       return this.view.provide(this.res.internalServer);
