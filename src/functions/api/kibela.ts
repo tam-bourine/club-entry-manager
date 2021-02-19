@@ -2,9 +2,9 @@ import nodeFetch from "node-fetch";
 import { print as printGql } from "graphql/language/printer";
 import { ASTNode } from "graphql/language/ast";
 import gql from "graphql-tag";
-import type kibela from "../../../@types/kibela.d";
+import type { Group } from "../../../@types/kibela.d";
 
-const KibelaAPI = async (query: ASTNode): Promise<any> => {
+const kibelaAPI = async (query: ASTNode): Promise<any> => {
   const response = await nodeFetch(`https://${process.env.KIBELA_TEAM_NAME}.kibe.la/api/v1`, {
     method: "POST",
     headers: {
@@ -27,7 +27,7 @@ const KibelaAPI = async (query: ASTNode): Promise<any> => {
   return result.data;
 };
 
-export const getGroup = async (): Promise<kibela.Group> => {
+export const getGroup = async (): Promise<Group> => {
   const query = gql`
     query {
       group(id: "${process.env.KIBELA_HOME_ID}") {
@@ -42,5 +42,5 @@ export const getGroup = async (): Promise<kibela.Group> => {
     }
   `;
 
-  return KibelaAPI(query);
+  return kibelaAPI(query);
 };
