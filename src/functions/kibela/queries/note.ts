@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import type { Note } from "../../../../@types/kibela.d";
-import { KibelaAPI } from "../../api/kibela";
+import { callAPI } from "../../api/kibela";
 
 export const fetchNoteByUrl = async (url: string): Promise<Note> => {
   const query = gql`
@@ -13,6 +13,6 @@ export const fetchNoteByUrl = async (url: string): Promise<Note> => {
     }
   `;
 
-  const data = await KibelaAPI(query);
+  const data = await callAPI(query);
   return data.noteFromPath;
 };

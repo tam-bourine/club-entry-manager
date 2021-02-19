@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { KibelaAPI } from "../../api/kibela";
+import { callAPI } from "../../api/kibela";
 import type { User } from "../../../../@types/kibela.d";
 
 // TODO: SlackApp 側で SlackId から Email を取得、はダメそう
@@ -22,6 +22,6 @@ export const getUsers = async (): Promise<User[]> => {
       }
     }
   `;
-  const data = await KibelaAPI(query);
+  const data = await callAPI(query);
   return data.group.users.nodes;
 };

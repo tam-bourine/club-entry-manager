@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { KibelaAPI } from "../../api/kibela";
+import { callAPI } from "../../api/kibela";
 import type { Note } from "../../../../@types/kibela.d";
 import { fetchNoteByUrl } from "../queries/note";
 
@@ -17,6 +17,6 @@ export const apploveOfficallyClub = async (url: string, clubName: string): Promi
       }
     }
   `;
-  const data = await KibelaAPI(mutation);
+  const data = await callAPI(mutation);
   return data.updateNoteFolder.note;
 };
