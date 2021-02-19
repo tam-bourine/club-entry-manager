@@ -1,22 +1,20 @@
-import { WebClient, KnownBlock, Block } from "@slack/web-api"
+import { WebClient, KnownBlock, Block } from "@slack/web-api";
 
-export interface messageArg {
-  clubInfo: {
-    name: string;
-    description: string;
-    kibela: string;
-    captainId: string;
-    subCaptainId: string;
-    membersId: {
-      type: string;
-      text: string;
-    }[];
-    button: {
-      text: string;
-      color: string;
-      action_id: string;
-    }[]
-  };
+export interface clubInfoArg {
+  name: string;
+  description: string;
+  kibela: string;
+  captainId: string;
+  subCaptainId: string;
+  membersId: {
+    type: string;
+    text: string;
+  }[];
+  button: {
+    text: string;
+    color: string;
+    actionId: string;
+  }[];
 }
 
 export interface sectionArg {
@@ -32,8 +30,8 @@ export interface buttonArg {
   buttonOptions: {
     text: string;
     color?: string;
-    action_id: string;
-  }[]
+    actionId: string;
+  }[];
 }
 
 export interface formArg {
@@ -52,5 +50,11 @@ export interface modalArg {
     title: string;
     blocks: (KnownBlock | Block)[];
     submit: string;
-  }
+  };
 }
+export type SectionArgType =
+  | string
+  | {
+      type: string;
+      text: string;
+    }[];

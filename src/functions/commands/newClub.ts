@@ -1,11 +1,12 @@
 import { App } from "@slack/bolt";
+import { BlockAction } from "@slack/bolt/dist/types/actions/block-action";
 import { inputClubModal } from "../blocks/inputClub";
-import { getMessageBlocks } from "../blocks/clubInfo";
+import { getMessageBlocks } from "../blocks/messages/modal";
 import { getRejectBlocks } from "../blocks/reject";
-import { getApprovalBlocks } from "../blocks/approval"
-import { BlockAction } from "@slack/bolt/dist/types/actions/block-action"
+import { getApprovalBlocks } from "../blocks/approval";
 import { getModal } from "../modal/modalTemplate";
-import { Modal } from "../config/modalConfig"
+import { Modal } from "../config/modalConfig";
+
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
@@ -23,8 +24,8 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       callbackId: clubViewsId,
       title: Modal.Title.request,
       blocks: inputClubModal,
-      submit: Modal.Button.request
-    }
+      submit: Modal.Button.request,
+    };
 
     getModal({ modalInfo });
   });
@@ -47,14 +48,14 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       {
         text: "却下",
         color: "danger",
-        action_id: "reject_modal"
+        action_id: "reject_modal",
       },
       {
         text: "承認",
         color: "primary",
-        action_id: "approval_modal"
-      }
-    ]
+        action_id: "approval_modal",
+      },
+    ];
 
     const clubInfo = {
       name: values.club_name.name.value,
@@ -63,7 +64,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       captainId: `*<@${values.captain_name.captain.selected_user}>*`,
       subCaptainId: `*<@${values.sub_captain_name.sub_captain.selected_user}>*`,
       membersId: membersField,
-      button: buttonOption
+      button: buttonOption,
     };
 
     // 承認チャンネルに対して部活動申請情報を送信
@@ -80,9 +81,8 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
   });
 
   // 却下理由入力モーダル表示
-  app.action("reject_modal", async({ack, client, body, context}) => {
+  app.action("reject_modal", async ({ ack, client, body, context }) => {
     ack();
-    
     const triggerId = (<BlockAction>body).trigger_id;
     const modalInfo = {
       client,
@@ -91,17 +91,15 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       callbackId: rejectViewsId,
       title: Modal.Title.reject,
       blocks: getRejectBlocks(),
-      submit: Modal.Button.reject
-    }
+      submit: Modal.Button.reject,
+    };
 
     getModal({ modalInfo });
-  })
+  });
 
   // 承認確認用モーダル表示
-  app.action("approval_modal", async({ack, client, body, context}) => {
+  app.action("approval_modal", async ({ ack, client, body, context }) => {
     ack();
-    
-    console.log({ body });
     const triggerId = (<BlockAction>body).trigger_id;
     const modalInfo = {
       client,
@@ -110,9 +108,9 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       callbackId: approvalViewsId,
       title: Modal.Title.approval,
       blocks: getApprovalBlocks("承認します。よろしいですか？"),
-      submit: Modal.Button.approval
-    }
+      submit: Modal.Button.approval,
+    };
 
     getModal({ modalInfo });
-  })
+  });
 };

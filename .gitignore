@@ -9,3 +9,4 @@ node_modules
 .eslintcache
 lib
 config.json
+.env
