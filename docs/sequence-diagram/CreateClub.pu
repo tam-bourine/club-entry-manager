@@ -36,7 +36,7 @@ alt 承認する場合
         slackapp -> auth: モーダルを閉じて処理を中断
     end
 
-    auth -> slackapp: OKボタンを押す
+    auth -> slackapp: 承認ボタンを押す
 
     slackapp --> sheet: シートの承認APIをコール(GAS)
     sheet -> sheet: 新規部活タブを作成し内容を埋める
