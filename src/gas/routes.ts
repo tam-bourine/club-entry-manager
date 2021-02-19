@@ -6,6 +6,7 @@ import GetController from "./controllers/Clubs/GetController";
 import InvalidActionController from "./controllers/InvalidActionController";
 import Constants from "./shared/Constants";
 
+/* global GoogleAppsScript */
 interface DoGetParams extends GoogleAppsScript.Events.DoGet {
   parameter: ParameterInterface;
 }
@@ -14,7 +15,7 @@ interface DoPostParams extends GoogleAppsScript.Events.DoPost {
   parameter: ParameterInterface;
 }
 
-const doGet = (e: DoGetParams) => {
+export const doGet = (e: DoGetParams) => {
   const { action } = e.parameter;
 
   const constants = new Constants();
@@ -33,7 +34,7 @@ const doGet = (e: DoGetParams) => {
   }
 };
 
-const doPost = (e: DoPostParams) => {
+export const doPost = (e: DoPostParams) => {
   const { action } = e.parameter;
 
   const constants = new Constants();
