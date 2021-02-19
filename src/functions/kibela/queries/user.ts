@@ -8,7 +8,7 @@ export const getKibelaId = () => {};
 
 export const fetchUserByKibelaId = () => {};
 
-export const getUsers = async (): Promise<User[]> => {
+export const getAll = async (): Promise<User[]> => {
   const query = gql`
     query {
       group(id: "${process.env.KIBELA_HOME_ID}") {
