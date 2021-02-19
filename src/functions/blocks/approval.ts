@@ -1,7 +1,5 @@
-import { label, plainText } from "./generalComponent";
+import { sectionPlainText } from "./generalComponents";
 
 export const getApprovalBlocks = (text: string) => {
-  return [
-    plainText({ text })
-  ]
-}
+  return [sectionPlainText({ text })];
+};

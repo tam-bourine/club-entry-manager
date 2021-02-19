@@ -9,7 +9,7 @@ export const getMessageBlocks = ({
   captainId,
   subCaptainId,
   membersId,
-  button,
+  buttons,
 }: clubInfoArg) => [
   header(Club.Label.title),
   divider,
@@ -19,5 +19,5 @@ export const getMessageBlocks = ({
   sectionMrkdwn({ title: Club.Label.captain, text: captainId }),
   sectionMrkdwn({ title: Club.Label.subCaptain, text: subCaptainId }),
   sectionFields({ title: Club.Label.member, text: membersId }),
-  sectionButton({ buttonOptions: button }),
+  sectionButton(buttons),
 ];

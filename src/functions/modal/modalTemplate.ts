@@ -1,31 +1,31 @@
 import { Modal } from "../config/modalConfig";
-import { modalArg } from "../types/getMessage";
+import { modalArg } from "../types/Messages";
 
-export const getModal = async({ modalInfo }: modalArg)  => {
-  await modalInfo.client.views
+export const getModal = async ({ client, botToken, triggerId, callbackId, title, blocks, submit }: modalArg) => {
+  await client.views
     .open({
-      context: modalInfo.botToken,
-      trigger_id: modalInfo.triggerId,
+      context: botToken,
+      trigger_id: triggerId,
       view: {
         type: "modal",
-        callback_id: modalInfo.callbackId,
+        callback_id: callbackId,
         title: {
           type: "plain_text",
-          text: modalInfo.title,
-          emoji: true
+          text: title,
+          emoji: true,
         },
-        blocks: modalInfo.blocks,
+        blocks: blocks,
         submit: {
           type: "plain_text",
-          text: modalInfo.submit,
+          text: submit,
         },
         close: {
           type: "plain_text",
-          text: Modal.Button.cancel
-        }
-      }
+          text: Modal.Button.cancel,
+        },
+      },
     })
     .catch((error) => {
       console.error({ error });
     });
-}
+};

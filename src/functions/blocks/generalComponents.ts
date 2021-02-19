@@ -21,15 +21,23 @@ const sectionLabel = (title: string) => ({
   },
 });
 
-const sectionPlainText = ({ title, text }: { title: string; text: SectionArgType }) => ({
-  ...sectionLabel(title),
-  type: "section",
-  text: {
-    type: "plain_text",
-    text,
-    emoji: true,
-  },
-});
+const sectionPlainText = ({ title, text }: { title?: string; text: SectionArgType }) => {
+  const section = {
+    type: "section",
+    text: {
+      type: "plain_text",
+      text,
+      emoji: true,
+    },
+  };
+  if (!title) {
+    return section;
+  }
+  return {
+    ...sectionLabel(title),
+    ...section,
+  };
+};
 
 const sectionMrkdwn = ({ title, text }: { title: string; text: SectionArgType }) => ({
   ...sectionLabel(title),
@@ -46,8 +54,8 @@ const sectionFields = ({ title, text }: { title: string; text: SectionArgType })
   fields: text,
 });
 
-const sectionButton = ({ buttonOptions }: buttonArg) => {
-  const elements = buttonOptions.map((item) => {
+const sectionButton = (buttons: buttonArg[]) => {
+  const elements = buttons.map((item) => {
     return {
       type: "button",
       text: {
