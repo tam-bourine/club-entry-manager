@@ -1,6 +1,10 @@
 import * as dotenv from "dotenv";
 
-dotenv.config();
+const config = dotenv.config().parsed!;
+
+Object.keys(config).forEach((key) => {
+  process.env[key] = config[key];
+});
 
 export namespace Config {
   export namespace Kibela {
