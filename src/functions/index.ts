@@ -1,6 +1,5 @@
 import { App } from "@slack/bolt";
 import * as dotenv from "dotenv";
-
 import { useNewClubCommand } from "./commands/newClub";
 
 dotenv.config();
