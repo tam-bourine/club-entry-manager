@@ -1,5 +1,5 @@
 // import { Club } from "../clubConfig";
-import * as generalComponents from "./../generalComponents";
+import * as generalComponents from "../generalComponents";
 import { ClubInfoArg } from "../../types/Messages";
 import { Club } from "../../clubConfig";
 

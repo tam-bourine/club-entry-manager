@@ -15,13 +15,14 @@ export default class GetModel {
         const data = sheet?.getDataRange().getValues();
         const clubs: ResponseInterface["clubs"] = [];
         data?.map((value) => {
-          clubs.push({
+          return clubs.push({
             id: value[0],
             name: value[1],
           });
         });
         return this.view.provide({ ...this.res.ok, clubs });
-      } else return this.view.provide(this.res.internalServer);
+      }
+      return this.view.provide(this.res.internalServer);
     } catch (error) {
       console.error({ error });
       return this.view.provide(this.res.internalServer);
