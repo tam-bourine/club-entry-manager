@@ -1,44 +1,35 @@
 import { App } from "@slack/bolt";
 import { inputClubModal } from "../blocks/inputClub";
 import { getMessageBlocks } from "../blocks/clubInfo";
-import { getApprovalBlocks } from "../blocks/approval";
+import { getRejectBlocks } from "../blocks/reject";
+import { getApprovalBlocks } from "../blocks/approval"
 import { BlockAction } from "@slack/bolt/dist/types/actions/block-action"
+import { getModal } from "../modal/modalTemplate";
+import { Modal } from "../config/modalConfig"
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
-const approvalViewsId = "approvalId"
+const approvalViewsId = "approvalId";
+const rejectViewsId = "rejectId";
 
 export const useNewClubCommand = (app: App, approvalChannelId: string) => {
   app.command("/new-club", async ({ ack, body, context, client }) => {
     ack();
 
-    await client.views
-      .open({
-        context: context.botToken,
-        trigger_id: body.trigger_id,
-        view: {
-          type: "modal",
-          callback_id: clubViewsId,
-          title: {
-            type: "plain_text",
-            text: "部活動申請フォーム",
-          },
-          blocks: inputClubModal,
-          submit: {
-            type: "plain_text",
-            text: "申請",
-          },
-          close: {
-            type: "plain_text",
-            text: "キャンセル"
-          }
-        },
-      })
-      .catch((error) => {
-        console.error({ error });
-      });
+    const modalInfo = {
+      client,
+      botToken: context.botToken,
+      triggerId: body.trigger_id,
+      callbackId: clubViewsId,
+      title: Modal.Title.request,
+      blocks: inputClubModal,
+      submit: Modal.Button.request
+    }
+
+    getModal({ modalInfo });
   });
 
+  // 承認専用チャンネルに創部申請情報を流す処理
   app.view(clubViewsId, async ({ ack, view, client }) => {
     ack();
 
@@ -52,7 +43,6 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       };
     });
 
-    // 表示するボタンの設定
     const buttonOption = [
       {
         text: "却下",
@@ -66,7 +56,6 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       }
     ]
 
-    // 創部申請時に入力した各項目の情報
     const clubInfo = {
       name: values.club_name.name.value,
       description: values.club_description.description.value,
@@ -77,7 +66,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       button: buttonOption
     };
 
-    // 承認専用チャンネルに対して部活動申請情報を送信
+    // 承認チャンネルに対して部活動申請情報を送信
     await client.chat
       .postMessage({
         token: client.token,
@@ -90,35 +79,40 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       });
   });
 
+  // 却下理由入力モーダル表示
   app.action("reject_modal", async({ack, client, body, context}) => {
     ack();
     
-    const trigger_id = (<BlockAction>body).trigger_id;
+    const triggerId = (<BlockAction>body).trigger_id;
+    const modalInfo = {
+      client,
+      botToken: context.botToken,
+      triggerId,
+      callbackId: rejectViewsId,
+      title: Modal.Title.reject,
+      blocks: getRejectBlocks(),
+      submit: Modal.Button.reject
+    }
 
-    await client.views
-      .open({
-        context: context.botToken,
-        trigger_id,
-        view: {
-          type: "modal",
-          callback_id: clubViewsId,
-          title: {
-            type: "plain_text",
-            text: "却下理由入力フォーム",
-          },
-          blocks: getApprovalBlocks(),
-          submit: {
-            type: "plain_text",
-            text: "送信",
-          },
-          close: {
-            type: "plain_text",
-            text: "キャンセル"
-          }
-        },
-      })
-      .catch((error) => {
-        console.error({ error });
-      });
+    getModal({ modalInfo });
+  })
+
+  // 承認確認用モーダル表示
+  app.action("approval_modal", async({ack, client, body, context}) => {
+    ack();
+    
+    console.log({ body });
+    const triggerId = (<BlockAction>body).trigger_id;
+    const modalInfo = {
+      client,
+      botToken: context.botToken,
+      triggerId,
+      callbackId: approvalViewsId,
+      title: Modal.Title.approval,
+      blocks: getApprovalBlocks("承認します。よろしいですか？"),
+      submit: Modal.Button.approval
+    }
+
+    getModal({ modalInfo });
   })
 };

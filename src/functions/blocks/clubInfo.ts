@@ -1,5 +1,5 @@
 import { messageArg } from "../types/getMessage";
-import { Club } from "../clubConfig";
+import { Club } from "../config/clubConfig";
 import { header, divider, fields, plainText, label, mrkdwn, button } from "./generalComponent";
 
 export const getMessageBlocks = ({ clubInfo }: messageArg) => {

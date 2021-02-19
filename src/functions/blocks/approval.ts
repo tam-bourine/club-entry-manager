@@ -1,13 +1,7 @@
-import { form } from "../blocks/generalComponent";
-import { Club } from "../clubConfig"
+import { label, plainText } from "./generalComponent";
 
-export const getApprovalBlocks = () => {
+export const getApprovalBlocks = (text: string) => {
   return [
-    form({ 
-      label: Club.Label.reject, 
-      placeholder: Club.Placeholder.rejectReason, 
-      actionId: "reject", 
-      blockId: "reject_input" 
-    }),
+    plainText({ text })
   ]
 }

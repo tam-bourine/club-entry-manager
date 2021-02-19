@@ -1,3 +1,5 @@
+import { WebClient, KnownBlock, Block } from "@slack/web-api"
+
 export interface messageArg {
   clubInfo: {
     name: string;
@@ -39,4 +41,16 @@ export interface formArg {
   placeholder: string;
   actionId: string;
   blockId: string;
+}
+
+export interface modalArg {
+  modalInfo: {
+    client: WebClient;
+    botToken: string;
+    triggerId: string;
+    callbackId: string;
+    title: string;
+    blocks: (KnownBlock | Block)[];
+    submit: string;
+  }
 }
