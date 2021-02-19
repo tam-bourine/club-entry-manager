@@ -34,23 +34,48 @@ export default class ApproveModel {
       if (sheetTabName) {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
         const data = sheet?.getDataRange().getValues();
+        /**
+         * @description
+         *  &&
+         *    @see https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Logical_AND
+         *
+         *  `rowData.includes && rowIndex` によって、 clubId が行に含まれている場合
+         *  && の右の rowIndex(クラブが含まれる行の index)が return される
+         *  clubId が行に含まれていない場合は false が return される
+         *
+         *  existsClubInRow
+         *    [false, 4, false, false, ... ,false] のようなデータになる
+         *
+         */
         const existsClubInRow = data?.map((rowData, rowIndex) => {
           return rowData.includes(clubId) && rowIndex;
         });
-        const result = existsClubInRow?.map((exists) => {
-          /**
-           * exists : Row に club が存在する場合その Row の index, 存在しない場合は false
-           *          Sheets の Row は 1 開始なので exists + 1 で合わせる
-           */
+        /**
+         * @description
+         *  existsClubInRow の各要素 exists が false 以外(clubId と id が一致するクラブが存在する)の場合
+         *  sheet?.getRange(exists + 1, this.constants.SPREAD_SHEET.APPROVED_COLUMN_NUMBER).setValue(isApproved)
+         *  が実行される
+         *
+         *  result
+         *    [false, Range, false, false, ..., false] のようなデータになる
+         *
+         */
+        const results = existsClubInRow?.map((exists) => {
           return (
             exists &&
             sheet?.getRange(exists + 1, this.constants.SPREAD_SHEET.APPROVED_COLUMN_NUMBER).setValue(isApproved)
           );
         });
         /**
-         * もし club が Sheets 上に存在しなかった場合は result が全て false になる => not found を返す
+         * @description
+         *  Array.prototype.every
+         *    @see https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/every
+         *
+         *  results に false が含まれない(シートの更新が正常に終了した)場合
+         *  201 created を返す
+         *
          */
-        if (result?.every((elem) => typeof elem === "boolean")) return this.view.provide(this.res.notFound);
+        if (results?.every((result) => typeof result === "boolean")) return this.view.provide(this.res.notFound);
         return this.view.provide(this.res.created);
       }
       return this.view.provide(this.res.internalServer);
