@@ -22,7 +22,10 @@ export namespace Config {
 
     export namespace Bolt {
       export const SERVE_PORT = parseInt(process.env.BOLT_PORT!, 10);
-      export const { APP_ENV } = process.env;
     }
+  }
+
+  export namespace General {
+    export const { APP_ENV } = process.env;
   }
 }

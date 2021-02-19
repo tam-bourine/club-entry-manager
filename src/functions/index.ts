@@ -1,6 +1,6 @@
 import { App } from "@slack/bolt";
 import { useNewClubCommand } from "./commands/newClub";
-import { Config } from "./constant";
+import { Config } from "../constant";
 
 const app = new App({
   socketMode: Config.Slack.Bolt.APP_ENV === "local",
