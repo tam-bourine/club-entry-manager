@@ -62,7 +62,7 @@ alt 承認する場合
     end
 
     kibela -> slackapp: Kibela API が成功したレスポンス
-    slackapp -->> auth: 承認した内容が #help_club に流れる
+    slackapp -->> auth: 承認した内容が承認者専用チャンネルに流れる
     slackapp -->> captain: 承認された結果を #c_* に @channel で流す
     slackapp -->> slack: #notifications にシンプルな通知
 
@@ -77,7 +77,7 @@ else 却下する場合
 
     auth -> slackapp: 却下理由を入力して、却下ボタンをクリック
 
-    slackapp -->> auth: 却下した内容が #help_club に流れる
+    slackapp -->> auth: 却下した内容が承認者専用チャンネルに流れる
     slackapp -->> captain: 却下された結果を #c_* に @channel で流す
 end
 
