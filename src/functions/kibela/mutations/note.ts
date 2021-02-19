@@ -1,21 +1,7 @@
 import gql from "graphql-tag";
-import { KibelaAPI } from "../api/kibela";
-import type { Note } from "../../../@types/kibela.d";
-
-const fetchNoteByUrl = async (url: string): Promise<Note> => {
-  const query = gql`
-    query {
-      noteFromPath(path: "${url}") {
-        id
-        title
-        folderName
-      }
-    }
-  `;
-
-  const data = await KibelaAPI(query);
-  return data.noteFromPath;
-};
+import { KibelaAPI } from "../../api/kibela";
+import type { Note } from "../../../../@types/kibela.d";
+import { fetchNoteByUrl } from "../queries/note";
 
 export const apploveOfficallyClub = async (url: string, clubName: string): Promise<Note> => {
   const note = await fetchNoteByUrl(url);

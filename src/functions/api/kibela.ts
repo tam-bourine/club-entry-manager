@@ -1,8 +1,6 @@
 import nodeFetch from "node-fetch";
 import { print as printGql } from "graphql/language/printer";
 import { ASTNode } from "graphql/language/ast";
-import gql from "graphql-tag";
-import type kibela from "../../../@types/kibela.d";
 
 export const KibelaAPI = async (query: ASTNode): Promise<any> => {
   const response = await nodeFetch(`https://${process.env.KIBELA_TEAM}.kibe.la/api/v1`, {
@@ -25,21 +23,4 @@ export const KibelaAPI = async (query: ASTNode): Promise<any> => {
 
   const result = await response.json();
   return result.data;
-};
-
-export const getGroup = async (): Promise<kibela.Group> => {
-  const query = gql`
-    query {
-      group(id: "${process.env.KIBELA_HOME_ID}") {
-        users(first: 100) {
-          nodes {
-            id
-            realName
-            email
-          }
-        }
-      }
-    }
-  `;
-  return KibelaAPI(query);
 };
