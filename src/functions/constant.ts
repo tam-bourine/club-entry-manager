@@ -11,16 +11,14 @@ export namespace Config {
   }
 
   export namespace Slack {
-    export namespace App {
-      export const TOKEN = process.env.SLACK_APP_TOKEN as string;
-    }
-    export namespace Bot {
-      export const TOKEN = process.env.SLACK_BOT_TOKEN as string;
-    }
+    export const APP_TOKEN = process.env.SLACK_APP_TOKEN as string;
+    export const BOT_TOKEN = process.env.SLACK_BOT_TOKEN as string;
+    export const SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET as string;
     export const APPROVAL_CHANNEL_ID = process.env.SLACK_APPROVAL_CHANNEL_ID as string;
-  }
 
-  export namespace Bolt {
-    export const PORT = parseInt(process.env.BOLT_PORT!, 10);
+    export namespace Bolt {
+      export const SERVE_PORT = parseInt(process.env.BOLT_PORT!, 10);
+      export const { APP_ENV } = process.env;
+    }
   }
 }
