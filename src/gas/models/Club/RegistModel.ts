@@ -40,7 +40,8 @@ export default class RegistModel {
           collaborators[1].slackId, // 発起人2
         ]);
         return this.view.provide(this.res.created);
-      } else return this.view.provide(this.res.internalServer);
+      }
+      return this.view.provide(this.res.internalServer);
     } catch (error) {
       console.error({ error });
       return this.view.provide(this.res.internalServer);
