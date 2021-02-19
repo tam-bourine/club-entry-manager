@@ -12,7 +12,7 @@
   "plugins": ["@typescript-eslint", "prettier", "googleappsscript"],
   "extends": ["airbnb-base", "plugin:prettier/recommended", "prettier/@typescript-eslint"],
   "rules": {
-    "import/extensions": [".json", ".ts"],
+    "import/extensions": ["error", "ignorePackages", { "js": "never", "ts": "never" }],
     "prettier/prettier": [
       "error",
       {
@@ -26,12 +26,14 @@
     "func-names": "off",
     "no-process-exit": "off",
     "object-shorthand": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "off",
+    "no-unused-expressions": "off"
   },
   "settings": {
     "import/resolver": {
-      "webpack": {
-        "config": "webpack.config.js"
+      "node": {
+        "extensions": [".js", ".ts"]
       }
     }
   }
