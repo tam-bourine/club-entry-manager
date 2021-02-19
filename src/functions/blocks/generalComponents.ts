@@ -1,4 +1,4 @@
-import { SectionArgType } from "../types/Messages";
+import { SectionArgType, buttonArg, formArg } from "../types/Messages";
 
 export const header = (title: string) => ({
   type: "header",
@@ -46,4 +46,44 @@ const sectionFields = ({ title, text }: { title: string; text: SectionArgType })
   fields: text,
 });
 
-export { sectionPlainText, sectionMrkdwn, sectionFields };
+const sectionButton = ({ buttonOptions }: buttonArg) => {
+  const elements = buttonOptions.map((item) => {
+    return {
+      type: "button",
+      text: {
+        type: "plain_text",
+        text: item.text,
+        emoji: true,
+      },
+      style: item.color,
+      value: "click_me_123",
+      action_id: item.actionId,
+    };
+  });
+  return {
+    type: "actions",
+    elements,
+  };
+};
+
+const sectionForm = ({ label, placeholder, actionId, blockId }: formArg) => {
+  return {
+    type: "input",
+    block_id: blockId,
+    element: {
+      type: "plain_text_input",
+      multiline: true,
+      action_id: actionId,
+      placeholder: {
+        type: "plain_text",
+        text: placeholder,
+      },
+    },
+    label: {
+      type: "plain_text",
+      text: label,
+    },
+  };
+};
+
+export { sectionPlainText, sectionMrkdwn, sectionFields, sectionButton, sectionForm };
