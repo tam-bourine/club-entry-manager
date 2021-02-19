@@ -3,14 +3,17 @@ import Response from "../../shared/Response";
 import ApproveInterface from "../../shared/types/ApproveInterface";
 import ApproveView from "../../views/Club/ApproveView";
 
+interface UpdateApprovedClubParams {
+  clubId: ApproveInterface["clubId"];
+  isApproved: ApproveInterface["isApproved"];
+}
+
 export default class ApproveModel {
   private res = new Response();
 
   private view = new ApproveView();
 
   private constants = new Constants();
-
-  private isApproved = false;
 
   updateClub(params: ApproveInterface) {
     /**
@@ -21,12 +24,11 @@ export default class ApproveModel {
 
     // return this.view.provide({ status: 2000000000, message: `${clubId} was isApproved: ${isApproved}` });
 
-    this.isApproved = isApproved;
-
-    return this.updateApprovedClub(clubId);
+    return this.updateApprovedClub({ clubId, isApproved });
   }
 
-  private updateApprovedClub(clubId: ApproveInterface["clubId"]) {
+  private updateApprovedClub(params: UpdateApprovedClubParams) {
+    const { clubId, isApproved } = params;
     try {
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
       if (sheetTabName) {
@@ -42,7 +44,7 @@ export default class ApproveModel {
            */
           return (
             exists &&
-            sheet?.getRange(exists + 1, this.constants.SPREAD_SHEET.APPROVED_COLUMN_NUMBER).setValue(this.isApproved)
+            sheet?.getRange(exists + 1, this.constants.SPREAD_SHEET.APPROVED_COLUMN_NUMBER).setValue(isApproved)
           );
         });
         /**
