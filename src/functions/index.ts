@@ -3,7 +3,7 @@ import { useNewClubCommand } from "./commands/newClub";
 import { Config } from "../constant";
 
 const app = new App({
-  socketMode: Config.Slack.Bolt.APP_ENV === "local",
+  socketMode: Config.General.APP_ENV === "local",
   appToken: Config.Slack.APP_TOKEN,
   token: Config.Slack.BOT_TOKEN,
   signingSecret: Config.Slack.SIGNING_SECRET,
