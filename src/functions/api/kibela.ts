@@ -12,10 +12,7 @@ export const callAPI = async (query: ASTNode): Promise<any> => {
       Accept: "application/json",
       "User-Agent": "club-manager/1.0.0",
     },
-    body: JSON.stringify({
-      query: printGql(query),
-      variables: {},
-    }),
+    body: JSON.stringify({ query: printGql(query) }),
   });
   if (!response.ok) {
     const body = await response.text();
