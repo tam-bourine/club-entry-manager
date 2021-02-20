@@ -1,12 +1,13 @@
 import nodeFetch from "node-fetch";
 import { print as printGql } from "graphql/language/printer";
 import { ASTNode } from "graphql/language/ast";
+import { Config } from "../../constant";
 
 export const callAPI = async (query: ASTNode): Promise<any> => {
-  const response = await nodeFetch(`https://${process.env.KIBELA_TEAM}.kibe.la/api/v1`, {
+  const response = await nodeFetch(`${Config.Kibela.END_POINT}`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.KIBELA_TOKEN}`,
+      Authorization: `Bearer ${Config.Kibela.TOKEN}`,
       "Content-Type": "application/json",
       Accept: "application/json",
       "User-Agent": "club-manager/1.0.0",

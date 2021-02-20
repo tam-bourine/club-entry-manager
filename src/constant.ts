@@ -12,6 +12,7 @@ export namespace Config {
     export const TOKEN = process.env.KIBELA_TOKEN as string;
     export const END_POINT = `https://${TEAM_NAME}.kibe.la/api/v1` as string;
     export const USER_AGENT = "club-manager/1.0.0";
+    export const HOME_GROUP_ID = process.env.KIBELA_HOME_GROUP_ID as string;
   }
 
   export namespace Slack {
