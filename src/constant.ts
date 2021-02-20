@@ -8,18 +8,18 @@ Object.keys(config).forEach((key) => {
 
 export namespace Config {
   export namespace Kibela {
-    export const TEAM_NAME = process.env.KIBELA_TEAM as string;
+    export const TEAM_NAME = (process.env.KIBELA_TEAM as string) || "tambourine";
     export const TOKEN = process.env.KIBELA_TOKEN as string;
     export const END_POINT = `https://${TEAM_NAME}.kibe.la/api/v1` as string;
     export const USER_AGENT = "club-manager/1.0.0";
-    export const HOME_GROUP_ID = process.env.KIBELA_HOME_GROUP_ID as string;
+    export const HOME_GROUP_ID = (process.env.KIBELA_HOME_GROUP_ID as string) || "R3JvdXAvMQ";
   }
 
   export namespace Slack {
     export const APP_TOKEN = process.env.SLACK_APP_TOKEN as string;
     export const BOT_TOKEN = process.env.SLACK_BOT_TOKEN as string;
     export const SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET as string;
-    export const APPROVAL_CHANNEL_ID = process.env.SLACK_APPROVAL_CHANNEL_ID as string;
+    export const APPROVAL_CHANNEL_ID = (process.env.SLACK_APPROVAL_CHANNEL_ID as string) || "C01F6HWUGUA";
 
     export namespace Bolt {
       export const SERVE_PORT = parseInt(process.env.BOLT_PORT!, 10);
