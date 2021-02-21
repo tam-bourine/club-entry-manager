@@ -9,5 +9,5 @@
     "strict": true,
     "esModuleInterop": true
   },
-  "include": ["src/functions/**/*", "src/gas/**/*"]
+  "include": ["src/functions/**/*", "src/gas/**/*", "@types", "src/*"]
 }

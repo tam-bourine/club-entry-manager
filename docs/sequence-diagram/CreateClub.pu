@@ -13,7 +13,7 @@ participant Kibela as kibela
 captain -> slackapp: 任意のチャンネルからスラッシュコマンドを使って創部申請のモーダルを起動
 slackapp --> captain: モーダルを表示
 captain --> slackapp: フォーム入力 & 送信
-note right: 必須項目\n(channelID, members, Kibela URL, reason)
+note right: 必須項目\n(name, description, budgetUse, channelId, kibelaUrl, captain, members)
 slackapp --> sheet: シートの創部APIをコール(GAS)
 sheet -> sheet: 部活まとめタブの最終行に新規部活名をインサート
 
@@ -25,12 +25,19 @@ end
 sheet -->> slackapp: 成功レスポンス
 
 slackapp --> captain: 創部申請完了モーダルを表示
-slackapp -> auth: 承認権限が参加している承認専用チャンネルに創部申請が届いたことを知らせる
-auth -> slackapp: 承認専用チャンネルに届いた創部申請情報に埋め込まれている承認画面ボタンをクリック
-slackapp -> auth: 承認用モーダルを表示
+slackapp -> auth: 承認者専用チャンネルに創部申請が届いたことを知らせる
 
 alt 承認する場合
-    auth -> slackapp: 承認用モーダルに表示された承認ボタンを押す
+    auth -> slackapp: メッセージ内の承認ボタンを押す
+    slackapp -> auth: 確認モーダルを表示
+
+    break キャンセルの場合
+        auth -> slackapp: キャンセルボタンを押す
+        slackapp -> auth: モーダルを閉じて処理を中断
+    end
+
+    auth -> slackapp: 承認ボタンを押す
+
     slackapp --> sheet: シートの承認APIをコール(GAS)
     sheet -> sheet: 新規部活タブを作成し内容を埋める
 
@@ -55,13 +62,22 @@ alt 承認する場合
     end
 
     kibela -> slackapp: Kibela API が成功したレスポンス
-    slackapp -->> auth: 承認した内容が #help_club に流れる
+    slackapp -->> auth: 承認した内容が承認者専用チャンネルに流れる
     slackapp -->> captain: 承認された結果を #c_* に @channel で流す
     slackapp -->> slack: #notifications にシンプルな通知
 
 else 却下する場合
-    auth -> slackapp: 承認用モーダル内で却下理由を入力し、却下ボタンを押す
-    slackapp -->> auth: 却下した内容が #help_club に流れる
+    auth -> slackapp: メッセージ内の却下ボタンを押す
+    slackapp -> auth: 却下理由入力モーダルを表示
+    
+    break キャンセルの場合
+        auth -> slackapp: キャンセルボタンを押す
+        slackapp -> auth: モーダルを閉じて処理を中断
+    end
+
+    auth -> slackapp: 却下理由を入力して、却下ボタンをクリック
+
+    slackapp -->> auth: 却下した内容が承認者専用チャンネルに流れる
     slackapp -->> captain: 却下された結果を #c_* に @channel で流す
 end
 

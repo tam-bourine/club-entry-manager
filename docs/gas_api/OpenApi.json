@@ -116,9 +116,11 @@
                   "club": {
                     "type": "object",
                     "example": {
-                      "id": "piyofoo",
                       "name": "テニス部",
-                      "description": "〜〜する"
+                      "description": "〜〜する",
+                      "budgetUse": "テニス用具やドリンクの購入",
+                      "kibelaUrl": "https://kibe.la/",
+                      "channelId": "C02DAE19"
                     }
                   },
                   "captain": {
@@ -128,7 +130,7 @@
                       "name": "キャプテンキッド"
                     }
                   },
-                  "collaborators": {
+                  "members": {
                     "type": "array",
                     "example": [
                       {
@@ -144,58 +146,58 @@
                 }
               }
             }
-          },
-          "responses": {
-            "201": {
-              "description": "成功時のレスポンス",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "status": {
-                        "type": "integer",
-                        "example": 201
-                      },
-                      "message": {
-                        "type": "string",
-                        "example": "201 Created"
-                      },
-                      "success": {
-                        "type": "boolean",
-                        "example": true
-                      },
-                      "club": {
-                        "type": "object",
-                        "example": {
-                          "id": "f00tsa1",
-                          "name": "フットサル部"
-                        }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "成功時のレスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "201 Created"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "club": {
+                      "type": "object",
+                      "example": {
+                        "id": "fugapiyo",
+                        "name": "テニス部"
                       }
                     }
                   }
                 }
               }
-            },
-            "500": {
-              "description": "失敗時のレスポンス",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "status": {
-                        "type": "integer",
-                        "example": 500
-                      },
-                      "message": {
-                        "type": "string",
-                        "example": "500 Internal Server Error"
-                      },
-                      "success": {
-                        "type": "boolean",
-                        "example": false
-                      }
+            }
+          },
+          "500": {
+            "description": "失敗時のレスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 500
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "500 Internal Server Error"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "example": false
                     }
                   }
                 }
@@ -228,7 +230,8 @@
                 "type": "object",
                 "properties": {
                   "clubId": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "fugapiyo"
                   },
                   "authorizer": {
                     "type": "object",
@@ -247,7 +250,7 @@
         },
         "responses": {
           "201": {
-            "description": "成功時のレスポンス",
+            "description": "承認成功時のレスポンス",
             "content": {
               "application/json": {
                 "schema": {
@@ -260,6 +263,30 @@
                     "message": {
                       "type": "string",
                       "example": "201 Created"
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "却下成功時のレスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "200 OK"
                     },
                     "success": {
                       "type": "boolean",
@@ -299,7 +326,7 @@
     },
     "?action=join": {
       "post": {
-        "summary": "参加申請",
+        "summary": "入部申請",
         "description": "申請のあった該当部活動シートに、申請者の名前を追加",
         "tags": ["club"],
         "parameters": [
@@ -320,7 +347,8 @@
                 "type": "object",
                 "properties": {
                   "clubId": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "fugapiyo"
                   },
                   "member": {
                     "type": "object",
