@@ -19,8 +19,9 @@ export default class RegistModel {
         appendRow()の仕様: https://developers.google.com/apps-script/reference/spreadsheet/sheet#appendRow(Object)
         カラム定義: /docs/columns/clubs.json, /docs/columns/clubs.png
         */
+        const id = Utilities.getUuid();
         const record = [
-          Utilities.getUuid(),
+          id,
           club.name,
           club.description,
           club.budgetUse,
@@ -38,8 +39,10 @@ export default class RegistModel {
           record.push(member.slackId, member.name);
         });
 
+        // TODO: ResponseInterfaceの型修正 clubでもclubsでも他のデータでも可変にできるように修正
         sheet?.appendRow(record);
-        return this.view.provide(this.res.created);
+        const header = this.res.created;
+        return this.view.provide({ ...header, club: { id: id, name: club.name } });
       }
       return this.view.provide(this.res.internalServer);
     } catch (error) {
