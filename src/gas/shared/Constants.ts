@@ -19,15 +19,27 @@ export default class Constants {
   };
 
   SPREAD_SHEET = {
-    CLUB_NAME_COLUMN_NUMBER: 2,
-    APPROVED_COLUMN_NUMBER: 8, // 公認列
     CLUB: {
-      MEMBER_NAME: "部員名",
-      MEMBER_SLACK_ID: "部員_SlackID",
-      MEMBER_ROLE: "役割",
-      MEMBER_JOINED_DATE: "入部日",
-      MEMBER_LEFT_DATE: "退部日",
+      MEMBER: {
+        NAME: "部員名",
+        SLACK_ID: "部員_SlackID",
+        ROLE: "役割",
+        JOINED_DATE: "入部日",
+        LEFT_DATE: "退部日",
+      },
     },
-    CLUBS: {},
+    CLUBS: {
+      CLUB_NAME_COLUMN_NUMBER: 2, // 部活名
+      APPLICATION_DATE_COLUMN_NUMBER: 7, // 申請日
+      APPROVED_COLUMN_NUMBER: 8, // 公認
+      MEMBER: {
+        SLACK_ID_1: 11,
+        NAME_1: 12,
+        SLACK_ID_2: 13,
+        NAME_2: 14,
+        SLACK_ID_3: 15,
+        NAME_3: 16,
+      },
+    },
   };
 }
