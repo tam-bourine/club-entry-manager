@@ -22,7 +22,10 @@ export default class ApproveModel {
      */
     const { clubId, isApproved } = params;
 
-    return this.updateApprovedClub({ clubId, isApproved });
+    const response = this.updateApprovedClub({ clubId, isApproved });
+
+    if (response === this.res.created) return this.view.provide(this.createClubSheet());
+    return this.view.provide(response);
   }
 
   private updateApprovedClub(params: UpdateApprovedClubParams) {
@@ -73,13 +76,17 @@ export default class ApproveModel {
          *  201 created を返す
          *
          */
-        if (results?.every((result) => typeof result === "boolean")) return this.view.provide(this.res.notFound);
-        return this.view.provide(this.res.created);
+        if (results?.every((result) => typeof result === "boolean")) return this.res.notFound;
+        return this.res.created;
       }
-      return this.view.provide(this.res.internalServer);
+      return this.res.internalServer;
     } catch (error) {
       console.error({ error });
-      return this.view.provide(this.res.internalServer);
+      return this.res.internalServer;
     }
+  }
+
+  private createClubSheet() {
+    return this.res.created;
   }
 }
