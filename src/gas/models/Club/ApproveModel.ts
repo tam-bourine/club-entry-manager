@@ -110,14 +110,18 @@ export default class ApproveModel {
          *  reduce で Bolt 側から送信された slackChannelId を includes している行を取り出す
          */
         const rowDataIncludesClub = data?.reduce((acc, cur) => {
-          if (cur.includes(slackChannelId)) acc.push(cur);
+          if (cur.includes(slackChannelId)) return cur;
           return acc;
         }, []);
         /**
-         * シートが新しく挿入されれば created を返す、失敗時は false をハンドリングして not found を返す
+         * @description
+         *  GAS は index が1開始なので constants.SPREAD_SHEET.CLUB_NAME_COLUMN_NUMBER - 1 で配列から
+         *  clubName を取り出す
+         *  シートが新しく挿入されれば created を返す、失敗時は false をハンドリングして not found を返す
          */
         if (rowDataIncludesClub) {
-          const clubName: string = rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUB_NAME_COLUMN_NUMBER];
+          const clubNameIndex = this.constants.SPREAD_SHEET.CLUB_NAME_COLUMN_NUMBER - 1;
+          const clubName = rowDataIncludesClub[clubNameIndex];
           const targetSheet = SpreadsheetApp.getActiveSpreadsheet();
           const result = targetSheet.insertSheet(clubName);
           if (result) return this.res.created;
