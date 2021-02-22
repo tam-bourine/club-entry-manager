@@ -36,6 +36,24 @@ const inputComponentDescription = {
   },
 };
 
+const inputComponentBudgetUse = {
+  type: "input",
+  block_id: "budget_use",
+  element: {
+    type: "plain_text_input",
+    multiline: true,
+    action_id: "budget",
+    placeholder: {
+      type: "plain_text",
+      text: Club.Placeholder.budgetUse,
+    },
+  },
+  label: {
+    type: "plain_text",
+    text: Club.Label.budgetUse,
+  },
+};
+
 const inputComponentKibelaUrl = {
   type: "input",
   block_id: "kibela_url",
@@ -70,23 +88,6 @@ const inputComponentCaptain = {
   },
 };
 
-const inputComponentSubCaptain = {
-  type: "input",
-  block_id: "sub_captain_name",
-  element: {
-    type: "users_select",
-    action_id: "sub_captain",
-    placeholder: {
-      type: "plain_text",
-      text: Club.Placeholder.subCaptain,
-    },
-  },
-  label: {
-    type: "plain_text",
-    text: Club.Label.subCaptain,
-  },
-};
-
 const inputComponentMember = {
   type: "input",
   block_id: "member_name",
@@ -108,8 +109,8 @@ const inputComponentMember = {
 export const inputClubModal = [
   inputComponentName,
   inputComponentDescription,
+  inputComponentBudgetUse,
   inputComponentKibelaUrl,
   inputComponentCaptain,
-  inputComponentSubCaptain,
   inputComponentMember,
 ];

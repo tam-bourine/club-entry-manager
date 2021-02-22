@@ -18,9 +18,9 @@ export interface ButtonArg {
 export interface ClubInfoArg {
   name: string;
   description: string;
+  budgetUse: string;
   kibela: string;
   captainId: string;
-  subCaptainId: string;
   membersId: {
     type: string;
     text: string;
