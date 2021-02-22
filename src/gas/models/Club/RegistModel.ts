@@ -20,7 +20,7 @@ export default class RegistModel {
         カラム定義: /docs/columns/clubs.json, /docs/columns/clubs.png
         */
         const id = Utilities.getUuid();
-        const record = [
+        const newClub = [
           id,
           club.name,
           club.description,
@@ -36,12 +36,12 @@ export default class RegistModel {
 
         // メンバーの数だけ繰り返し
         members.forEach((member) => {
-          record.push(member.slackId, member.name);
+          newClub.push(member.slackId, member.name);
         });
 
         // TODO: ResponseInterfaceの型修正 clubでもclubsでも他のデータでも可変にできるように修正
         // issue: #160 #161
-        sheet?.appendRow(record);
+        sheet?.appendRow(newClub);
         const header = this.res.created;
         return this.view.provide({ ...header, club: { id: id, name: club.name } });
       }
