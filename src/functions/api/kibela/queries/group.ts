@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { callAPI } from "../../kibela";
+import { callAPI } from "..";
 import type { Group } from "../../../../../@types/kibela.d";
 import { Config } from "../../../../constant";
 
