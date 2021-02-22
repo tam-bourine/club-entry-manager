@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
-import { callAPI } from "../../api/kibela";
-import type { User } from "../../../../@types/kibela.d";
-import { Config } from "../../../constant";
+import { callAPI } from "../../kibela";
+import type { User } from "../../../../../@types/kibela.d";
+import { Config } from "../../../../constant";
 
 // TODO: SlackApp 側で SlackId から Email を取得、はダメそう
 // Kibela Id で検索する方向で
