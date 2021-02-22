@@ -1,4 +1,4 @@
-import { SectionArgType, buttonArg, formArg } from "../types/Messages";
+import { SectionArgType, ButtonArg, FormArg } from "../types/Messages";
 
 export const header = (title: string) => ({
   type: "header",
@@ -56,7 +56,7 @@ const sectionFields = ({ title, text }: { title: string; text: SectionArgType })
   fields: text,
 });
 
-const sectionButton = (buttons: buttonArg[]) => {
+const sectionButton = (buttons: ButtonArg[]) => {
   const elements = buttons.map((item) => {
     return {
       type: "button",
@@ -76,7 +76,7 @@ const sectionButton = (buttons: buttonArg[]) => {
   };
 };
 
-const sectionForm = ({ label, placeholder, actionId, blockId }: formArg) => {
+const sectionForm = ({ label, placeholder, actionId, blockId }: FormArg) => {
   return {
     type: "input",
     block_id: blockId,

@@ -1,6 +1,6 @@
 import { WebClient, KnownBlock, Block } from "@slack/web-api";
 
-export interface sectionArg {
+export interface SectionArg {
   text:
     | string
     | {
@@ -9,13 +9,13 @@ export interface sectionArg {
       }[];
 }
 
-export interface buttonArg {
+export interface ButtonArg {
   text: string;
   color?: string;
   actionId: string;
 }
 
-export interface clubInfoArg {
+export interface ClubInfoArg {
   name: string;
   description: string;
   kibela: string;
@@ -25,17 +25,17 @@ export interface clubInfoArg {
     type: string;
     text: string;
   }[];
-  buttons: buttonArg[];
+  buttons: ButtonArg[];
 }
 
-export interface formArg {
+export interface FormArg {
   label: string;
   placeholder: string;
   actionId: string;
   blockId: string;
 }
 
-export interface modalArg {
+export interface ModalArg {
   client: WebClient;
   botToken: string;
   triggerId: string;

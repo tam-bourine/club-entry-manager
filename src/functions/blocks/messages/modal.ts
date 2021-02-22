@@ -1,8 +1,8 @@
 import { header, divider, sectionPlainText, sectionMrkdwn, sectionFields, sectionButton } from "../generalComponents";
-import { clubInfoArg } from "../../types/Messages";
+import { ClubInfoArg } from "../../types/Messages";
 import { Club } from "../../config/clubConfig";
 
-export const getMessageBlocks = (args: clubInfoArg) => {
+export const getMessageBlocks = (args: ClubInfoArg) => {
   const { name, description, kibela, captainId, subCaptainId, membersId, buttons } = args;
 
   return [

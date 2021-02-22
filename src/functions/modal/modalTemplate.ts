@@ -1,7 +1,7 @@
 import { Modal } from "../config/modalConfig";
-import { modalArg } from "../types/Messages";
+import { ModalArg } from "../types/Messages";
 
-export const getModal = async ({ client, botToken, triggerId, callbackId, title, blocks, submit }: modalArg) => {
+export const getModal = async ({ client, botToken, triggerId, callbackId, title, blocks, submit }: ModalArg) => {
   await client.views
     .open({
       context: botToken,
