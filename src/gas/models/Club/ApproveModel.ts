@@ -124,7 +124,7 @@ export default class ApproveModel {
           const clubName = rowDataIncludesClub[clubNameIndex];
           const targetSheet = SpreadsheetApp.getActiveSpreadsheet();
           const result = targetSheet.insertSheet(clubName);
-          if (result) return this.res.created;
+          if (result) this.insertInitialMembers();
           return this.res.notFound;
         }
       }
@@ -133,5 +133,9 @@ export default class ApproveModel {
       console.error({ error });
       return this.res.internalServer;
     }
+  }
+
+  private insertInitialMembers() {
+    return this.res.created;
   }
 }
