@@ -20,6 +20,7 @@ export default class RegistModel {
         カラム定義: /docs/columns/clubs.json, /docs/columns/clubs.png
         */
         const id = Utilities.getUuid();
+        // FIX: #162 型定義で、列番号がどのカラムに対応しているのか分かるようにする。
         const newClub = [
           id,
           club.name,
