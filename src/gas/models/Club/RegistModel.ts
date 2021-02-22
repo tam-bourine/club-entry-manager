@@ -40,6 +40,7 @@ export default class RegistModel {
         });
 
         // TODO: ResponseInterfaceの型修正 clubでもclubsでも他のデータでも可変にできるように修正
+        // issue: #160 #161
         sheet?.appendRow(record);
         const header = this.res.created;
         return this.view.provide({ ...header, club: { id: id, name: club.name } });
