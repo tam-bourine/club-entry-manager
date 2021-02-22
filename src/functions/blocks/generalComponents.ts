@@ -13,39 +13,41 @@ export const divider = {
   type: "divider",
 };
 
-const sectionLabel = (title: string) => ({
-  type: "section",
-  text: {
-    type: "mrkdwn",
-    text: `*${title}*`,
-  },
-});
+const sectionLabel = (title?: string) => {
+  return title
+    ? {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `*${title}*`,
+        },
+      }
+    : {};
+};
 
 const sectionPlainText = ({ title, text }: { title?: string; text: SectionArgType }) => {
-  const section = {
-    type: "section",
-    text: {
-      type: "plain_text",
-      text,
-      emoji: true,
-    },
-  };
-  if (!title) {
-    return section;
-  }
   return {
     ...sectionLabel(title),
-    ...section,
+    type: "section",
+    fields: [
+      {
+        type: "plain_text",
+        text,
+        emoji: true,
+      },
+    ],
   };
 };
 
 const sectionMrkdwn = ({ title, text }: { title: string; text: SectionArgType }) => ({
   ...sectionLabel(title),
   type: "section",
-  text: {
-    type: "mrkdwn",
-    text,
-  },
+  fields: [
+    {
+      type: "mrkdwn",
+      text,
+    },
+  ],
 });
 
 const sectionFields = ({ title, text }: { title: string; text: SectionArgType }) => ({

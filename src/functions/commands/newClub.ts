@@ -6,7 +6,6 @@ import { getRejectBlocks } from "../blocks/reject";
 import { getApprovalBlocks } from "../blocks/approval";
 import { getModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
-
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
