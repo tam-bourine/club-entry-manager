@@ -58,8 +58,6 @@ export default class ApproveModel {
          *
          *  existsClubInRow
          *    [false, 4, false, false, ... ,false] のようなデータになる
-         *
-         *  TODO: slack channnel の id で行うように変更
          */
         const existsClubInRow = data?.map((rowData, rowIndex) => {
           return rowData.includes(slackChannelId) && rowIndex;
