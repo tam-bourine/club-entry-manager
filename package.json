@@ -2,7 +2,7 @@
   "name": "club-manager",
   "version": "1.0.0",
   "description": "社内の部活管理を Slack で",
-  "main": "lib/index.js",
+  "main": "lib/functions/index.js",
   "engines": {
     "node": "12.x"
   },

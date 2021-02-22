@@ -1,5 +1,5 @@
 // ブロックキットを使用しステップ設定モーダルのUIを構築
-import { Club } from "../clubConfig";
+import { Club } from "../config/clubConfig";
 
 const inputComponentName = {
   type: "input",
