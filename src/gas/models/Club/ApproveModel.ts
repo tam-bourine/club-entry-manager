@@ -22,8 +22,6 @@ export default class ApproveModel {
      */
     const { clubId, isApproved } = params;
 
-    // return this.view.provide({ status: 2000000000, message: `${clubId} was isApproved: ${isApproved}` });
-
     return this.updateApprovedClub({ clubId, isApproved });
   }
 
