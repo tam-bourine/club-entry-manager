@@ -25,6 +25,7 @@ export interface ClubInfoArg {
     type: string;
     text: string;
   }[];
+  channelId: string;
   buttons: ButtonArg[];
 }
 

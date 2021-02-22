@@ -52,6 +52,8 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       },
     ];
 
+    console.log(values.channel_id.channel);
+
     // 承認チャンネルに対して部活動申請情報を送信
     await client.chat
       .postMessage({
@@ -62,9 +64,10 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
           name: values.club_name.name.value,
           description: values.club_description.description.value,
           budgetUse: values.budget_use.budget.value,
-          kibela: values.kibela_url.url.value,
+          channelId: `*<#${values.channel_id.channel.selected_channel}>*`,
           captainId: `*<@${values.captain_name.captain.selected_user}>*`,
           membersId: membersField,
+          kibela: values.kibela_url.url.value,
           buttons,
         }),
       })

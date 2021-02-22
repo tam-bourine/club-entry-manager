@@ -54,20 +54,20 @@ const inputComponentBudgetUse = {
   },
 };
 
-const inputComponentKibelaUrl = {
+const inputComponentChannel = {
   type: "input",
-  block_id: "kibela_url",
+  block_id: "channel_id",
   element: {
-    type: "plain_text_input",
-    action_id: "url",
+    type: "channels_select",
+    action_id: "channel",
     placeholder: {
       type: "plain_text",
-      text: Club.Placeholder.kibelaUrl,
+      text: Club.Placeholder.channel,
     },
   },
   label: {
     type: "plain_text",
-    text: Club.Label.kibelaUrl,
+    text: Club.Label.channel,
   },
 };
 
@@ -105,12 +105,30 @@ const inputComponentMember = {
   },
 };
 
+const inputComponentKibelaUrl = {
+  type: "input",
+  block_id: "kibela_url",
+  element: {
+    type: "plain_text_input",
+    action_id: "url",
+    placeholder: {
+      type: "plain_text",
+      text: Club.Placeholder.kibelaUrl,
+    },
+  },
+  label: {
+    type: "plain_text",
+    text: Club.Label.kibelaUrl,
+  },
+};
+
 // eslint-disable-next-line import/prefer-default-export
 export const inputClubModal = [
   inputComponentName,
   inputComponentDescription,
   inputComponentBudgetUse,
-  inputComponentKibelaUrl,
+  inputComponentChannel,
   inputComponentCaptain,
   inputComponentMember,
+  inputComponentKibelaUrl,
 ];
