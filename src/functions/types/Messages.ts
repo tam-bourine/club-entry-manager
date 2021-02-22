@@ -19,13 +19,13 @@ export interface ClubInfoArg {
   name: string;
   description: string;
   budgetUse: string;
-  kibela: string;
+  channelId: string;
   captainId: string;
   membersId: {
     type: string;
     text: string;
   }[];
-  channelId: string;
+  kibela: string;
   buttons: ButtonArg[];
 }
 

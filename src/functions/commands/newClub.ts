@@ -52,8 +52,6 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       },
     ];
 
-    console.log(values.channel_id.channel);
-
     // 承認チャンネルに対して部活動申請情報を送信
     await client.chat
       .postMessage({
