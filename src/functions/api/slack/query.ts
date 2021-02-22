@@ -1,12 +1,15 @@
 import { app } from "../..";
+import { Config } from "../../../constant";
+import { SlackUser } from "./user.type";
 
-export const getUserById = async (userId: string) => {
-  const user = await app.client.users.info({
-    user: userId,
+export const getUserById = async (user: string) => {
+  const data = await app.client.users.info({
+    user,
+    token: Config.Slack.USER_TOKEN,
     include_locale: true,
   });
-  if (!user) {
-    throw new Error(`not ok: undefined user (id: ${userId})`);
+  if (!data.ok) {
+    throw new Error(`not ok: undefined user (id: ${user})`);
   }
-  return user;
+  return data.user as SlackUser;
 };
