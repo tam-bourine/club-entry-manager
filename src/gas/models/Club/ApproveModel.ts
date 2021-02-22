@@ -3,9 +3,13 @@ import Response from "../../shared/Response";
 import ApproveInterface from "../../shared/types/ApproveInterface";
 import ApproveView from "../../views/Club/ApproveView";
 
-interface UpdateApprovedClubParams {
-  clubId: ApproveInterface["clubId"];
+interface UpdateIsApprovedParams {
+  slackChannelId: ApproveInterface["slackChannelId"];
   isApproved: ApproveInterface["isApproved"];
+}
+
+interface CreateClubSheetParams {
+  slackChannelId: ApproveInterface["slackChannelId"];
 }
 
 export default class ApproveModel {
@@ -15,21 +19,29 @@ export default class ApproveModel {
 
   private constants = new Constants();
 
-  updateClub(params: ApproveInterface) {
+  approveClub(params: ApproveInterface) {
     /**
-     * Approved : 公認セルを TRUE で更新
-     * Rejected : 公認セルを FALSE で更新
+     * @description
+     *  Bolt 側からは基本的に TRUE で送信されて来るが
+     *  UI の変更などで FALSE で送信が追加された場合も想定する
+     *
+     *  Approved : 公認セルを TRUE で更新
+     *  Rejected : 公認セルを FALSE で更新
      */
-    const { clubId, isApproved } = params;
+    const { slackChannelId, isApproved } = params;
 
-    const response = this.updateApprovedClub({ clubId, isApproved });
+    const response = this.updateIsApproved({ slackChannelId, isApproved });
 
-    if (response === this.res.created) return this.view.provide(this.createClubSheet());
+    /**
+     * @description
+     *  updateApprovedclub が成功し、かつ公認が TRUE の場合は createClubSheet をコールしてシート作成
+     */
+    if (response === this.res.created && isApproved) return this.view.provide(this.createClubSheet(params));
     return this.view.provide(response);
   }
 
-  private updateApprovedClub(params: UpdateApprovedClubParams) {
-    const { clubId, isApproved } = params;
+  private updateIsApproved(params: UpdateIsApprovedParams) {
+    const { slackChannelId, isApproved } = params;
     try {
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
       if (sheetTabName) {
@@ -47,9 +59,10 @@ export default class ApproveModel {
          *  existsClubInRow
          *    [false, 4, false, false, ... ,false] のようなデータになる
          *
+         *  TODO: slack channnel の id で行うように変更
          */
         const existsClubInRow = data?.map((rowData, rowIndex) => {
-          return rowData.includes(clubId) && rowIndex;
+          return rowData.includes(slackChannelId) && rowIndex;
         });
         /**
          * @description
@@ -59,7 +72,6 @@ export default class ApproveModel {
          *
          *  result
          *    [false, Range, false, false, ..., false] のようなデータになる
-         *
          */
         const results = existsClubInRow?.map((exists) => {
           return (
@@ -74,7 +86,6 @@ export default class ApproveModel {
          *
          *  results に false が含まれない(シートの更新が正常に終了した)場合
          *  201 created を返す
-         *
          */
         if (results?.every((result) => typeof result === "boolean")) return this.res.notFound;
         return this.res.created;
@@ -86,7 +97,8 @@ export default class ApproveModel {
     }
   }
 
-  private createClubSheet() {
+  private createClubSheet(params: CreateClubSheetParams) {
+    const { slackChannelId } = params;
     return this.res.created;
   }
 }
