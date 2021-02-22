@@ -12,6 +12,10 @@ interface CreateClubSheetParams {
   slackChannelId: ApproveInterface["slackChannelId"];
 }
 
+interface InsertInitialValuesParams {
+  clubName: string;
+}
+
 export default class ApproveModel {
   private res = new Response();
 
@@ -90,7 +94,6 @@ export default class ApproveModel {
       }
       return this.res.internalServer;
     } catch (error) {
-      console.error({ error });
       return this.res.internalServer;
     }
   }
@@ -124,18 +127,35 @@ export default class ApproveModel {
           const clubName = rowDataIncludesClub[clubNameIndex];
           const targetSheet = SpreadsheetApp.getActiveSpreadsheet();
           const result = targetSheet.insertSheet(clubName);
-          if (result) this.insertInitialMembers();
+          if (result) return this.insertClubInitialValues({ clubName });
           return this.res.notFound;
         }
       }
       return this.res.internalServer;
     } catch (error) {
-      console.error({ error });
       return this.res.internalServer;
     }
   }
 
-  private insertInitialMembers() {
-    return this.res.created;
+  private insertClubInitialValues(params: InsertInitialValuesParams) {
+    const { clubName } = params;
+    try {
+      const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(clubName);
+      /**
+       * @description
+       *  行の名前を付与
+       */
+      sheet?.appendRow([
+        this.constants.SPREAD_SHEET.CLUB.MEMBER_NAME,
+        this.constants.SPREAD_SHEET.CLUB.MEMBER_SLACK_ID,
+        this.constants.SPREAD_SHEET.CLUB.MEMBER_ROLE,
+        this.constants.SPREAD_SHEET.CLUB.MEMBER_JOINED_DATE,
+        this.constants.SPREAD_SHEET.CLUB.MEMBER_LEFT_DATE,
+      ]);
+      // TODO: 部活動一覧から取得した初期メンバーのデータを appendRow していく
+      return this.res.created;
+    } catch (error) {
+      return this.res.internalServer;
+    }
   }
 }

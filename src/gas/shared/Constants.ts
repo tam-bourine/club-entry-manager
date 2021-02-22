@@ -21,5 +21,13 @@ export default class Constants {
   SPREAD_SHEET = {
     CLUB_NAME_COLUMN_NUMBER: 2,
     APPROVED_COLUMN_NUMBER: 8, // 公認列
+    CLUB: {
+      MEMBER_NAME: "部員名",
+      MEMBER_SLACK_ID: "部員_SlackID",
+      MEMBER_ROLE: "役割",
+      MEMBER_JOINED_DATE: "入部日",
+      MEMBER_LEFT_DATE: "退部日",
+    },
+    CLUBS: {},
   };
 }
