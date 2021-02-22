@@ -8,37 +8,37 @@ export default class RegistModel {
   private view = new RegistView();
 
   addClub(params: RegistInterface) {
-    const { club, collaborators, captain } = params;
+    const { club, captain, members } = params;
     try {
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
       if (sheetTabName) {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
         const today = new Date();
-        sheet?.appendRow([
-          club.id,
+        /* 
+        appendRow()用に配列形式に変更
+        appendRow()の仕様: https://developers.google.com/apps-script/reference/spreadsheet/sheet#appendRow(Object)
+        カラム定義: /docs/columns/clubs.json, /docs/columns/clubs.png
+        */
+        const record = [
+          Utilities.getUuid(),
           club.name,
-          // FIXME: #109 https://github.com/tam-bourine/club-manager/issues/109
-          /**
-           * 変更の可能性あり
-           * members: [
-           *  {
-           *    id: string,
-           *    name: string,
-           *    post: "captain" | "collaborator" | "member"
-           *  },
-           *  {},
-           *  {}
-           * ]
-           */
-          captain.name,
-          collaborators[0].name, // 発起人1
-          collaborators[1].name, // 発起人2
+          club.description,
+          club.budgetUse,
+          club.kibelaUrl,
           today.toISOString(),
-          "",
+          false,
+          "", // 承認者_SlackID
+          "", // 承認者
           captain.slackId,
-          collaborators[0].slackId, // 発起人1
-          collaborators[1].slackId, // 発起人2
-        ]);
+          captain.name,
+        ];
+
+        // メンバーの数だけ繰り返し
+        members.forEach((member) => {
+          record.push(member.slackId, member.name);
+        });
+
+        sheet?.appendRow(record);
         return this.view.provide(this.res.created);
       }
       return this.view.provide(this.res.internalServer);
