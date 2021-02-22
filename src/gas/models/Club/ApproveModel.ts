@@ -97,6 +97,37 @@ export default class ApproveModel {
 
   private createClubSheet(params: CreateClubSheetParams) {
     const { slackChannelId } = params;
-    return this.res.created;
+    try {
+      const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
+      if (sheetTabName) {
+        const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
+        const data = sheet?.getDataRange().getValues();
+        /**
+         * @description
+         *  Array.prototype.reduce
+         *    @see https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+         *
+         *  reduce で Bolt 側から送信された slackChannelId を includes している行を取り出す
+         */
+        const rowDataIncludesClub = data?.reduce((acc, cur) => {
+          if (cur.includes(slackChannelId)) acc.push(cur);
+          return acc;
+        }, []);
+        /**
+         * シートが新しく挿入されれば created を返す、失敗時は false をハンドリングして not found を返す
+         */
+        if (rowDataIncludesClub) {
+          const clubName: string = rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUB_NAME_COLUMN_NUMBER];
+          const targetSheet = SpreadsheetApp.getActiveSpreadsheet();
+          const result = targetSheet.insertSheet(clubName);
+          if (result) return this.res.created;
+          return this.res.notFound;
+        }
+      }
+      return this.res.internalServer;
+    } catch (error) {
+      console.error({ error });
+      return this.res.internalServer;
+    }
   }
 }

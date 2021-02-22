@@ -19,6 +19,7 @@ export default class Constants {
   };
 
   SPREAD_SHEET = {
+    CLUB_NAME_COLUMN_NUMBER: 2,
     APPROVED_COLUMN_NUMBER: 8, // 公認列
   };
 }
