@@ -19,6 +19,6 @@ export default class Constants {
   };
 
   SPREAD_SHEET = {
-    APPROVED_COLUMN_NUMBER: 7,
+    APPROVED_COLUMN_NUMBER: 8, // 公認列
   };
 }
