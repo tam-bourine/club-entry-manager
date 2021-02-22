@@ -23,6 +23,7 @@ export namespace Config {
 
     export namespace Bolt {
       export const SERVE_PORT = parseInt(process.env.BOLT_PORT!, 10);
+      export const DEBUG_USER = process.env.BOLT_DEBUG_USER_ID as string;
     }
   }
 
