@@ -1,1 +1,1 @@
-export * as query from "./query";
+export * as user from "./user";
