@@ -1,6 +1,6 @@
 import { app } from "../..";
 import { Config } from "../../../constant";
-import { SlackUser } from "./user.type";
+import { SlackUser } from "../../types/slack/user";
 
 export const getUserById = async (user: string) => {
   const data = await app.client.users.info({
