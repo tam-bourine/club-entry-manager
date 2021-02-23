@@ -3,6 +3,7 @@
   "columns": {
     "id": "string",
     "部活名": "string",
+    "活動内容": "string",
     "部費利用目的": "string",
     "Kibela_url": "string",
     "Slackチャンネル": "string",

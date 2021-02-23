@@ -28,3 +28,13 @@ export const getAll = async (): Promise<User[]> => {
   });
   return data.group.users.nodes;
 };
+
+export const findByEmail = async (email: string): Promise<User> => {
+  const users = await getAll();
+
+  const hitUser = users.find((u) => u.email === email);
+  if (!hitUser) {
+    throw new Error(`not ok: not found user by this email (${email})`);
+  }
+  return hitUser;
+};
