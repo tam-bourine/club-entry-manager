@@ -1,14 +1,16 @@
 export default interface RegistInterface {
   club: {
-    id: string;
     name: string;
     description: string;
+    budgetUse: string;
+    kibelaUrl: string;
+    channelId: string;
   };
   captain: {
     slackId: string;
     name: string;
   };
-  collaborators: [
+  members: [
     {
       slackId: string;
       name: string;
