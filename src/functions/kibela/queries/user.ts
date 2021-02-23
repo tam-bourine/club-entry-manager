@@ -24,7 +24,7 @@ export const getAll = async (): Promise<User[]> => {
     }
   `;
   const data = await callAPI(query).catch((err) => {
-    throw err;
+    console.error(err);
   });
   return data.group.users.nodes;
 };

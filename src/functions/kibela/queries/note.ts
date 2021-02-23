@@ -14,7 +14,7 @@ export const fetchNoteByUrl = async (url: string): Promise<Note> => {
   `;
 
   const data = await callAPI(query).catch((err) => {
-    throw err;
+    console.error(err);
   });
   return data.noteFromPath;
 };

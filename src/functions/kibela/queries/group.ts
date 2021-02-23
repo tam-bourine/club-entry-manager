@@ -17,7 +17,7 @@ export const getByNoteUrl = async (url: string): Promise<Group[]> => {
   `;
 
   const data = await callAPI(query).catch((err) => {
-    throw err;
+    console.error(err);
   });
 
   // 部活紹介記事は"Home"と"部活グループ"に含まれている => "部活グループ"のみを取得

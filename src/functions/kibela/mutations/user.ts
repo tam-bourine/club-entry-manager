@@ -11,6 +11,6 @@ export const joinGroup = async (userId: string, groupId: string) => {
   `;
 
   await callAPI(mutation).catch((err) => {
-    throw err;
+    console.error(err);
   });
 };
