@@ -1,70 +1,105 @@
 import { App } from "@slack/bolt";
+import { BlockAction } from "@slack/bolt/dist/types/actions/block-action";
 import { inputClubModal } from "../blocks/inputClub";
 import { getMessageBlocks } from "../blocks/messages/modal";
+import { getRejectBlocks } from "../blocks/reject";
+import { getApprovalBlocks } from "../blocks/approval";
+import { getModal } from "../modal/modalTemplate";
+import { Modal } from "../config/modalConfig";
 /* eslint strict: [2, "global"] */
 
-const viewsId = "newClubId";
+const clubViewsId = "newClubId";
+const approvalViewsId = "approvalId";
+const rejectViewsId = "rejectId";
 
 export const useNewClubCommand = (app: App, approvalChannelId: string) => {
   app.command("/new-club", async ({ ack, body, context, client }) => {
     ack();
 
-    await client.views
-      .open({
-        context: context.botToken,
-        trigger_id: body.trigger_id,
-        view: {
-          type: "modal",
-          callback_id: viewsId,
-          title: {
-            type: "plain_text",
-            text: "部活動申請フォーム",
-          },
-          blocks: inputClubModal,
-          submit: {
-            type: "plain_text",
-            text: "申請",
-          },
-        },
+    getModal({
+      client,
+      botToken: context.botToken,
+      triggerId: body.trigger_id,
+      callbackId: clubViewsId,
+      title: Modal.Title.request,
+      blocks: inputClubModal,
+      submit: Modal.Button.request,
+    });
+  });
+
+  // 承認専用チャンネルに創部申請情報を流す処理
+  app.view(clubViewsId, async ({ ack, view, client }) => {
+    ack();
+
+    const { values } = view.state;
+
+    // 初期メンバー表示用のフィールド作成
+    const membersField = values.member_name.member.selected_users.map((member: string) => ({
+      type: "mrkdwn",
+      text: `*<@${member}>*`,
+    }));
+
+    const buttons = [
+      {
+        text: "却下",
+        color: "danger",
+        actionId: "reject_modal",
+      },
+      {
+        text: "承認",
+        color: "primary",
+        actionId: "approval_modal",
+      },
+    ];
+
+    // 承認チャンネルに対して部活動申請情報を送信
+    await client.chat
+      .postMessage({
+        token: client.token,
+        channel: approvalChannelId,
+        text: "部活動申請が届きました",
+        blocks: getMessageBlocks({
+          name: values.club_name.name.value,
+          description: values.club_description.description.value,
+          kibela: values.kibela_url.url.value,
+          captainId: `*<@${values.captain_name.captain.selected_user}>*`,
+          subCaptainId: `*<@${values.sub_captain_name.sub_captain.selected_user}>*`,
+          membersId: membersField,
+          buttons,
+        }),
       })
       .catch((error) => {
         console.error({ error });
       });
   });
 
-  app.view(viewsId, async ({ ack, view, client }) => {
+  // 却下理由入力モーダル表示
+  app.action("reject_modal", async ({ ack, client, body, context }) => {
     ack();
 
-    const { values } = view.state;
-
-    // 初期メンバー表示用のフィールド作成
-    const membersField = values.member_name.member.selected_users.map((member: string) => {
-      return {
-        type: "mrkdwn",
-        text: `*<@${member}>*`,
-      };
+    getModal({
+      client,
+      botToken: context.botToken,
+      triggerId: (<BlockAction>body).trigger_id,
+      callbackId: rejectViewsId,
+      title: Modal.Title.reject,
+      blocks: getRejectBlocks(),
+      submit: Modal.Button.reject,
     });
+  });
 
-    // 創部申請時に入力した各項目の情報
-    const clubInfo = {
-      name: values.club_name.name.value,
-      description: values.club_description.description.value,
-      kibela: values.kibela_url.url.value,
-      captainId: `*<@${values.captain_name.captain.selected_user}>*`,
-      subCaptainId: `*<@${values.sub_captain_name.sub_captain.selected_user}>*`,
-      membersId: membersField,
-    };
+  // 承認確認用モーダル表示
+  app.action("approval_modal", async ({ ack, client, body, context }) => {
+    ack();
 
-    // 承認専用チャンネルに対して部活動申請情報を送信
-    await client.chat
-      .postMessage({
-        token: client.token,
-        channel: approvalChannelId,
-        text: "部活動申請が届きました",
-        blocks: getMessageBlocks({ clubInfo }),
-      })
-      .catch((error) => {
-        console.error({ error });
-      });
+    getModal({
+      client,
+      botToken: context.botToken,
+      triggerId: (<BlockAction>body).trigger_id,
+      callbackId: approvalViewsId,
+      title: Modal.Title.approval,
+      blocks: getApprovalBlocks("承認します。よろしいですか？"),
+      submit: Modal.Button.approval,
+    });
   });
 };

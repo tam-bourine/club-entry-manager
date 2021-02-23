@@ -8,4 +8,5 @@ node_modules
 **/**.log
 .eslintcache
 lib
+config.json
 .env

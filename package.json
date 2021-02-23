@@ -2,7 +2,7 @@
   "name": "club-manager",
   "version": "1.0.0",
   "description": "社内の部活管理を Slack で",
-  "main": "lib/index.js",
+  "main": "lib/functions/index.js",
   "engines": {
     "node": "12.x"
   },
@@ -16,7 +16,8 @@
     "firebase:deploy": "firebase deploy --only functions",
     "firebase:logs": "firebase functions:log",
     "postinstall:types-gas": "npx replace-in-file \"declare var console\" \"//declare var console\" node_modules/@types/google-apps-script/google-apps-script.base.d.ts",
-    "serve": "tsc && npx node lib/functions/index.js",
+    "bolt:serve": "tsc && npx node lib/functions/index.js",
+    "bolt:dev": "ts-node-dev --transpile-only src/functions/index.ts",
     "codegen": "graphql-codegen"
   },
   "keywords": [
@@ -70,6 +71,7 @@
     "graphql-tag": "^2.11.0",
     "node-fetch": "^2.6.1",
     "prettier": "^2.2.1",
+    "ts-node-dev": "^1.1.1",
     "typescript": "^4.1.3"
   }
 }
