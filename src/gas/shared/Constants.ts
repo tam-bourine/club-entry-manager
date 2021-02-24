@@ -32,6 +32,8 @@ export default class Constants {
       CLUB_NAME_COLUMN_NUMBER: 2, // 部活名
       APPLICATION_DATE_COLUMN_NUMBER: 7, // 申請日
       APPROVED_COLUMN_NUMBER: 8, // 公認
+      AUTHORIZER_SLACK_ID_COLUMN_NUMBER: 9,
+      AUTHORIZER_NAME_COLUMN_NUMBER: 10,
       MEMBER: {
         SLACK_ID_LEADER: 11,
         NAME_LEADER: 12,

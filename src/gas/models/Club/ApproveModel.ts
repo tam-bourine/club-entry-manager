@@ -4,8 +4,16 @@ import ApproveInterface from "../../shared/types/ApproveInterface";
 import { AtLeast } from "../../shared/types/UtilityTypes";
 import ApproveView from "../../views/Club/ApproveView";
 
-interface UpdateIsApprovedParams {
+/* global GoogleAppsScript */
+interface UpdateAuthorizerParams {
+  sheet: GoogleAppsScript.Spreadsheet.Sheet;
+  exists: number;
+  authorizer: ApproveInterface["authorizer"];
+}
+
+interface updateIsApproved {
   slackChannelId: ApproveInterface["slackChannelId"];
+  authorizer: ApproveInterface["authorizer"];
   isApproved: ApproveInterface["isApproved"];
 }
 
@@ -43,9 +51,9 @@ export default class ApproveModel {
      *  Approved : 公認セルを TRUE で更新
      *  Rejected : 公認セルを FALSE で更新
      */
-    const { slackChannelId, isApproved } = params;
+    const { slackChannelId, authorizer, isApproved } = params;
 
-    const response = this.updateIsApproved({ slackChannelId, isApproved });
+    const response = this.updateIsApproved({ slackChannelId, authorizer, isApproved });
 
     /**
      * @description
@@ -55,8 +63,8 @@ export default class ApproveModel {
     return this.view.provide(response);
   }
 
-  private updateIsApproved(params: UpdateIsApprovedParams) {
-    const { slackChannelId, isApproved } = params;
+  private updateIsApproved(params: updateIsApproved) {
+    const { slackChannelId, authorizer, isApproved } = params;
     try {
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
       if (sheetTabName) {
@@ -89,7 +97,10 @@ export default class ApproveModel {
         const results = existsClubInRow?.map((exists) => {
           return (
             exists &&
-            sheet?.getRange(exists + 1, this.constants.SPREAD_SHEET.CLUBS.APPROVED_COLUMN_NUMBER).setValue(isApproved)
+            sheet
+              ?.getRange(exists + 1, this.constants.SPREAD_SHEET.CLUBS.APPROVED_COLUMN_NUMBER)
+              .setValue(isApproved) &&
+            this.updateAuthorizer({ sheet, exists, authorizer })
           );
         });
         /**
@@ -107,6 +118,18 @@ export default class ApproveModel {
     } catch (error) {
       return this.res.internalServer;
     }
+  }
+
+  private updateAuthorizer(params: UpdateAuthorizerParams) {
+    const { sheet, exists, authorizer } = params;
+    return (
+      sheet
+        .getRange(exists + 1, this.constants.SPREAD_SHEET.CLUBS.AUTHORIZER_SLACK_ID_COLUMN_NUMBER)
+        .setValue(authorizer.slackId) &&
+      sheet
+        .getRange(exists + 1, this.constants.SPREAD_SHEET.CLUBS.AUTHORIZER_NAME_COLUMN_NUMBER)
+        .setValue(authorizer.name)
+    );
   }
 
   private createClubSheet(params: CreateClubSheetParams) {
