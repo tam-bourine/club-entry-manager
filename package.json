@@ -17,7 +17,7 @@
     "firebase:logs": "firebase functions:log",
     "postinstall:types-gas": "npx replace-in-file \"declare var console\" \"//declare var console\" node_modules/@types/google-apps-script/google-apps-script.base.d.ts",
     "bolt:serve": "tsc && npx node lib/functions/index.js",
-    "bolt:dev": "ts-node --transpile-only src/functions/index.ts",
+    "bolt:dev": "tsc && node --require dotenv/config --inspect=localhost:9229 lib/functions/index.js",
     "bolt:dev:watch": "ts-node-dev --transpile-only src/functions/index.ts",
     "codegen": "graphql-codegen"
   },
