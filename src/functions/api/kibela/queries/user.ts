@@ -23,7 +23,9 @@ export const getAll = async (): Promise<User[]> => {
       }
     }
   `;
-  const data = await callAPI(query);
+  const data = await callAPI(query).catch((err) => {
+    console.error(err);
+  });
   return data.group.users.nodes;
 };
 

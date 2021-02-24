@@ -17,6 +17,8 @@ export const moveOfficialFolder = async (url: string, clubName: string): Promise
       }
     }
   `;
-  const data = await callAPI(mutation);
+  const data = await callAPI(mutation).catch((err) => {
+    console.error(err);
+  });
   return data.updateNoteFolder.note;
 };

@@ -36,20 +36,38 @@ const inputComponentDescription = {
   },
 };
 
-const inputComponentKibelaUrl = {
+const inputComponentBudgetUse = {
   type: "input",
-  block_id: "kibela_url",
+  block_id: "budget_use",
   element: {
     type: "plain_text_input",
-    action_id: "url",
+    multiline: true,
+    action_id: "budget",
     placeholder: {
       type: "plain_text",
-      text: Club.Placeholder.kibelaUrl,
+      text: Club.Placeholder.budgetUse,
     },
   },
   label: {
     type: "plain_text",
-    text: Club.Label.kibelaUrl,
+    text: Club.Label.budgetUse,
+  },
+};
+
+const inputComponentChannel = {
+  type: "input",
+  block_id: "channel_id",
+  element: {
+    type: "channels_select",
+    action_id: "channel",
+    placeholder: {
+      type: "plain_text",
+      text: Club.Placeholder.channel,
+    },
+  },
+  label: {
+    type: "plain_text",
+    text: Club.Label.channel,
   },
 };
 
@@ -70,23 +88,6 @@ const inputComponentCaptain = {
   },
 };
 
-const inputComponentSubCaptain = {
-  type: "input",
-  block_id: "sub_captain_name",
-  element: {
-    type: "users_select",
-    action_id: "sub_captain",
-    placeholder: {
-      type: "plain_text",
-      text: Club.Placeholder.subCaptain,
-    },
-  },
-  label: {
-    type: "plain_text",
-    text: Club.Label.subCaptain,
-  },
-};
-
 const inputComponentMember = {
   type: "input",
   block_id: "member_name",
@@ -104,12 +105,30 @@ const inputComponentMember = {
   },
 };
 
+const inputComponentKibelaUrl = {
+  type: "input",
+  block_id: "kibela_url",
+  element: {
+    type: "plain_text_input",
+    action_id: "url",
+    placeholder: {
+      type: "plain_text",
+      text: Club.Placeholder.kibelaUrl,
+    },
+  },
+  label: {
+    type: "plain_text",
+    text: Club.Label.kibelaUrl,
+  },
+};
+
 // eslint-disable-next-line import/prefer-default-export
 export const inputClubModal = [
   inputComponentName,
   inputComponentDescription,
-  inputComponentKibelaUrl,
+  inputComponentBudgetUse,
+  inputComponentChannel,
   inputComponentCaptain,
-  inputComponentSubCaptain,
   inputComponentMember,
+  inputComponentKibelaUrl,
 ];
