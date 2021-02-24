@@ -229,7 +229,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "clubId": {
+                  "slackChannelId": {
                     "type": "string",
                     "example": "fugapiyo"
                   },
@@ -346,7 +346,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "clubId": {
+                  "slackChannelId": {
                     "type": "string",
                     "example": "fugapiyo"
                   },
