@@ -61,10 +61,11 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         blocks: getMessageBlocks({
           name: values.club_name.name.value,
           description: values.club_description.description.value,
-          kibela: values.kibela_url.url.value,
+          budgetUse: values.budget_use.budget.value,
+          channelId: `*<#${values.channel_id.channel.selected_channel}>*`,
           captainId: `*<@${values.captain_name.captain.selected_user}>*`,
-          subCaptainId: `*<@${values.sub_captain_name.sub_captain.selected_user}>*`,
           membersId: membersField,
+          kibela: values.kibela_url.url.value,
           buttons,
         }),
       })
