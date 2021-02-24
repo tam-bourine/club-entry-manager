@@ -33,12 +33,17 @@ export default class Constants {
       APPLICATION_DATE_COLUMN_NUMBER: 7, // 申請日
       APPROVED_COLUMN_NUMBER: 8, // 公認
       MEMBER: {
-        SLACK_ID_1: 11,
-        NAME_1: 12,
-        SLACK_ID_2: 13,
-        NAME_2: 14,
-        SLACK_ID_3: 15,
-        NAME_3: 16,
+        SLACK_ID_LEADER: 11,
+        NAME_LEADER: 12,
+        SLACK_ID_1: 13,
+        NAME_1: 14,
+        SLACK_ID_2: 15,
+        NAME_2: 16,
+      },
+      ROLE: {
+        LEADER: "部長",
+        MEMBER_1: "部員1",
+        MEMBER_2: "部員2",
       },
     },
   };

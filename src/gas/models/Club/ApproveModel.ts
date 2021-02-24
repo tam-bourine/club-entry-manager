@@ -1,9 +1,9 @@
 import Constants from "../../shared/Constants";
 import Response from "../../shared/Response";
 import ApproveInterface from "../../shared/types/ApproveInterface";
+import { AtLeast } from "../../shared/types/UtilityTypes";
 import ApproveView from "../../views/Club/ApproveView";
 
-// TODO: 型の export
 interface UpdateIsApprovedParams {
   slackChannelId: ApproveInterface["slackChannelId"];
   isApproved: ApproveInterface["isApproved"];
@@ -15,13 +15,16 @@ interface CreateClubSheetParams {
 
 interface InsertInitialValuesParams {
   clubName: string;
-  members: {
-    name: string;
-    slackId: string;
-    role: string;
-    joinedDate: string;
-    leftDate: string;
-  }[];
+  members: AtLeast<
+    3,
+    {
+      name: string;
+      slackId: string;
+      role: string;
+      joinedDate: string;
+      leftDate: string;
+    }
+  >;
 }
 
 export default class ApproveModel {
@@ -113,7 +116,6 @@ export default class ApproveModel {
       if (sheetTabName) {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
         const data = sheet?.getDataRange().getValues();
-        const members: InsertInitialValuesParams["members"] = [];
         /**
          * @description
          *  Array.prototype.reduce
@@ -122,28 +124,51 @@ export default class ApproveModel {
          *  reduce で Bolt 側から送信された slackChannelId を includes している行を取り出す
          */
         const rowDataIncludesClub = data?.reduce((acc, cur) => {
-          // FIXME: 実装途中
-          members.push({
-            name: "",
-            slackId: "",
-            role: "",
-            joinedDate: "",
-            leftDate: "",
-          });
           if (cur.includes(slackChannelId)) return cur;
           return acc;
         }, []);
-        /**
-         * @description
-         *  GAS は index が1開始なので constants.SPREAD_SHEET.CLUB_NAME_COLUMN_NUMBER - 1 で配列から
-         *  clubName を取り出す
-         *  シートが新しく挿入されれば created を返す、失敗時は false をハンドリングして not found を返す
-         */
         if (rowDataIncludesClub) {
+          /**
+           * @description
+           *  GAS は index が1開始なので constants.SPREAD_SHEET.CLUB_NAME_COLUMN_NUMBER - 1 で配列から
+           *  clubName を取り出す
+           */
           const clubNameIndex = this.constants.SPREAD_SHEET.CLUBS.CLUB_NAME_COLUMN_NUMBER - 1;
           const clubName = rowDataIncludesClub[clubNameIndex];
           const targetSheet = SpreadsheetApp.getActiveSpreadsheet();
           const result = targetSheet.insertSheet(clubName);
+
+          /**
+           * @description
+           *  初期メンバーは最低3人確定なので、3以上の長さの配列 members (Tuple 扱い)に部活動一覧シートから取得した
+           *  部長、発起人1、発起人2 を入れる
+           */
+          const applicationDate =
+            rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.APPLICATION_DATE_COLUMN_NUMBER - 1];
+          const members: InsertInitialValuesParams["members"] = [
+            {
+              name: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.NAME_LEADER - 1],
+              slackId: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.SLACK_ID_LEADER - 1],
+              role: this.constants.SPREAD_SHEET.CLUBS.ROLE.LEADER,
+              joinedDate: applicationDate,
+              leftDate: "",
+            },
+            {
+              name: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.NAME_1 - 1],
+              slackId: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.SLACK_ID_1 - 1],
+              role: this.constants.SPREAD_SHEET.CLUBS.ROLE.MEMBER_1,
+              joinedDate: applicationDate,
+              leftDate: "",
+            },
+            {
+              name: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.NAME_2 - 1],
+              slackId: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.SLACK_ID_2 - 1],
+              role: this.constants.SPREAD_SHEET.CLUBS.ROLE.MEMBER_2,
+              joinedDate: applicationDate,
+              leftDate: "",
+            },
+          ];
+
           if (result) return this.insertClubInitialValues({ clubName, members });
           return this.res.notFound;
         }
@@ -169,7 +194,13 @@ export default class ApproveModel {
         this.constants.SPREAD_SHEET.CLUB.MEMBER.JOINED_DATE,
         this.constants.SPREAD_SHEET.CLUB.MEMBER.LEFT_DATE,
       ]);
-      // TODO: 部活動一覧から取得した初期メンバーのデータを appendRow していく
+      /**
+       * @description
+       *  部長、発起人1、発起人2 を順に追加
+       */
+      members.forEach((member) => {
+        sheet?.appendRow([member.name, member.slackId, member.role, member.joinedDate, member.leftDate]);
+      });
       return this.res.created;
     } catch (error) {
       return this.res.internalServer;
