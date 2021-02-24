@@ -7,7 +7,7 @@ export namespace Club {
     export const channel = "部活動チャンネル";
     export const captain = "部長名";
     export const member = "初期メンバー";
-    export const kibelaUrl = "Kibela URL";
+    export const kibelaUrl = "部活動紹介記事のKibelaのURL";
     export const reject = "却下理由";
   }
   export namespace Placeholder {
