@@ -7,6 +7,7 @@ import { getApprovalBlocks } from "../blocks/approval";
 import { getModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
 import { ButtonArg } from "../types/Messages";
+import * as kibela from "../api/kibela";
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
@@ -126,5 +127,39 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
     /* 16. シートの承認APIをコール */
 
     /* 21. KibelaAPIにて創部時処理 */
+    const clubName = "hoge";
+    const url = "urllll";
+    const emails = ["", "hoge@b.com", "hoge@c.com"];
+    await kibela.mutation.note.moveOfficialFolder(url, clubName);
+
+    const group = await kibela.query.group.getByNoteUrl(url);
+    kibela.query.user
+      .getAll()
+      .then((users) => emails.map((email) => kibela.query.user.findByEmail(email, users)))
+      .then((hitUsers) =>
+        hitUsers.map(async (user) => {
+          await kibela.mutation.user.addMemberToGroup(group.id, user.id);
+        })
+      );
+
+    await client.chat
+      .postMessage({
+        token: client.token,
+        channel: approvalChannelId,
+        text: `<#${clubChannelId}>が承認されました<:tada:>`,
+      })
+      .catch((error) => {
+        console.error({ error });
+      });
+
+    await client.chat
+      .postMessage({
+        token: client.token,
+        channel: clubChannelId,
+        text: `<!channel> 部活申請が承認されました<:tada:>`,
+      })
+      .catch((error) => {
+        console.error({ error });
+      });
   });
 };

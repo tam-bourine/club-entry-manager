@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { callAPI } from "..";
+import { callAPI } from "../api";
 import type { User } from "../../../../../@types/kibela.d";
 import { Config } from "../../../../constant";
 
@@ -27,9 +27,7 @@ export const getAll = async (): Promise<User[]> => {
   return data.group.users.nodes;
 };
 
-export const findByEmail = async (email: string): Promise<User> => {
-  const users = await getAll();
-
+export const findByEmail = (email: string, users: User[]): User => {
   const hitUser = users.find((u) => u.email === email);
   if (!hitUser) {
     throw new Error(`not ok: not found user by this email (${email})`);
