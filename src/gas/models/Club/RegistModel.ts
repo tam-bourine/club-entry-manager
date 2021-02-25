@@ -1,4 +1,3 @@
-import { channel } from './../../../functions/config/clubConfig';
 import Response from "../../shared/Response";
 import RegistInterface from "../../shared/types/RegistInterface";
 import RegistView from "../../views/Club/RegistView";
