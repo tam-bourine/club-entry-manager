@@ -110,7 +110,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         triggerId: ((body as unknown) as BlockAction).trigger_id,
         callbackId: approvalViewsId,
         title: Modal.Title.approval,
-        blocks: getApprovalBlocks(payload.value, "承認します。よろしいですか？"),
+        blocks: getApprovalBlocks({ text: `<#${payload.value}>`, value: payload.value }),
         submit: Modal.Button.approval,
       });
     }
