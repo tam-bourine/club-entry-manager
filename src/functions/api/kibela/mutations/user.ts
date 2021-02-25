@@ -10,5 +10,7 @@ export const addMemberToGroup = async (groupId: string, userId: string) => {
     }
   `;
 
-  await callAPI(mutation).catch((err) => console.error(err));
+  await callAPI(mutation).catch((err) => {
+    console.error(err);
+  });
 };

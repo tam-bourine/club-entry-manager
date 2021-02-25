@@ -13,6 +13,8 @@ export const fetchNoteByUrl = async (url: string): Promise<Note> => {
     }
   `;
 
-  const data = await callAPI(query);
+  const data = await callAPI(query).catch((err) => {
+    console.error(err);
+  });
   return data.noteFromPath;
 };

@@ -10,7 +10,9 @@ export default class RegistModel {
   addClub(params: RegistInterface) {
     const { club, captain, members } = params;
     try {
+      // TODO: #169 
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
+      const slackWorkspaceUrl = PropertiesService.getScriptProperties().getProperty("SLACK_WORKSPACE_URL");
       if (sheetTabName) {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
         const today = new Date();
@@ -20,6 +22,8 @@ export default class RegistModel {
         カラム定義: /docs/columns/clubs.json, /docs/columns/clubs.png
         */
         const id = Utilities.getUuid();
+        const slackChannelUrl = `${slackWorkspaceUrl}/archives/${club.channelId}`;
+        const slackChannel = `=HYPERLINK("${slackChannelUrl}", "${club.channelId}")`;
         // FIX: #162 型定義で、列番号がどのカラムに対応しているのか分かるようにする。
         const newClub = [
           id,
@@ -27,6 +31,7 @@ export default class RegistModel {
           club.description,
           club.budgetUse,
           club.kibelaUrl,
+          slackChannel,
           today.toISOString(),
           false,
           "", // 承認者_SlackID
