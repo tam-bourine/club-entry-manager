@@ -1,5 +1,5 @@
 import { app } from "../..";
-import { Config } from "../../../constant";
+import { Config } from "../../constant";
 import { SlackUser } from "../../types/slack/User";
 
 export const getUserById = async (user: string) => {

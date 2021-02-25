@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import { callAPI } from "..";
-import type { Note } from "../../../../../@types/kibela.d";
+import type { Note } from "../../../../@types/kibela.d";
 import { fetchNoteByUrl } from "../queries/note";
 
 export const moveOfficialFolder = async (url: string, clubName: string): Promise<Note> => {

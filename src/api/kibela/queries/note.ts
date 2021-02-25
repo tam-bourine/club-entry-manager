@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import type { Note } from "../../../../../@types/kibela.d";
+import type { Note } from "../../../../@types/kibela.d";
 import { callAPI } from "..";
 
 export const fetchNoteByUrl = async (url: string): Promise<Note> => {
