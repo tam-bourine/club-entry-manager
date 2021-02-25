@@ -115,4 +115,16 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       });
     }
   );
+
+  app.view(approvalViewsId, async ({ ack, view, client }) => {
+    ack();
+
+    const { values } = view.state;
+
+    const clubChannelId = values.approval_input.approval.selected_option.value as string;
+
+    /* 16. シートの承認APIをコール */
+
+    /* 21. KibelaAPIにて創部時処理 */
+  });
 };
