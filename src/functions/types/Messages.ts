@@ -13,6 +13,7 @@ export interface ButtonArg {
   text: string;
   color?: string;
   actionId: string;
+  value: string;
 }
 
 export interface ClubInfoArg {

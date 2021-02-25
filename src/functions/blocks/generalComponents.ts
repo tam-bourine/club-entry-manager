@@ -57,17 +57,17 @@ const sectionFields = ({ title, text }: { title: string; text: SectionArgType })
 });
 
 const sectionButton = (buttons: ButtonArg[]) => {
-  const elements = buttons.map((item) => {
+  const elements = buttons.map(({ text, color, value, actionId }) => {
     return {
       type: "button",
       text: {
         type: "plain_text",
-        text: item.text,
+        text: text,
         emoji: true,
       },
-      style: item.color,
-      value: "click_me_123",
-      action_id: item.actionId,
+      style: color,
+      value,
+      action_id: actionId,
     };
   });
   return {
