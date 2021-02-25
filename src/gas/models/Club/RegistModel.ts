@@ -22,7 +22,7 @@ export default class RegistModel {
         */
         const id = Utilities.getUuid();
         const slackChannelUrl = `${slackWorkspaceUrl}/archives/${club.channelId}`;
-        const slackChannel = `= HYPERLINK("${slackChannelUrl}", "${club.channelId}")`;
+        const slackChannel = `=HYPERLINK("${slackChannelUrl}", "${club.channelId}")`;
         // FIX: #162 型定義で、列番号がどのカラムに対応しているのか分かるようにする。
         const newClub = [
           id,
