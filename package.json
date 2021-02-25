@@ -16,7 +16,7 @@
     "start": "npm run postinstall:types-gas && npm run build && npm run run",
     "postinstall:types-gas": "npx replace-in-file \"declare var console\" \"//declare var console\" node_modules/@types/google-apps-script/google-apps-script.base.d.ts",
     "bolt:serve": "tsc && npx node lib/functions/index.js",
-    "bolt:dev": "ts-node-dev --transpile-only src/functions/index.ts",
+    "bolt:dev": "ts-node-dev --transpile-only src/index.ts",
     "codegen": "graphql-codegen"
   },
   "keywords": [
