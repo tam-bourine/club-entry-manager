@@ -1,4 +1,4 @@
-import { App } from "@slack/bolt";
+import { AllMiddlewareArgs, App, ButtonClick, InteractiveMessage, SlackActionMiddlewareArgs } from "@slack/bolt";
 import { BlockAction } from "@slack/bolt/dist/types/actions/block-action";
 import { inputClubModal } from "../blocks/inputClub";
 import { getMessageBlocks } from "../blocks/messages/modal";
@@ -6,6 +6,7 @@ import { getRejectBlocks } from "../blocks/reject";
 import { getApprovalBlocks } from "../blocks/approval";
 import { getModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
+import { ButtonArg } from "../types/Messages";
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
@@ -39,16 +40,18 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       text: `*<@${member}>*`,
     }));
 
-    const buttons = [
+    const buttons: ButtonArg[] = [
       {
         text: "却下",
         color: "danger",
         actionId: "reject_modal",
+        value: values.channel_id.channel.selected_channel,
       },
       {
         text: "承認",
         color: "primary",
         actionId: "approval_modal",
+        value: values.channel_id.channel.selected_channel,
       },
     ];
 
@@ -90,17 +93,26 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
   });
 
   // 承認確認用モーダル表示
-  app.action("approval_modal", async ({ ack, client, body, context }) => {
-    ack();
-
-    getModal({
+  app.action(
+    "approval_modal",
+    async ({
+      ack,
+      body,
+      payload,
       client,
-      botToken: context.botToken,
-      triggerId: (<BlockAction>body).trigger_id,
-      callbackId: approvalViewsId,
-      title: Modal.Title.approval,
-      blocks: getApprovalBlocks("承認します。よろしいですか？"),
-      submit: Modal.Button.approval,
-    });
-  });
+      context,
+    }: SlackActionMiddlewareArgs<InteractiveMessage<ButtonClick>> & AllMiddlewareArgs) => {
+      ack();
+
+      getModal({
+        client,
+        botToken: context.botToken,
+        triggerId: ((body as unknown) as BlockAction).trigger_id,
+        callbackId: approvalViewsId,
+        title: Modal.Title.approval,
+        blocks: getApprovalBlocks(payload.value, "承認します。よろしいですか？"),
+        submit: Modal.Button.approval,
+      });
+    }
+  );
 };
