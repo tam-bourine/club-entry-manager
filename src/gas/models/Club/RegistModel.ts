@@ -10,7 +10,7 @@ export default class RegistModel {
   addClub(params: RegistInterface) {
     const { club, captain, members } = params;
     try {
-      // TODO: #169 
+      // TODO: #169
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
       const slackWorkspaceUrl = PropertiesService.getScriptProperties().getProperty("SLACK_WORKSPACE_URL");
       if (sheetTabName) {
