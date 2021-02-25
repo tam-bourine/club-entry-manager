@@ -18,7 +18,6 @@ export namespace Config {
   export namespace Slack {
     export const APP_TOKEN = process.env.SLACK_APP_TOKEN as string;
     export const BOT_TOKEN = process.env.SLACK_BOT_TOKEN as string;
-    export const USER_TOKEN = process.env.SLACK_USER_TOKEN as string;
     export const SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET as string;
     export const APPROVAL_CHANNEL_ID = (process.env.SLACK_APPROVAL_CHANNEL_ID as string) || "C01F6HWUGUA";
 
