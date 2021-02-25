@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { callAPI } from "../../api/kibela";
+import { callAPI } from "../index";
 
 export const joinGroup = async (userId: string, groupId: string) => {
   const mutation = gql`

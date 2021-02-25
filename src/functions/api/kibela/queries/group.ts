@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
-import { callAPI } from "../../api/kibela";
-import type { Group } from "../../../../@types/kibela.d";
-import { Config } from "../../../constant";
+import { callAPI } from "..";
+import type { Group } from "../../../../../@types/kibela.d";
+import { Config } from "../../../../constant";
 
 export const getByNoteUrl = async (url: string): Promise<Group[]> => {
   const query = gql`
