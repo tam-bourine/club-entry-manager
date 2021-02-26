@@ -1,28 +1,30 @@
 import Constants from "../../shared/Constants";
 import Response from "../../shared/Response";
 import ApproveInterface from "../../shared/types/ApproveInterface";
+import ResponseInterface from "../../shared/types/ResponseInterface";
 import { AtLeast } from "../../shared/types/UtilityTypes";
 import ApproveView from "../../views/Club/ApproveView";
 
 /* global GoogleAppsScript */
-interface UpdateAuthorizerParams {
+export interface UpdateAuthorizerParams {
   sheet: GoogleAppsScript.Spreadsheet.Sheet;
   exists: number;
   authorizer: ApproveInterface["authorizer"];
 }
 
-interface updateIsApproved {
+export interface updateIsApproved {
   slackChannelId: ApproveInterface["slackChannelId"];
   authorizer: ApproveInterface["authorizer"];
   isApproved: ApproveInterface["isApproved"];
 }
 
-interface CreateClubSheetParams {
+export interface CreateClubSheetParams {
   slackChannelId: ApproveInterface["slackChannelId"];
 }
 
-interface InsertInitialValuesParams {
+export interface InsertInitialValuesParams {
   clubName: string;
+  kibelaUrl: string;
   members: AtLeast<
     3,
     {
@@ -168,6 +170,7 @@ export default class ApproveModel {
            */
           const applicationDate =
             rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.APPLICATION_DATE_COLUMN_NUMBER - 1];
+          const kibelaUrl = rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.KIBELA_URL_COLUMN_NUMBER - 1];
           const members: InsertInitialValuesParams["members"] = [
             {
               name: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.NAME_LEADER - 1],
@@ -192,7 +195,7 @@ export default class ApproveModel {
             },
           ];
 
-          if (result) return this.insertClubInitialValues({ clubName, members });
+          if (result) return this.insertClubInitialValues({ clubName, kibelaUrl, members });
           return this.res.notFound;
         }
       }
@@ -202,8 +205,8 @@ export default class ApproveModel {
     }
   }
 
-  private insertClubInitialValues(params: InsertInitialValuesParams) {
-    const { clubName, members } = params;
+  private insertClubInitialValues(params: InsertInitialValuesParams): ResponseInterface {
+    const { clubName, kibelaUrl, members } = params;
     try {
       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(clubName);
       /**
@@ -224,7 +227,8 @@ export default class ApproveModel {
       members.forEach((member) => {
         sheet?.appendRow([member.name, member.slackId, member.role, member.joinedDate, member.leftDate]);
       });
-      return this.res.created;
+      const header = this.res.created;
+      return { ...header, club: { name: clubName, kibelaUrl: kibelaUrl, members: members } };
     } catch (error) {
       return this.res.internalServer;
     }
