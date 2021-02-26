@@ -134,6 +134,10 @@ cd ../..
         - ![image](https://user-images.githubusercontent.com/39648121/101324166-23706c00-38ad-11eb-99a2-c5cca05276ac.png)
 4. スクリプトのプロパティの設定
     - 再度スクリプトファイルを開き、ファイル → プロジェクトのプロパティをクリック
+    - スクリプトのプロパティをクリック
+    - 行を追加をクリックしプロパティに「SHEET_TAB_NAME」を入力、値に「部活動一覧」を入力
+        - ![image](https://user-images.githubusercontent.com/38882716/109267761-707d3200-784d-11eb-8545-714fab39be50.png)
+    - 保存をクリック
 5. ローカルのコードを script ファイルに反映
     - https://script.google.com/home/usersettingsw を開いて、Google Apps Script API をオンにする。
     - ターミナルで次を実行
@@ -157,6 +161,8 @@ cd ../..
       ![image](https://user-images.githubusercontent.com/39648121/101870515-1a411100-3bc5-11eb-8f11-90b397ef0392.png)
     - 公開後の URL をコピー
       ![image](https://user-images.githubusercontent.com/39648121/101870625-5aa08f00-3bc5-11eb-9c17-18e13ad6d284.png)
+7. Postman などで ↑ の URL を叩いて動作確認
+    - ![image](https://user-images.githubusercontent.com/38882716/109268429-69a2ef00-784e-11eb-8004-7eb38079e5b0.png)
 
 ### SocketMode での開発方法
 
