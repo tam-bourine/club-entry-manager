@@ -24,15 +24,13 @@ export interface CreateClubSheetParams {
 export interface InsertInitialValuesParams {
   clubName: string;
   kibelaUrl: string;
-  members:
-    | {
-        name: string;
-        slackId: string;
-        role: string;
-        joinedDate: string;
-        leftDate: string;
-      }[]
-    | [];
+  members: {
+    name: string;
+    slackId: string;
+    role: string;
+    joinedDate: string;
+    leftDate: string;
+  }[];
 }
 
 export default class ApproveModel {
@@ -176,7 +174,7 @@ export default class ApproveModel {
               "F2FDKWOI", "キャプテンキッド", "XEF8FDSX", "ほげ山ほげ子", "F39SFDW", "ふが田ふが男", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら",  "", "", "", "", "", "", ""
               ]
           */
-          const membersArray: [] = rowDataIncludesClub.slice(
+          const membersArray: string[] = rowDataIncludesClub.slice(
             this.constants.SPREAD_SHEET.CLUBS.AUTHORIZER_NAME_COLUMN_NUMBER,
             rowDataIncludesClub.length
           );
@@ -226,7 +224,7 @@ export default class ApproveModel {
     }
   }
 
-  private toObjectInArrayMembers(membersArray: [], applicationDate: any) {
+  private toObjectInArrayMembers(membersArray: string[], applicationDate: any) {
     const members: InsertInitialValuesParams["members"] = [];
     membersArray.forEach((value, index) => {
       if (!value) {
