@@ -169,11 +169,19 @@ export default class ApproveModel {
            */
           const applicationDate =
             rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.APPLICATION_DATE_COLUMN_NUMBER - 1];
+
+          /*
+          部長~部員10のカラムだけ配列の形で抽出
+          例: "F2FDKWOI", "キャプテンキッド", "XEF8FDSX", "ほげ山ほげ子", "F39SFDW", "ふが田ふが男", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら",  "", "", "", "", "", "", ""]
+          */
           const membersArray: [] = rowDataIncludesClub.slice(
             this.constants.SPREAD_SHEET.CLUBS.AUTHORIZER_NAME_COLUMN_NUMBER,
             rowDataIncludesClub.length
           );
-          const members = this.toObjectInArrayMembers(membersArray, applicationDate);
+          const members: InsertInitialValuesParams["members"] = this.toObjectInArrayMembers(
+            membersArray,
+            applicationDate
+          );
 
           if (result) return this.insertClubInitialValues({ clubName, members });
           return this.res.notFound;
@@ -217,6 +225,11 @@ export default class ApproveModel {
     const members: InsertInitialValuesParams["members"] = [];
     membersArray.forEach((value, index) => {
       if (!value) {
+        /*
+        FIX: 本当は処理を中断させたい
+        return文だとfor文でいうcontinueの役割になる。 参考: https://www.deep-rain.com/programming/javascript/778
+        for in使いたいけど、Lintに弾かれるので一旦このまま
+        */
         return;
       }
       const isIdColumn = !(index % 2);
