@@ -8,6 +8,8 @@ import { getModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
 import { ButtonArg } from "../types/Messages";
 import * as kibela from "../api/kibela";
+import * as slack from "../api/slack";
+import { Config } from "../../constant";
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
@@ -127,12 +129,21 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
     /* 16. シートの承認APIをコール */
 
     /* 21. KibelaAPIにて創部時処理 */
-    const clubName = "hoge";
-    const url = "urllll";
-    const emails = ["", "hoge@b.com", "hoge@c.com"];
+    const clubName = "Among Us";
+    const url = "https://tambourine.kibe.la/notes/19541";
+    // const emails = ["", "hoge@b.com", "hoge@c.com"];
+    const userIds = ["UR285JW80"];
+
+    console.log({ ENDPOINT: Config.Kibela.END_POINT, TOKEN: Config.Kibela.TOKEN });
+
     await kibela.mutation.note.moveOfficialFolder(url, clubName);
 
     const group = await kibela.query.group.getByNoteUrl(url);
+
+    // NOTE: slack user ids -> user emails
+    const emails = await Promise.all(userIds.map(async (userId) => (await slack.user.getById(userId)).profile.email));
+
+    // NOTE: kibela users -> target kibela users
     kibela.query.user
       .getAll()
       .then((users) => emails.map((email) => kibela.query.user.findByEmail(email, users)))
