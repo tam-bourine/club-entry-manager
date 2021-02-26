@@ -1,4 +1,4 @@
-import { AllMiddlewareArgs, App, ButtonClick, InteractiveMessage, SlackActionMiddlewareArgs } from "@slack/bolt";
+import { App, AllMiddlewareArgs, ButtonClick, InteractiveMessage, SlackActionMiddlewareArgs } from "@slack/bolt";
 import { BlockAction } from "@slack/bolt/dist/types/actions/block-action";
 import { inputClubModal } from "../blocks/inputClub";
 import { getMessageBlocks } from "../blocks/messages/modal";
@@ -6,9 +6,12 @@ import { getRejectBlocks } from "../blocks/reject";
 import { getApprovalBlocks } from "../blocks/approval";
 import { getModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
+import { sectionPlainText } from "../blocks/generalComponents";
+import { Club } from "../config/clubConfig";
 import { ButtonArg } from "../types/Messages";
 import * as kibela from "../api/kibela";
 import * as slack from "../api/slack";
+import * as gas from "../api/gas";
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
@@ -31,53 +34,102 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
   });
 
   // 承認専用チャンネルに創部申請情報を流す処理
-  app.view(clubViewsId, async ({ ack, view, client }) => {
-    ack();
-
-    const { values } = view.state;
-
-    // 初期メンバー表示用のフィールド作成
-    const membersField = values.member_name.member.selected_users.map((member: string) => ({
-      type: "mrkdwn",
-      text: `*<@${member}>*`,
-    }));
-
-    const buttons: ButtonArg[] = [
-      {
-        text: "却下",
-        color: "danger",
-        actionId: "reject_modal",
-        value: values.channel_id.channel.selected_channel,
+  app.view(
+    clubViewsId,
+    async ({
+      ack,
+      view: {
+        state: { values },
       },
-      {
-        text: "承認",
-        color: "primary",
-        actionId: "approval_modal",
-        value: values.channel_id.channel.selected_channel,
-      },
-    ];
+      client,
+      body,
+    }) => {
+      ack();
 
-    // 承認チャンネルに対して部活動申請情報を送信
-    await client.chat
-      .postMessage({
-        token: client.token,
-        channel: approvalChannelId,
-        text: "部活動申請が届きました",
-        blocks: getMessageBlocks({
+      const postUserId = body.user.id;
+      const memberIds = values.member_name.member.selected_users as string[];
+      const members = await Promise.all(
+        memberIds.map(async (slackId) => {
+          const { id, real_name: realName } = await slack.user.getById(slackId);
+          return {
+            slackId: id,
+            name: realName,
+          };
+        })
+      );
+      const captain = await slack.user.getById(values.captain_name.captain.selected_user);
+      const clubInfo = {
+        club: {
           name: values.club_name.name.value,
           description: values.club_description.description.value,
           budgetUse: values.budget_use.budget.value,
-          channelId: `*<#${values.channel_id.channel.selected_channel}>*`,
-          captainId: `*<@${values.captain_name.captain.selected_user}>*`,
-          membersId: membersField,
-          kibela: values.kibela_url.url.value,
-          buttons,
-        }),
-      })
-      .catch((error) => {
-        console.error({ error });
-      });
-  });
+          kibelaUrl: values.kibela_url.url.value,
+          channelId: values.channel_id.channel.selected_channel,
+        },
+        captain: {
+          slackId: captain.id,
+          name: captain.real_name,
+        },
+        members,
+      };
+      const response = await gas.api.callNewClub(clubInfo);
+      if (!response.success) {
+        await client.chat
+          .postMessage({
+            channel: postUserId,
+            text: "エラーが発生しました",
+            blocks: [
+              sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。開発者に連絡してください" }),
+            ],
+          })
+          .catch((error) => {
+            console.error({ error });
+          });
+        return;
+      }
+
+      // 初期メンバー表示用のフィールド作成
+      const membersField = values.member_name.member.selected_users.map((member: string) => ({
+        type: "mrkdwn",
+        text: `*<@${member}>*`,
+      }));
+
+      const buttons: ButtonArg[] = [
+        {
+          text: "却下",
+          color: "danger",
+          actionId: "reject_modal",
+          value: values.channel_id.channel.selected_channel,
+        },
+        {
+          text: "承認",
+          color: "primary",
+          actionId: "approval_modal",
+          value: values.channel_id.channel.selected_channel,
+        },
+      ];
+
+      // 承認チャンネルに対して部活動申請情報を送信
+      await client.chat
+        .postMessage({
+          channel: approvalChannelId,
+          text: "部活動申請が届きました",
+          blocks: getMessageBlocks({
+            name: values.club_name.name.value,
+            description: values.club_description.description.value,
+            budgetUse: values.budget_use.budget.value,
+            channelId: `*<#${values.channel_id.channel.selected_channel}>*`,
+            captainId: `*<@${values.captain_name.captain.selected_user}>*`,
+            membersId: membersField,
+            kibela: values.kibela_url.url.value,
+            buttons,
+          }),
+        })
+        .catch((error) => {
+          console.error({ error });
+        });
+    }
+  );
 
   // 却下理由入力モーダル表示
   app.action("reject_modal", async ({ ack, client, body, context }) => {
@@ -143,7 +195,9 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       const group = await kibela.query.group.getByNoteUrl(url);
 
       // NOTE: slack user ids -> user emails
-      const emails = await Promise.all(userIds.map(async (userId) => (await slack.user.getById(userId)).profile.email));
+      const emails = await Promise.all(
+        userIds.map(async (userId) => (await slack.user.getById(userId)).profile!.email)
+      );
 
       // NOTE: kibela users -> target kibela users
       kibela.query.user.getAll().then((users) =>

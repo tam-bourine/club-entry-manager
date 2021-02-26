@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 export interface SlackUser {
   id: string;
-  name: string;
+  name?: string;
   real_name: string;
-  profile: {
+  profile?: {
     email: string;
   };
 }

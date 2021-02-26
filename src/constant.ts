@@ -28,6 +28,10 @@ export namespace Config {
     }
   }
 
+  export namespace Gas {
+    export const END_POINT = process.env.GAS_ENDPOINT as string;
+  }
+
   export namespace General {
     export const { APP_ENV } = process.env;
     export const APP_ENV_TYPE = {
