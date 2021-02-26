@@ -43,11 +43,9 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         state: { values },
       },
       client,
-      body,
     }) => {
       ack();
 
-      const postUserId = body.user.id;
       const memberIds = values.member_name.member.selected_users as string[];
       const members = await Promise.all(
         memberIds.map(async (slackId) => {
@@ -77,11 +75,9 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       if (!response.success) {
         await client.chat
           .postMessage({
-            channel: postUserId,
+            channel: approvalChannelId,
             text: "エラーが発生しました",
-            blocks: [
-              sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。開発者に連絡してください" }),
-            ],
+            blocks: [sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。" })],
           })
           .catch((error) => {
             console.error({ error });
@@ -199,11 +195,9 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       if (!response.success) {
         await client.chat
           .postMessage({
-            channel: authorizer.id,
+            channel: approvalChannelId,
             text: "エラーが発生しました",
-            blocks: [
-              sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。開発者に連絡してください" }),
-            ],
+            blocks: [sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。" })],
           })
           .catch((error) => {
             console.error({ error });
