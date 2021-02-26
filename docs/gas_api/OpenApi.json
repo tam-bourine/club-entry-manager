@@ -291,6 +291,14 @@
                     "success": {
                       "type": "boolean",
                       "example": true
+                    },
+                    "club": {
+                      "type": "object",
+                      "example": {
+                        "name": "Piyo",
+                        "kibelaUrl": "https://piyo.kibe.la/notes/12345",
+                        "userIds": ["XX112233"]
+                      }
                     }
                   }
                 }
