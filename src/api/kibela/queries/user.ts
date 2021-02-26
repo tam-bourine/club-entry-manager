@@ -3,12 +3,6 @@ import { callAPI } from "../api";
 import type { User } from "../../../../@types/kibela.d";
 import { Config } from "../../../constant";
 
-// TODO: SlackApp 側で SlackId から Email を取得、はダメそう
-// Kibela Id で検索する方向で
-export const getKibelaId = () => {};
-
-export const fetchUserByKibelaId = () => {};
-
 export const getAll = async (): Promise<User[]> => {
   const query = gql`
     query {
