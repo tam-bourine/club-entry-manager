@@ -24,6 +24,7 @@ export interface CreateClubSheetParams {
 
 export interface InsertInitialValuesParams {
   clubName: string;
+  kibelaUrl: string;
   members: AtLeast<
     3,
     {
@@ -169,6 +170,7 @@ export default class ApproveModel {
            */
           const applicationDate =
             rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.APPLICATION_DATE_COLUMN_NUMBER - 1];
+          const kibelaUrl = rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.KIBELA_URL_COLUMN_NUMBER - 1];
           const members: InsertInitialValuesParams["members"] = [
             {
               name: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.NAME_LEADER - 1],
@@ -193,7 +195,7 @@ export default class ApproveModel {
             },
           ];
 
-          if (result) return this.insertClubInitialValues({ clubName, members });
+          if (result) return this.insertClubInitialValues({ clubName, kibelaUrl, members });
           return this.res.notFound;
         }
       }
@@ -204,7 +206,7 @@ export default class ApproveModel {
   }
 
   private insertClubInitialValues(params: InsertInitialValuesParams): ResponseInterface {
-    const { clubName, members } = params;
+    const { clubName, kibelaUrl, members } = params;
     try {
       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(clubName);
       /**
@@ -226,7 +228,7 @@ export default class ApproveModel {
         sheet?.appendRow([member.name, member.slackId, member.role, member.joinedDate, member.leftDate]);
       });
       const header = this.res.created;
-      return { ...header, club: { name: clubName, kibelaUrl: "", members: members } };
+      return { ...header, club: { name: clubName, kibelaUrl: kibelaUrl, members: members } };
     } catch (error) {
       return this.res.internalServer;
     }

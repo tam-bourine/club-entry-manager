@@ -30,6 +30,7 @@ export default class Constants {
     },
     CLUBS: {
       CLUB_NAME_COLUMN_NUMBER: 2, // 部活名
+      KIBELA_URL_COLUMN_NUMBER: 5, // Kibela Url
       APPLICATION_DATE_COLUMN_NUMBER: 7, // 申請日
       APPROVED_COLUMN_NUMBER: 8, // 公認
       AUTHORIZER_SLACK_ID_COLUMN_NUMBER: 9,
