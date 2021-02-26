@@ -1,4 +1,4 @@
-import { SectionArgType, ButtonArg, FormArg } from "../types/Messages";
+import { SectionArgType, ButtonArg, FormArg, StaticSelectArg } from "../types/Messages";
 
 export const header = (title: string) => ({
   type: "header",
@@ -57,17 +57,17 @@ const sectionFields = ({ title, text }: { title: string; text: SectionArgType })
 });
 
 const sectionButton = (buttons: ButtonArg[]) => {
-  const elements = buttons.map((item) => {
+  const elements = buttons.map(({ text, color, value, actionId }) => {
     return {
       type: "button",
       text: {
         type: "plain_text",
-        text: item.text,
+        text: text,
         emoji: true,
       },
-      style: item.color,
-      value: "click_me_123",
-      action_id: item.actionId,
+      style: color,
+      value,
+      action_id: actionId,
     };
   });
   return {
@@ -96,4 +96,37 @@ const sectionForm = ({ label, placeholder, actionId, blockId }: FormArg) => {
   };
 };
 
-export { sectionPlainText, sectionMrkdwn, sectionFields, sectionButton, sectionForm };
+const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }: StaticSelectArg) => {
+  const elementOptions = options.map(({ text, value }) => ({
+    text: {
+      type: "plain_text",
+      text,
+      emoji: true,
+    },
+    value,
+  }));
+
+  return {
+    type: "input",
+    block_id: blockId,
+    element: {
+      type: "static_select",
+      options: elementOptions,
+      action_id: actionId,
+      initial_option: {
+        text: {
+          type: "plain_text",
+          text: initialOption.text,
+        },
+        value: initialOption.value,
+      },
+    },
+    label: {
+      type: "plain_text",
+      text: label,
+      emoji: true,
+    },
+  };
+};
+
+export { sectionPlainText, sectionMrkdwn, sectionFields, sectionButton, sectionForm, inputStaticSelect };

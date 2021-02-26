@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { callAPI } from "../index";
+import { callAPI } from "../api";
 
 export const joinGroup = async (userId: string, groupId: string) => {
   const mutation = gql`

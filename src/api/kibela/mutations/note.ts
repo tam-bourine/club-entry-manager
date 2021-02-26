@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { callAPI } from "..";
+import { callAPI } from "../api";
 import type { Note } from "../../../../@types/kibela.d";
 import { fetchNoteByUrl } from "../queries/note";
 
