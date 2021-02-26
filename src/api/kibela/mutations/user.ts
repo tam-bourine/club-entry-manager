@@ -1,10 +1,10 @@
 import gql from "graphql-tag";
-import { callAPI } from "../api";
+import { callAPI } from "../index";
 
-export const addMemberToGroup = async (groupId: string, userId: string) => {
+export const joinGroup = async (userId: string, groupId: string) => {
   const mutation = gql`
     mutation {
-      joinGroup(input: {groupId: ${groupId}, userId: ${userId}}) {
+      joinGroup(input: {userId: "${userId}", groupId: "${groupId}"}) {
         clientMutationId
       }
     }

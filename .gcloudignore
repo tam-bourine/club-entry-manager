@@ -1,0 +1,8 @@
+src/gas/
+lib/
+node_modules/
+.env
+.git
+.gitignore
+.github/
+

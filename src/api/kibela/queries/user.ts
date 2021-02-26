@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
-import { callAPI } from "../api";
-import type { User } from "../../../../../@types/kibela.d";
-import { Config } from "../../../../constant";
+import { callAPI } from "..";
+import type { User } from "../../../../@types/kibela.d";
+import { Config } from "../../../constant";
 
 // TODO: SlackApp 側で SlackId から Email を取得、はダメそう
 // Kibela Id で検索する方向で
@@ -29,7 +29,9 @@ export const getAll = async (): Promise<User[]> => {
   return data.group.users.nodes;
 };
 
-export const findByEmail = (email: string, users: User[]): User => {
+export const findByEmail = async (email: string): Promise<User> => {
+  const users = await getAll();
+
   const hitUser = users.find((u) => u.email === email);
   if (!hitUser) {
     throw new Error(`not ok: not found user by this email (${email})`);
