@@ -2,7 +2,6 @@ import Constants from "../../shared/Constants";
 import Response from "../../shared/Response";
 import ApproveInterface from "../../shared/types/ApproveInterface";
 import ResponseInterface from "../../shared/types/ResponseInterface";
-import { AtLeast } from "../../shared/types/UtilityTypes";
 import ApproveView from "../../views/Club/ApproveView";
 
 /* global GoogleAppsScript */
@@ -25,16 +24,13 @@ export interface CreateClubSheetParams {
 export interface InsertInitialValuesParams {
   clubName: string;
   kibelaUrl: string;
-  members: AtLeast<
-    3,
-    {
-      name: string;
-      slackId: string;
-      role: string;
-      joinedDate: string;
-      leftDate: string;
-    }
-  >;
+  members: {
+    name: string;
+    slackId: string;
+    role: string;
+    joinedDate: string;
+    leftDate: string;
+  }[];
 }
 
 export default class ApproveModel {
@@ -113,7 +109,9 @@ export default class ApproveModel {
          *  results に false が含まれない(シートの更新が正常に終了した)場合
          *  201 created を返す
          */
-        if (results?.every((result) => typeof result === "boolean")) return this.res.notFound;
+        if (results?.every((result) => typeof result === "boolean")) {
+          return this.res.notFound;
+        }
         return this.res.created;
       }
       return this.res.internalServer;
@@ -170,30 +168,22 @@ export default class ApproveModel {
            */
           const applicationDate =
             rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.APPLICATION_DATE_COLUMN_NUMBER - 1];
+          /*
+          部長~部員10のカラムだけ配列の形で抽出
+          @example [
+              "F2FDKWOI", "キャプテンキッド", "XEF8FDSX", "ほげ山ほげ子", "F39SFDW", "ふが田ふが男", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら",  "", "", "", "", "", "", ""
+              ]
+          */
+          const membersArray: string[] = rowDataIncludesClub.slice(
+            this.constants.SPREAD_SHEET.CLUBS.AUTHORIZER_NAME_COLUMN_NUMBER,
+            rowDataIncludesClub.length
+          );
+          const members: InsertInitialValuesParams["members"] = this.toObjectInArrayMembers(
+            membersArray,
+            applicationDate
+          );
+
           const kibelaUrl = rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.KIBELA_URL_COLUMN_NUMBER - 1];
-          const members: InsertInitialValuesParams["members"] = [
-            {
-              name: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.NAME_LEADER - 1],
-              slackId: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.SLACK_ID_LEADER - 1],
-              role: this.constants.SPREAD_SHEET.CLUBS.ROLE.LEADER,
-              joinedDate: applicationDate,
-              leftDate: "",
-            },
-            {
-              name: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.NAME_1 - 1],
-              slackId: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.SLACK_ID_1 - 1],
-              role: this.constants.SPREAD_SHEET.CLUBS.ROLE.MEMBER_1,
-              joinedDate: applicationDate,
-              leftDate: "",
-            },
-            {
-              name: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.NAME_2 - 1],
-              slackId: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.SLACK_ID_2 - 1],
-              role: this.constants.SPREAD_SHEET.CLUBS.ROLE.MEMBER_2,
-              joinedDate: applicationDate,
-              leftDate: "",
-            },
-          ];
 
           if (result) return this.insertClubInitialValues({ clubName, kibelaUrl, members });
           return this.res.notFound;
@@ -232,5 +222,35 @@ export default class ApproveModel {
     } catch (error) {
       return this.res.internalServer;
     }
+  }
+
+  private toObjectInArrayMembers(membersArray: string[], applicationDate: any) {
+    const members: InsertInitialValuesParams["members"] = [];
+    membersArray.forEach((value, index) => {
+      if (!value) {
+        /*
+        FIXME: 本当は処理を中断させたい
+        NOTE: return文だとfor文でいうcontinueの役割になる。 参考: https://www.deep-rain.com/programming/javascript/778
+        for in使いたいけど、Lintに弾かれるので一旦このまま
+        */
+        return;
+      }
+      const isIdColumn = !(index % 2);
+      const isNameColumn = index % 2;
+      if (isIdColumn) {
+        members.push({
+          name: "",
+          slackId: value,
+          role: "",
+          joinedDate: applicationDate,
+          leftDate: "",
+        });
+      }
+      if (isNameColumn) {
+        const lastArrayNumber = members.length - 1;
+        members[lastArrayNumber].name = value;
+      }
+    });
+    return members;
   }
 }
