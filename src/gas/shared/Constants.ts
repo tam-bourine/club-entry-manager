@@ -44,9 +44,9 @@ export default class Constants {
         NAME_2: 16,
       },
       ROLE: {
-        LEADER: "部長",
-        MEMBER_1: "部員",
-        MEMBER_2: "部員",
+        CAPTAIN: "部長",
+        SUB_CAPTAIN: "副部長",
+        MEMBER: "部員",
       },
     },
   };
