@@ -9,5 +9,7 @@ export default interface ResponseInterface {
   club?: {
     id: string;
     name: string;
+    kibelaUrl: string;
+    userSlackIds: string[];
   };
 }
