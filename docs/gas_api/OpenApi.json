@@ -273,7 +273,15 @@
                       "example": {
                         "name": "Piyo",
                         "kibelaUrl": "https://piyo.kibe.la/notes/12345",
-                        "userSlackIds": ["XX112233"]
+                        "members": [
+                          {
+                            "name": "風賀風大",
+                            "slackId": "XX112233",
+                            "role": "captain",
+                            "joinedDate": "YYYY/MM/DD",
+                            "leftDate": "YYYY/MM/DD"
+                          }
+                        ]
                       }
                     }
                   }

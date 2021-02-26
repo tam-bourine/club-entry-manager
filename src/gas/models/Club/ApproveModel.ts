@@ -6,23 +6,23 @@ import { AtLeast } from "../../shared/types/UtilityTypes";
 import ApproveView from "../../views/Club/ApproveView";
 
 /* global GoogleAppsScript */
-interface UpdateAuthorizerParams {
+export interface UpdateAuthorizerParams {
   sheet: GoogleAppsScript.Spreadsheet.Sheet;
   exists: number;
   authorizer: ApproveInterface["authorizer"];
 }
 
-interface updateIsApproved {
+export interface updateIsApproved {
   slackChannelId: ApproveInterface["slackChannelId"];
   authorizer: ApproveInterface["authorizer"];
   isApproved: ApproveInterface["isApproved"];
 }
 
-interface CreateClubSheetParams {
+export interface CreateClubSheetParams {
   slackChannelId: ApproveInterface["slackChannelId"];
 }
 
-interface InsertInitialValuesParams {
+export interface InsertInitialValuesParams {
   clubName: string;
   members: AtLeast<
     3,
@@ -226,7 +226,7 @@ export default class ApproveModel {
         sheet?.appendRow([member.name, member.slackId, member.role, member.joinedDate, member.leftDate]);
       });
       const header = this.res.created;
-      return { ...header, club: { name: clubName, kibelaUrl: "", userSlackIds: [""] } };
+      return { ...header, club: { name: clubName, kibelaUrl: "", members: members } };
     } catch (error) {
       return this.res.internalServer;
     }
