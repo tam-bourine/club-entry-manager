@@ -109,7 +109,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       getModal({
         client,
         botToken: context.botToken,
-        triggerId: ((body as unknown) as BlockAction).trigger_id,
+        triggerId: body.trigger_id,
         callbackId: approvalViewsId,
         title: Modal.Title.approval,
         blocks: getApprovalBlocks({ text: `<#${payload.value}>`, value: payload.value }),
@@ -170,7 +170,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         .postMessage({
           token: client.token,
           channel: clubChannelId,
-          text: `<!channel> 部活申請が承認されました<:tada:>`,
+          text: `<!channel> 部活申請が承認されました:tada:`,
         })
         .catch((error) => {
           console.error({ error });
