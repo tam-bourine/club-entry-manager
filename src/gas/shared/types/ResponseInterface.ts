@@ -6,10 +6,10 @@ export default interface ResponseInterface {
     id: string;
     name: string;
   }[];
-  club?: {
+  club?: Partial<{
     id: string;
     name: string;
     kibelaUrl: string;
     userSlackIds: string[];
-  };
+  }>;
 }

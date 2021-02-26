@@ -1,6 +1,7 @@
 import Constants from "../../shared/Constants";
 import Response from "../../shared/Response";
 import ApproveInterface from "../../shared/types/ApproveInterface";
+import ResponseInterface from "../../shared/types/ResponseInterface";
 import { AtLeast } from "../../shared/types/UtilityTypes";
 import ApproveView from "../../views/Club/ApproveView";
 
@@ -202,7 +203,7 @@ export default class ApproveModel {
     }
   }
 
-  private insertClubInitialValues(params: InsertInitialValuesParams) {
+  private insertClubInitialValues(params: InsertInitialValuesParams): ResponseInterface {
     const { clubName, members } = params;
     try {
       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(clubName);
@@ -224,7 +225,8 @@ export default class ApproveModel {
       members.forEach((member) => {
         sheet?.appendRow([member.name, member.slackId, member.role, member.joinedDate, member.leftDate]);
       });
-      return this.res.created;
+      const header = this.res.created;
+      return { ...header, club: { name: clubName, kibelaUrl: "", userSlackIds: [""] } };
     } catch (error) {
       return this.res.internalServer;
     }
