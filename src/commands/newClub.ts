@@ -9,7 +9,6 @@ import { Modal } from "../config/modalConfig";
 import { ButtonArg } from "../types/Messages";
 import * as kibela from "../api/kibela";
 import * as slack from "../api/slack";
-import { Config } from "../constant";
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
@@ -119,57 +118,63 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
     }
   );
 
-  app.view(approvalViewsId, async ({ ack, view, client }) => {
-    ack();
+  app.view(
+    approvalViewsId,
+    async ({
+      ack,
+      view: {
+        state: { values },
+      },
+      client,
+    }) => {
+      ack();
 
-    const { values } = view.state;
+      const clubChannelId = values.approval_input.approval.selected_option.value as string;
 
-    const clubChannelId = values.approval_input.approval.selected_option.value as string;
+      /* 16. シートの承認APIをコール */
 
-    /* 16. シートの承認APIをコール */
+      /* 21. KibelaAPIにて創部時処理 */
+      const clubName = "Among Us";
+      const url = "https://tambourine.kibe.la/notes/19541";
+      const userIds = ["UR285JW80"];
 
-    /* 21. KibelaAPIにて創部時処理 */
-    const clubName = "Among Us";
-    const url = "https://tambourine.kibe.la/notes/19541";
-    // const emails = ["", "hoge@b.com", "hoge@c.com"];
-    const userIds = ["UR285JW80"];
+      await kibela.mutation.note.moveOfficialFolder(url, clubName);
 
-    console.log({ ENDPOINT: Config.Kibela.END_POINT, TOKEN: Config.Kibela.TOKEN });
+      const group = await kibela.query.group.getByNoteUrl(url);
 
-    await kibela.mutation.note.moveOfficialFolder(url, clubName);
+      // NOTE: slack user ids -> user emails
+      const emails = await Promise.all(userIds.map(async (userId) => (await slack.user.getById(userId)).profile.email));
 
-    const group = await kibela.query.group.getByNoteUrl(url);
+      // NOTE: kibela users -> target kibela users
+      kibela.query.user.getAll().then((users) =>
+        emails
+          .map((email) => kibela.query.user.findByEmail(email, users))
+          .map(async (hitUser) => {
+            await kibela.mutation.user.joinGroup(hitUser.id, group.id);
+          })
+      );
 
-    // NOTE: slack user ids -> user emails
-    const emails = await Promise.all(userIds.map(async (userId) => (await slack.user.getById(userId)).profile.email));
-
-    // NOTE: kibela users -> target kibela users
-    kibela.query.user.getAll().then((users) =>
-      emails
-        .map((email) => kibela.query.user.findByEmail(email, users))
-        .map(async (hitUser) => {
-          await kibela.mutation.user.joinGroup(hitUser.id, group.id);
+      // NOTE: Alert in approval channel
+      await client.chat
+        .postMessage({
+          token: client.token,
+          channel: approvalChannelId,
+          text: `<#${clubChannelId}>が承認されました<:tada:>`,
         })
-    );
+        .catch((error) => {
+          console.error({ error });
+        });
 
-    await client.chat
-      .postMessage({
-        token: client.token,
-        channel: approvalChannelId,
-        text: `<#${clubChannelId}>が承認されました<:tada:>`,
-      })
-      .catch((error) => {
-        console.error({ error });
-      });
-
-    await client.chat
-      .postMessage({
-        token: client.token,
-        channel: clubChannelId,
-        text: `<!channel> 部活申請が承認されました<:tada:>`,
-      })
-      .catch((error) => {
-        console.error({ error });
-      });
-  });
+      // NOTE: Alert in club channel
+      await client.chat
+        .postMessage({
+          token: client.token,
+          channel: clubChannelId,
+          text: `<!channel> 部活申請が承認されました<:tada:>`,
+        })
+        .catch((error) => {
+          console.error({ error });
+        });
+    }
+  );
 };
