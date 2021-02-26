@@ -172,7 +172,9 @@ export default class ApproveModel {
             rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.APPLICATION_DATE_COLUMN_NUMBER - 1];
           /*
           部長~部員10のカラムだけ配列の形で抽出
-          例: "F2FDKWOI", "キャプテンキッド", "XEF8FDSX", "ほげ山ほげ子", "F39SFDW", "ふが田ふが男", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら",  "", "", "", "", "", "", ""]
+          @example [
+              "F2FDKWOI", "キャプテンキッド", "XEF8FDSX", "ほげ山ほげ子", "F39SFDW", "ふが田ふが男", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら",  "", "", "", "", "", "", ""
+              ]
           */
           const membersArray: [] = rowDataIncludesClub.slice(
             this.constants.SPREAD_SHEET.CLUBS.AUTHORIZER_NAME_COLUMN_NUMBER,
