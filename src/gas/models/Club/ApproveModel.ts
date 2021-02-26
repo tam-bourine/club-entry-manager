@@ -243,7 +243,8 @@ export default class ApproveModel {
         });
       }
       if (isNameColumn) {
-        members[members.length - 1].name = value;
+        const lastArrayNumber = members.length - 1;
+        members[lastArrayNumber].name = value;
       }
     });
     return members;
