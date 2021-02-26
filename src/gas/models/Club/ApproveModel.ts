@@ -1,7 +1,7 @@
+/* eslint-disable no-useless-return */
 import Constants from "../../shared/Constants";
 import Response from "../../shared/Response";
 import ApproveInterface from "../../shared/types/ApproveInterface";
-import { AtLeast } from "../../shared/types/UtilityTypes";
 import ApproveView from "../../views/Club/ApproveView";
 
 /* global GoogleAppsScript */
@@ -23,8 +23,7 @@ interface CreateClubSheetParams {
 
 interface InsertInitialValuesParams {
   clubName: string;
-  members: AtLeast<
-    3,
+  members: [
     {
       name: string;
       slackId: string;
@@ -32,7 +31,7 @@ interface InsertInitialValuesParams {
       joinedDate: string;
       leftDate: string;
     }
-  >;
+  ];
 }
 
 export default class ApproveModel {
@@ -111,7 +110,9 @@ export default class ApproveModel {
          *  results に false が含まれない(シートの更新が正常に終了した)場合
          *  201 created を返す
          */
-        if (results?.every((result) => typeof result === "boolean")) return this.res.notFound;
+        if (results?.every((result) => typeof result === "boolean")) {
+          return this.res.notFound;
+        }
         return this.res.created;
       }
       return this.res.internalServer;
@@ -168,29 +169,11 @@ export default class ApproveModel {
            */
           const applicationDate =
             rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.APPLICATION_DATE_COLUMN_NUMBER - 1];
-          const members: InsertInitialValuesParams["members"] = [
-            {
-              name: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.NAME_LEADER - 1],
-              slackId: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.SLACK_ID_LEADER - 1],
-              role: this.constants.SPREAD_SHEET.CLUBS.ROLE.LEADER,
-              joinedDate: applicationDate,
-              leftDate: "",
-            },
-            {
-              name: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.NAME_1 - 1],
-              slackId: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.SLACK_ID_1 - 1],
-              role: this.constants.SPREAD_SHEET.CLUBS.ROLE.MEMBER_1,
-              joinedDate: applicationDate,
-              leftDate: "",
-            },
-            {
-              name: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.NAME_2 - 1],
-              slackId: rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.MEMBER.SLACK_ID_2 - 1],
-              role: this.constants.SPREAD_SHEET.CLUBS.ROLE.MEMBER_2,
-              joinedDate: applicationDate,
-              leftDate: "",
-            },
-          ];
+          const membersArray: [] = rowDataIncludesClub.slice(
+            this.constants.SPREAD_SHEET.CLUBS.AUTHORIZER_NAME_COLUMN_NUMBER,
+            rowDataIncludesClub.length
+          );
+          const members = this.toObjectInArrayMembers(membersArray, applicationDate);
 
           if (result) return this.insertClubInitialValues({ clubName, members });
           return this.res.notFound;
@@ -228,5 +211,29 @@ export default class ApproveModel {
     } catch (error) {
       return this.res.internalServer;
     }
+  }
+
+  private toObjectInArrayMembers(membersArray: [], applicationDate: any) {
+    const members: InsertInitialValuesParams["members"] = [];
+    membersArray.forEach((value, index) => {
+      if (!value) {
+        return;
+      }
+      const isIdColumn = !(index % 2);
+      const isNameColumn = index % 2;
+      if (isIdColumn) {
+        members.push({
+          name: "",
+          slackId: value,
+          role: "",
+          joinedDate: applicationDate,
+          leftDate: "",
+        });
+      }
+      if (isNameColumn) {
+        members[members.length - 1].name = value;
+      }
+    });
+    return members;
   }
 }
