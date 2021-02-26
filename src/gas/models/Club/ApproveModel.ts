@@ -1,27 +1,29 @@
 import Constants from "../../shared/Constants";
 import Response from "../../shared/Response";
 import ApproveInterface from "../../shared/types/ApproveInterface";
+import ResponseInterface from "../../shared/types/ResponseInterface";
 import ApproveView from "../../views/Club/ApproveView";
 
 /* global GoogleAppsScript */
-interface UpdateAuthorizerParams {
+export interface UpdateAuthorizerParams {
   sheet: GoogleAppsScript.Spreadsheet.Sheet;
   exists: number;
   authorizer: ApproveInterface["authorizer"];
 }
 
-interface updateIsApproved {
+export interface updateIsApproved {
   slackChannelId: ApproveInterface["slackChannelId"];
   authorizer: ApproveInterface["authorizer"];
   isApproved: ApproveInterface["isApproved"];
 }
 
-interface CreateClubSheetParams {
+export interface CreateClubSheetParams {
   slackChannelId: ApproveInterface["slackChannelId"];
 }
 
-interface InsertInitialValuesParams {
+export interface InsertInitialValuesParams {
   clubName: string;
+  kibelaUrl: string;
   members: [
     {
       name: string;
@@ -168,7 +170,6 @@ export default class ApproveModel {
            */
           const applicationDate =
             rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.APPLICATION_DATE_COLUMN_NUMBER - 1];
-
           /*
           部長~部員10のカラムだけ配列の形で抽出
           例: "F2FDKWOI", "キャプテンキッド", "XEF8FDSX", "ほげ山ほげ子", "F39SFDW", "ふが田ふが男", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら", "FJEIANLO", "ららららら",  "", "", "", "", "", "", ""]
@@ -182,7 +183,9 @@ export default class ApproveModel {
             applicationDate
           );
 
-          if (result) return this.insertClubInitialValues({ clubName, members });
+          const kibelaUrl = rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.KIBELA_URL_COLUMN_NUMBER - 1];
+
+          if (result) return this.insertClubInitialValues({ clubName, kibelaUrl, members });
           return this.res.notFound;
         }
       }
@@ -192,8 +195,8 @@ export default class ApproveModel {
     }
   }
 
-  private insertClubInitialValues(params: InsertInitialValuesParams) {
-    const { clubName, members } = params;
+  private insertClubInitialValues(params: InsertInitialValuesParams): ResponseInterface {
+    const { clubName, kibelaUrl, members } = params;
     try {
       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(clubName);
       /**
@@ -214,7 +217,8 @@ export default class ApproveModel {
       members.forEach((member) => {
         sheet?.appendRow([member.name, member.slackId, member.role, member.joinedDate, member.leftDate]);
       });
-      return this.res.created;
+      const header = this.res.created;
+      return { ...header, club: { name: clubName, kibelaUrl: kibelaUrl, members: members } };
     } catch (error) {
       return this.res.internalServer;
     }

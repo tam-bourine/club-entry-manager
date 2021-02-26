@@ -1,4 +1,4 @@
-import { App } from "@slack/bolt";
+import { AllMiddlewareArgs, App, ButtonClick, InteractiveMessage, SlackActionMiddlewareArgs } from "@slack/bolt";
 import { BlockAction } from "@slack/bolt/dist/types/actions/block-action";
 import { inputClubModal } from "../blocks/inputClub";
 import { getMessageBlocks } from "../blocks/messages/modal";
@@ -6,6 +6,9 @@ import { getRejectBlocks } from "../blocks/reject";
 import { getApprovalBlocks } from "../blocks/approval";
 import { getModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
+import { ButtonArg } from "../types/Messages";
+import * as kibela from "../api/kibela";
+import * as slack from "../api/slack";
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
@@ -39,16 +42,18 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       text: `*<@${member}>*`,
     }));
 
-    const buttons = [
+    const buttons: ButtonArg[] = [
       {
         text: "却下",
         color: "danger",
         actionId: "reject_modal",
+        value: values.channel_id.channel.selected_channel,
       },
       {
         text: "承認",
         color: "primary",
         actionId: "approval_modal",
+        value: values.channel_id.channel.selected_channel,
       },
     ];
 
@@ -90,17 +95,86 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
   });
 
   // 承認確認用モーダル表示
-  app.action("approval_modal", async ({ ack, client, body, context }) => {
-    ack();
-
-    getModal({
+  app.action(
+    "approval_modal",
+    async ({
+      ack,
+      body,
+      payload,
       client,
-      botToken: context.botToken,
-      triggerId: (<BlockAction>body).trigger_id,
-      callbackId: approvalViewsId,
-      title: Modal.Title.approval,
-      blocks: getApprovalBlocks("承認します。よろしいですか？"),
-      submit: Modal.Button.approval,
-    });
-  });
+      context,
+    }: SlackActionMiddlewareArgs<InteractiveMessage<ButtonClick>> & AllMiddlewareArgs) => {
+      ack();
+
+      getModal({
+        client,
+        botToken: context.botToken,
+        triggerId: body.trigger_id,
+        callbackId: approvalViewsId,
+        title: Modal.Title.approval,
+        blocks: getApprovalBlocks({ text: `<#${payload.value}>`, value: payload.value }),
+        submit: Modal.Button.approval,
+      });
+    }
+  );
+
+  app.view(
+    approvalViewsId,
+    async ({
+      ack,
+      view: {
+        state: { values },
+      },
+      client,
+    }) => {
+      ack();
+
+      const clubChannelId = values.approval_input.approval.selected_option.value as string;
+
+      /* 16. シートの承認APIをコール */
+
+      /* 21. KibelaAPIにて創部時処理 */
+      const clubName = "Among Us";
+      const url = "https://tambourine.kibe.la/notes/19541";
+      const userIds = ["UR285JW80"];
+
+      await kibela.mutation.note.moveOfficialFolder(url, clubName);
+
+      const group = await kibela.query.group.getByNoteUrl(url);
+
+      // NOTE: slack user ids -> user emails
+      const emails = await Promise.all(userIds.map(async (userId) => (await slack.user.getById(userId)).profile.email));
+
+      // NOTE: kibela users -> target kibela users
+      kibela.query.user.getAll().then((users) =>
+        emails
+          .map((email) => kibela.query.user.findByEmail(email, users))
+          .map(async (hitUser) => {
+            await kibela.mutation.user.joinGroup(hitUser.id, group.id);
+          })
+      );
+
+      // NOTE: Alert in approval channel
+      await client.chat
+        .postMessage({
+          token: client.token,
+          channel: approvalChannelId,
+          text: `<#${clubChannelId}>が承認されました<:tada:>`,
+        })
+        .catch((error) => {
+          console.error({ error });
+        });
+
+      // NOTE: Alert in club channel
+      await client.chat
+        .postMessage({
+          token: client.token,
+          channel: clubChannelId,
+          text: `<!channel> 部活申請が承認されました:tada:`,
+        })
+        .catch((error) => {
+          console.error({ error });
+        });
+    }
+  );
 };

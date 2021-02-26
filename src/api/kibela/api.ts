@@ -1,7 +1,7 @@
 import nodeFetch from "node-fetch";
 import { print as printGql } from "graphql/language/printer";
 import { ASTNode } from "graphql/language/ast";
-import { Config } from "../../../constant";
+import { Config } from "../../constant";
 
 export const callAPI = async (query: ASTNode): Promise<any> => {
   const response = await nodeFetch(`${Config.Kibela.END_POINT}`, {

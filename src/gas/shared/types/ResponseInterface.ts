@@ -1,3 +1,5 @@
+import { InsertInitialValuesParams } from "../../models/Club/ApproveModel";
+
 export default interface ResponseInterface {
   status: number;
   message: string;
@@ -6,8 +8,10 @@ export default interface ResponseInterface {
     id: string;
     name: string;
   }[];
-  club?: {
+  club?: Partial<{
     id: string;
     name: string;
-  };
+    kibelaUrl: string;
+    members: InsertInitialValuesParams["members"];
+  }>;
 }
