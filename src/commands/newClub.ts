@@ -9,7 +9,7 @@ import { Modal } from "../config/modalConfig";
 import { ButtonArg } from "../types/Messages";
 import * as kibela from "../api/kibela";
 import * as slack from "../api/slack";
-import { Config } from "../../constant";
+import { Config } from "../constant";
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
@@ -144,14 +144,13 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
     const emails = await Promise.all(userIds.map(async (userId) => (await slack.user.getById(userId)).profile.email));
 
     // NOTE: kibela users -> target kibela users
-    kibela.query.user
-      .getAll()
-      .then((users) => emails.map((email) => kibela.query.user.findByEmail(email, users)))
-      .then((hitUsers) =>
-        hitUsers.map(async (user) => {
-          await kibela.mutation.user.addMemberToGroup(group.id, user.id);
+    kibela.query.user.getAll().then((users) =>
+      emails
+        .map((email) => kibela.query.user.findByEmail(email, users))
+        .map(async (hitUser) => {
+          await kibela.mutation.user.joinGroup(hitUser.id, group.id);
         })
-      );
+    );
 
     await client.chat
       .postMessage({
