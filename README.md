@@ -108,12 +108,14 @@ cd ../..
       ![image](https://user-images.githubusercontent.com/39648121/101321714-22d5d680-38a9-11eb-8941-4c250afc909e.png)
     - 任意の名前をつけて保存する
       ![image](https://user-images.githubusercontent.com/39648121/101870006-182a8280-3bc4-11eb-89e5-18afe7620ae1.png)
-      <!-- 後々、setUpSheet()関数に変更予定 -->
+          <!-- 後々、setUpSheet()関数に変更予定 -->
     - シートの名前を「部活動一覧」に変更する
       ![image](https://user-images.githubusercontent.com/39648121/101871767-7d33a780-3bc7-11eb-875a-51849e3467f3.png)
-    - シートの 1 行目に、次のカラム定義を入れる - id,部活名,部長,発起人 1,発起人 2,申請日,公認,部長\_SlackID,発起人 1_SlackID,発起人 2_SlackID
-      ![image](https://user-images.githubusercontent.com/39648121/101871220-8b34f880-3bc6-11eb-8514-c9ce610eb895.png)
-      <!-- 後々、setUpSheet()関数に変更ここまで -->
+    - シートの 1 行目に、以下に示すカラム定義を入れる - id,部活名,活動,部費利用目的,kibela_url,Slack チャンネル,申請日,公認,承認者\_SlackID,承認者,部長\_SlackID,部長,部員1_SlackID,部員 1,...,部員10_SlackID,部員 10
+      ![image](https://user-images.githubusercontent.com/38882716/109269787-5e50c300-7850-11eb-8cd3-c7cfe9437633.png)
+      ![image](https://user-images.githubusercontent.com/38882716/109269784-5db82c80-7850-11eb-97c7-be7540876df6.png)
+      ![image](https://user-images.githubusercontent.com/38882716/109269782-5c86ff80-7850-11eb-9f90-17c3036f38cc.png)
+          <!-- 後々、setUpSheet()関数に変更ここまで -->
 2. Google Apps Script の作成
     - ツール → スクリプトエディターを開く
       ![image](https://user-images.githubusercontent.com/39648121/101870059-34c6ba80-3bc4-11eb-9ea5-6110afa61873.png)
