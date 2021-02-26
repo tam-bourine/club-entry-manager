@@ -232,7 +232,7 @@ export default class ApproveModel {
       if (!value) {
         /*
         FIXME: 本当は処理を中断させたい
-        return文だとfor文でいうcontinueの役割になる。 参考: https://www.deep-rain.com/programming/javascript/778
+        NOTE: return文だとfor文でいうcontinueの役割になる。 参考: https://www.deep-rain.com/programming/javascript/778
         for in使いたいけど、Lintに弾かれるので一旦このまま
         */
         return;
