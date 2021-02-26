@@ -6,12 +6,12 @@ import { getRejectBlocks } from "../blocks/reject";
 import { getApprovalBlocks } from "../blocks/approval";
 import { getModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
-import { callNewClub } from "../api/gas";
 import { sectionPlainText } from "../blocks/generalComponents";
 import { Club } from "../config/clubConfig";
 import { ButtonArg } from "../types/Messages";
 import * as kibela from "../api/kibela";
 import * as slack from "../api/slack";
+import * as gas from "../api/gas";
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
@@ -72,7 +72,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         },
         members,
       };
-      const response = await callNewClub(clubInfo);
+      const response = await gas.api.callNewClub(clubInfo);
       if (!response.success) {
         await client.chat
           .postMessage({
