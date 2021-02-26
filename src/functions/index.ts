@@ -23,8 +23,8 @@ useNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
 
   if (Config.General.APP_ENV === "local") {
     app.client.chat.postMessage({
-      token: process.env.SLACK_BOT_TOKEN,
-      text: `<!here> アプリ起動: <@${Config.Slack.Bolt.DEBUG_USER}>`,
+      token: Config.Slack.BOT_TOKEN,
+      text: `アプリ起動: <@${Config.Slack.Bolt.DEBUG_USER}>`,
       channel: Config.Slack.APPROVAL_CHANNEL_ID,
     });
   }

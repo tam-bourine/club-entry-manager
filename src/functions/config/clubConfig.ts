@@ -9,6 +9,7 @@ export namespace Club {
     export const member = "初期メンバー";
     export const kibelaUrl = "部活動紹介記事のKibelaのURL";
     export const reject = "却下理由";
+    export const error = "創部申請エラー";
   }
   export namespace Placeholder {
     export const clubName = "部活動名を入力してください";
