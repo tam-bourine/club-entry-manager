@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-return */
 import Constants from "../../shared/Constants";
 import Response from "../../shared/Response";
 import ApproveInterface from "../../shared/types/ApproveInterface";
