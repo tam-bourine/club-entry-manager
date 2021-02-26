@@ -24,15 +24,15 @@ export interface CreateClubSheetParams {
 export interface InsertInitialValuesParams {
   clubName: string;
   kibelaUrl: string;
-  members: [
-    {
-      name: string;
-      slackId: string;
-      role: string;
-      joinedDate: string;
-      leftDate: string;
-    }
-  ];
+  members:
+    | {
+        name: string;
+        slackId: string;
+        role: string;
+        joinedDate: string;
+        leftDate: string;
+      }[]
+    | [];
 }
 
 export default class ApproveModel {
