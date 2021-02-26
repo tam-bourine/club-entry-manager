@@ -23,7 +23,7 @@ export namespace Config {
     export const APPROVAL_CHANNEL_ID = (process.env.SLACK_APPROVAL_CHANNEL_ID as string) || "C01F6HWUGUA";
 
     export namespace Bolt {
-      export const SERVE_PORT = parseInt(process.env.BOLT_PORT!, 10);
+      export const SERVE_PORT = parseInt(process.env.PORT || "3000", 10);
       export const DEBUG_USER = process.env.BOLT_DEBUG_USER_ID as string;
     }
   }
