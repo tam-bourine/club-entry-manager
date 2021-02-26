@@ -229,7 +229,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "clubId": {
+                  "slackChannelId": {
                     "type": "string",
                     "example": "fugapiyo"
                   },
@@ -267,6 +267,22 @@
                     "success": {
                       "type": "boolean",
                       "example": true
+                    },
+                    "club": {
+                      "type": "object",
+                      "example": {
+                        "name": "Piyo",
+                        "kibelaUrl": "https://piyo.kibe.la/notes/12345",
+                        "members": [
+                          {
+                            "name": "風賀風大",
+                            "slackId": "XX112233",
+                            "role": "captain",
+                            "joinedDate": "YYYY/MM/DD",
+                            "leftDate": "YYYY/MM/DD"
+                          }
+                        ]
+                      }
                     }
                   }
                 }
@@ -346,7 +362,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "clubId": {
+                  "slackChannelId": {
                     "type": "string",
                     "example": "fugapiyo"
                   },

@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { callAPI } from "../../api/kibela";
+import { callAPI } from "../api";
 import type { Note } from "../../../../@types/kibela.d";
 import { fetchNoteByUrl } from "../queries/note";
 
@@ -17,6 +17,8 @@ export const moveOfficialFolder = async (url: string, clubName: string): Promise
       }
     }
   `;
-  const data = await callAPI(mutation);
+  const data = await callAPI(mutation).catch((err) => {
+    console.error(err);
+  });
   return data.updateNoteFolder.note;
 };

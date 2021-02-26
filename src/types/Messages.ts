@@ -13,6 +13,7 @@ export interface ButtonArg {
   text: string;
   color?: string;
   actionId: string;
+  value: string;
 }
 
 export interface ClubInfoArg {
@@ -62,6 +63,18 @@ export interface CallNewClubArg {
     slackId: string;
     name: string;
   }[];
+}
+export interface Option {
+  text: string;
+  value: string;
+}
+
+export interface StaticSelectArg {
+  label: string;
+  options: Option[];
+  actionId: string;
+  blockId: string;
+  initialOption: Option;
 }
 
 export type SectionArgType =

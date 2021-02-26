@@ -1,9 +1,9 @@
 import { App } from "@slack/bolt";
 import { useNewClubCommand } from "./commands/newClub";
-import { Config } from "../constant";
+import { Config } from "./constant";
 
-const app = new App({
-  socketMode: Config.General.APP_ENV === "local",
+export const app = new App({
+  socketMode: Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL,
   appToken: Config.Slack.APP_TOKEN,
   token: Config.Slack.BOT_TOKEN,
   signingSecret: Config.Slack.SIGNING_SECRET,
@@ -21,10 +21,10 @@ useNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
   await app.start(Config.Slack.Bolt.SERVE_PORT ?? 3000);
   console.log("⚡️ Bolt app is running!");
 
-  if (Config.General.APP_ENV === "local") {
+  if (Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL) {
     app.client.chat.postMessage({
       token: Config.Slack.BOT_TOKEN,
-      text: `アプリ起動: <@${Config.Slack.Bolt.DEBUG_USER}>`,
+      text: `<!here> アプリ起動: <@${Config.Slack.Bolt.DEBUG_USER}>`,
       channel: Config.Slack.APPROVAL_CHANNEL_ID,
     });
   }
