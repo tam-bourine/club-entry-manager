@@ -1,6 +1,7 @@
 import { App } from "@slack/bolt";
 import { useNewClubCommand } from "./commands/newClub";
 import { Config } from "./constant";
+import { useJoinClubCommand } from "./commands/joinClub";
 
 export const app = new App({
   socketMode: Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL,
@@ -16,6 +17,7 @@ app.error((err) => {
 });
 
 useNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
+useJoinClubCommand(app);
 
 (async () => {
   await app.start(Config.Slack.Bolt.SERVE_PORT ?? 3000);

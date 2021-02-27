@@ -69,12 +69,21 @@ export interface Option {
   value: string;
 }
 
-export interface StaticSelectArg {
+export interface StaticSelectArgs {
   label: string;
   options: Option[];
   actionId: string;
   blockId: string;
-  initialOption: Option;
+  initialOption?: Option;
+  placeholder?: string;
+}
+
+export interface MultiSelectArgs {
+  text: string;
+  options: Option[];
+  actionId: string;
+  blockId: string;
+  placeholder: string;
 }
 
 export type SectionArgType =
@@ -83,3 +92,13 @@ export type SectionArgType =
       type: string;
       text: string;
     }[];
+
+export const GenerateOptionElement = (options: Option[]) =>
+  options.map(({ text, value }) => ({
+    text: {
+      type: "plain_text",
+      text,
+      emoji: true,
+    },
+    value,
+  }));

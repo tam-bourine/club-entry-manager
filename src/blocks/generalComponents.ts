@@ -1,4 +1,11 @@
-import { SectionArgType, ButtonArg, FormArg, StaticSelectArg } from "../types/Messages";
+import {
+  MultiSelectArgs,
+  SectionArgType,
+  ButtonArg,
+  FormArg,
+  GenerateOptionElement,
+  StaticSelectArgs,
+} from "../types/Messages";
 
 export const header = (title: string) => ({
   type: "header",
@@ -96,37 +103,54 @@ const sectionForm = ({ label, placeholder, actionId, blockId }: FormArg) => {
   };
 };
 
-const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }: StaticSelectArg) => {
-  const elementOptions = options.map(({ text, value }) => ({
-    text: {
-      type: "plain_text",
-      text,
-      emoji: true,
-    },
-    value,
-  }));
+const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }: StaticSelectArgs) => ({
+  type: "input",
+  block_id: blockId,
+  label: {
+    type: "plain_text",
+    text: label,
+    emoji: true,
+  },
+  element: {
+    type: "static_select",
+    options: GenerateOptionElement(options),
+    action_id: actionId,
+    initial_option: initialOption
+      ? {
+          text: {
+            type: "plain_text",
+            text: initialOption.text,
+          },
+          value: initialOption.value,
+        }
+      : {},
+  },
+});
 
-  return {
-    type: "input",
-    block_id: blockId,
-    element: {
-      type: "static_select",
-      options: elementOptions,
-      action_id: actionId,
-      initial_option: {
-        text: {
-          type: "plain_text",
-          text: initialOption.text,
-        },
-        value: initialOption.value,
-      },
-    },
-    label: {
+const inputMultiSelect = ({ text, options, actionId, blockId, placeholder }: MultiSelectArgs) => ({
+  type: "section",
+  block_id: blockId,
+  text: {
+    type: "mrkdwn",
+    text: text,
+  },
+  accessory: {
+    action_id: actionId,
+    type: "multi_static_select",
+    placeholder: {
       type: "plain_text",
-      text: label,
-      emoji: true,
+      text: placeholder,
     },
-  };
+    options: GenerateOptionElement(options),
+  },
+});
+
+export {
+  sectionPlainText,
+  sectionMrkdwn,
+  sectionFields,
+  sectionButton,
+  sectionForm,
+  inputStaticSelect,
+  inputMultiSelect,
 };
-
-export { sectionPlainText, sectionMrkdwn, sectionFields, sectionButton, sectionForm, inputStaticSelect };

@@ -9,5 +9,6 @@ export namespace Modal {
     export const request = "創部申請";
     export const reject = "却下理由入力";
     export const approval = "承認";
+    export const join = "入部申請";
   }
 }
