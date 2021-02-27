@@ -2,6 +2,8 @@ import { AllMiddlewareArgs, App, SlackCommandMiddlewareArgs } from "@slack/bolt"
 import { getModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
 import { getJoinClubBlocks } from "../blocks/joinClub";
+import * as slack from "../api/slack";
+import * as kibela from "../api/kibela";
 
 const joinClubViewsId = "joinClubId";
 
@@ -39,12 +41,30 @@ export const useJoinClubCommand = (app: App) => {
     }) => {
       ack();
 
-      const joinClubs: {
-        text: {
-          text: string;
-        };
-        value: string;
-      }[] = values.join_input.join.selected_options;
+      const joinClubs: { value: string }[] = values.join_input.join.selected_options;
+
+      const {
+        profile: { email },
+      } = await slack.user.getById(body.user.id);
+      const kibelaUsers = await kibela.query.user.getAll();
+      const userKibelaInfo = await kibela.query.user.findByEmail(email, kibelaUsers);
+
+      joinClubs.map(async ({ value: channel }) => {
+        // TODO: GASに申請処理 -> 部活紹介記事のKibelaUrlを貰う
+        const kibelaUrl = "https://tambourine.kibe.la/notes/17232"; // FIX ME
+        // if (!response.success) return
+
+        await Promise.all([
+          client.conversations.invite({
+            channel,
+            users: body.user.id,
+          }),
+          (async () => {
+            const group = await kibela.query.group.getByNoteUrl(kibelaUrl);
+            kibela.mutation.user.joinGroup(userKibelaInfo.id, group.id);
+          })(),
+        ]);
+      });
     }
   );
 };
