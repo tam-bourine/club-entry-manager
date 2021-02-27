@@ -26,4 +26,25 @@ export const useJoinClubCommand = (app: App) => {
       });
     }
   );
+
+  app.view(
+    joinClubViewsId,
+    async ({
+      ack,
+      view: {
+        state: { values },
+      },
+      client,
+      body,
+    }) => {
+      ack();
+
+      const joinClubs: {
+        text: {
+          text: string;
+        };
+        value: string;
+      }[] = values.join_input.join.selected_options;
+    }
+  );
 };
