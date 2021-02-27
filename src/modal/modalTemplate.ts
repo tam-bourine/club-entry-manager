@@ -14,7 +14,7 @@ export const getModal = async ({ client, botToken, triggerId, callbackId, title,
           text: title,
           emoji: true,
         },
-        blocks: blocks,
+        blocks,
         submit: {
           type: "plain_text",
           text: submit,
