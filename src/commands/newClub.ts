@@ -180,7 +180,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       ack();
 
       const clubChannelId = values.approval_input.approval.selected_option.value as string;
-      const authorizer = body.user;
+      const authorizer = await slack.user.getById(body.user.id);
 
       /* 16. シートの承認APIをコール */
       const response = await gas.api.callApproveClub({
@@ -189,9 +189,10 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         },
         authorizer: {
           slackId: authorizer.id,
-          name: authorizer.name,
+          name: authorizer.real_name,
         },
       });
+
       if (!response.success) {
         await client.chat
           .postMessage({
