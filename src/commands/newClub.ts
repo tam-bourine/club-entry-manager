@@ -14,7 +14,7 @@ import * as slack from "../api/slack";
 import * as gas from "../api/gas";
 /* eslint strict: [2, "global"] */
 
-const clubViewsId = "newClubId";
+export const clubViewsId = "newClubId";
 const approvalViewsId = "approvalId";
 const rejectViewsId = "rejectId";
 
