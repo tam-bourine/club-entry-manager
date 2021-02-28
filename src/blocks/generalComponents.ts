@@ -1,11 +1,4 @@
-import {
-  MultiSelectArgs,
-  SectionArgType,
-  ButtonArg,
-  FormArg,
-  GenerateOptionElement,
-  StaticSelectArgs,
-} from "../types/Messages";
+import { MultiSelectArgs, SectionArgType, ButtonArg, FormArg, StaticSelectArgs, Option } from "../types/Messages";
 
 export const header = (title: string) => ({
   type: "header",
@@ -19,6 +12,16 @@ export const header = (title: string) => ({
 export const divider = {
   type: "divider",
 };
+
+const GenerateOptionElement = (options: Option[]) =>
+  options.map(({ text, value }) => ({
+    text: {
+      type: "plain_text",
+      text,
+      emoji: true,
+    },
+    value,
+  }));
 
 const sectionLabel = (title?: string) => {
   return title
