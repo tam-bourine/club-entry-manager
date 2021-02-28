@@ -1,11 +1,4 @@
-import {
-  MultiSelectArgs,
-  SectionArgType,
-  ButtonArg,
-  FormArg,
-  GenerateOptionElement,
-  StaticSelectArgs,
-} from "../types/Messages";
+import { MultiSelectArgs, SectionArgType, ButtonArg, FormArg, StaticSelectArgs, Option } from "../types/Messages";
 
 export const header = (title: string) => ({
   type: "header",
@@ -19,6 +12,16 @@ export const header = (title: string) => ({
 export const divider = {
   type: "divider",
 };
+
+const GenerateOptionElement = (options: Option[]) =>
+  options.map(({ text, value }) => ({
+    text: {
+      type: "plain_text",
+      text,
+      emoji: true,
+    },
+    value,
+  }));
 
 const sectionLabel = (title?: string) => {
   return title
@@ -103,29 +106,48 @@ const sectionForm = ({ label, placeholder, actionId, blockId }: FormArg) => {
   };
 };
 
-const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }: StaticSelectArgs) => ({
-  type: "input",
-  block_id: blockId,
-  label: {
-    type: "plain_text",
-    text: label,
-    emoji: true,
-  },
-  element: {
-    type: "static_select",
-    options: GenerateOptionElement(options),
-    action_id: actionId,
-    initial_option: initialOption
-      ? {
-          text: {
-            type: "plain_text",
-            text: initialOption.text,
-          },
-          value: initialOption.value,
-        }
-      : {},
-  },
-});
+const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }: StaticSelectArgs) => {
+  // default
+  // NOTE: should it frozen object property ?
+  const defaultResult = {
+    type: "input",
+    block_id: blockId,
+    label: {
+      type: "plain_text",
+      text: label,
+      emoji: true,
+    },
+    element: {
+      type: "static_select",
+      options: GenerateOptionElement(options),
+      action_id: actionId,
+    },
+  };
+
+  if (!initialOption) return defaultResult;
+
+  return {
+    type: "input",
+    block_id: blockId,
+    label: {
+      type: "plain_text",
+      text: label,
+      emoji: true,
+    },
+    element: {
+      type: "static_select",
+      options: GenerateOptionElement(options),
+      action_id: actionId,
+      initial_option: {
+        text: {
+          type: "plain_text",
+          text: initialOption!.text,
+        },
+        value: initialOption!.value,
+      },
+    },
+  };
+};
 
 const inputMultiSelect = ({ text, options, actionId, blockId, placeholder }: MultiSelectArgs) => ({
   type: "section",

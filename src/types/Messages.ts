@@ -92,13 +92,3 @@ export type SectionArgType =
       type: string;
       text: string;
     }[];
-
-export const GenerateOptionElement = (options: Option[]) =>
-  options.map(({ text, value }) => ({
-    text: {
-      type: "plain_text",
-      text,
-      emoji: true,
-    },
-    value,
-  }));
