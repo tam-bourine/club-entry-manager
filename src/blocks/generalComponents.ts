@@ -108,7 +108,6 @@ const sectionForm = ({ label, placeholder, actionId, blockId }: FormArg) => {
 
 const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }: StaticSelectArgs) => {
   // default
-  // NOTE: should it frozen object property ?
   const defaultResult = {
     type: "input",
     block_id: blockId,
@@ -127,17 +126,10 @@ const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }:
   if (!initialOption) return defaultResult;
 
   return {
-    type: "input",
-    block_id: blockId,
-    label: {
-      type: "plain_text",
-      text: label,
-      emoji: true,
-    },
+    ...defaultResult,
     element: {
-      type: "static_select",
-      options: GenerateOptionElement(options),
-      action_id: actionId,
+      ...defaultResult.element,
+      // element: defaultElement e.g. {...}
       initial_option: {
         text: {
           type: "plain_text",
