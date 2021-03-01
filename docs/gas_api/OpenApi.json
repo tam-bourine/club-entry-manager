@@ -50,12 +50,12 @@
                       "type": "array",
                       "example": [
                         {
-                          "id": "f00tsa1",
-                          "name": "フットサル部"
+                          "id": "C01G2N9ADLK",
+                          "name": "LT部"
                         },
                         {
-                          "id": "ho1ge2fu3ga4",
-                          "name": "ほげ部"
+                          "id": "CSKLT550T",
+                          "name": "OSS部"
                         }
                       ]
                     }
