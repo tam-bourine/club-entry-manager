@@ -49,16 +49,17 @@ export default class JoinModel {
     return clubs?.filter((club: Array<string | boolean>) => club[slackChannelIdArrayNumber] === slackChannelId)[0];
   }
 
-  private createMember(member: JoinInterface["member"], clubName: string) {
+  private createMember({ name, slackId }: JoinInterface["member"], clubName: string) {
     const today = new Date();
-    const newMember = {
-      name: member.name,
-      slackId: member.slackId,
-      role: "",
-      joinDate: today.toISOString(),
-      leftDate: "",
-    };
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(clubName);
-    sheet?.appendRow(Object.values(newMember));
+    sheet?.appendRow(
+      Object.values({
+        name,
+        slackId,
+        role: "",
+        joinDate: today.toISOString(),
+        leftDate: "",
+      })
+    );
   }
 }
