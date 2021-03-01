@@ -46,7 +46,7 @@ export default class JoinModel {
 
   private findClubBySlackChannelId(clubs: any[], slackChannelId: string) {
     const slackChannelIdArrayNumber = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
-    return clubs?.filter((club: any[]) => club[slackChannelIdArrayNumber] === slackChannelId)[0];
+    return clubs?.filter((club: Array<string | boolean>) => club[slackChannelIdArrayNumber] === slackChannelId)[0];
   }
 
   private createMember(member: JoinInterface["member"], clubName: string) {
