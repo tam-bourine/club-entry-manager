@@ -18,7 +18,7 @@ export default class JoinModel {
     try {
       const clubs = this.getClubs();
       if (!clubs) {
-        return this.view.provide(this.res.internalServer);
+        throw new Error("部活動が見つかりませんでした");
       }
 
       const club = this.findClubBySlackChannelId(clubs, slackChannelId);
@@ -29,6 +29,7 @@ export default class JoinModel {
       this.createMember(member, clubName);
       return this.view.provide(this.res.created);
     } catch (error) {
+      Logger.log(error.message);
       return this.view.provide(this.res.internalServer);
     }
   }
