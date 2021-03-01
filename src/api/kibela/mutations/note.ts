@@ -3,12 +3,12 @@ import { callAPI } from "../api";
 import type { Note } from "../../../../@types/kibela.d";
 import { fetchNoteByUrl } from "../queries/note";
 
-export const moveOfficialFolder = async (url: string, clubName: string): Promise<Note> => {
-  const note = await fetchNoteByUrl(url);
+export const moveOfficialFolder = async ({ kibelaUrl, name }: { kibelaUrl: string; name: string }): Promise<Note> => {
+  const note = await fetchNoteByUrl(kibelaUrl);
 
   const mutation = gql`
     mutation {
-      updateNoteFolder(input: { noteId: "${note.id}", folderFullName: "部活動/公認/${clubName}" }) {
+      updateNoteFolder(input: { noteId: "${note.id}", folderFullName: "部活動/公認/${name}" }) {
         note {
           id
           title
