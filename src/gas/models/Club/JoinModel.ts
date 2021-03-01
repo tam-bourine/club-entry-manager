@@ -17,6 +17,10 @@ export default class JoinModel {
 
     try {
       const clubs = this.getClubs();
+      if (!clubs) {
+        return this.view.provide(this.res.internalServer);
+      }
+
       const club = this.findClubBySlackChannelId(clubs, slackChannelId);
 
       const clubNameArrayNumber = this.constants.SPREAD_SHEET.CLUBS.CLUB_NAME_COLUMN_NUMBER - 1;
@@ -32,14 +36,14 @@ export default class JoinModel {
   private getClubs() {
     const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
     if (!sheetTabName) {
-      return [];
+      return false;
     }
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
     const clubs = sheet?.getDataRange().getValues();
     return clubs;
   }
 
-  private findClubBySlackChannelId(clubs: any[] | undefined, slackChannelId: string) {
+  private findClubBySlackChannelId(clubs: any[], slackChannelId: string) {
     const slackChannelIdArrayNumber = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
     return clubs?.filter((club: any[]) => club[slackChannelIdArrayNumber] === slackChannelId)[0];
   }
