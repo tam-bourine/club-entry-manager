@@ -232,7 +232,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         .postMessage({
           token: client.token,
           channel: approvalChannelId,
-          text: `<#${clubChannelId}>が承認されました<:tada:>`,
+          text: `<#${clubChannelId}>が承認されました:tada:`,
         })
         .catch((error) => {
           console.error({ error });
