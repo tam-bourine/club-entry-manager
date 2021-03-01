@@ -19,7 +19,7 @@ sheet -> sheet: 部活まとめタブの最終行に新規部活名をインサ�
 
 break 創部APIコール失敗
     sheet -->> slackapp: エラーレスポンス
-    slackapp -->> captain: メッセージ「エラーが発生しました。開発者に連絡してください。」
+    slackapp -->> auth: メッセージ「エラーが発生しました。」
 end
 
 sheet -->> slackapp: 成功レスポンス
@@ -69,7 +69,7 @@ alt 承認する場合
 else 却下する場合
     auth -> slackapp: メッセージ内の却下ボタンを押す
     slackapp -> auth: 却下理由入力モーダルを表示
-    
+
     break キャンセルの場合
         auth -> slackapp: キャンセルボタンを押す
         slackapp -> auth: モーダルを閉じて処理を中断
