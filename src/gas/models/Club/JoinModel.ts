@@ -10,10 +10,9 @@ export default class JoinModel {
 
   private constants = new Constants();
 
-  addMember(params: JoinInterface) {
+  addMember({ slackChannelId, member }: JoinInterface) {
     // FIXME #111 https://github.com/tam-bourine/club-manager/issues/111
     // @ts-ignore
-    const { slackChannelId, member } = params;
 
     try {
       const clubs = this.getClubs();
