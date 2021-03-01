@@ -4,10 +4,8 @@ import { CallNewClubArg, CallApproveClubArgs } from "../../types/Messages";
 import { Config } from "../../constant";
 import ResponseInterface from "../../gas/shared/types/ResponseInterface";
 
-export const callNewClub = async (params: CallNewClubArg): Promise<ResponseInterface> => {
-  const fullUrl = new URL(`${Config.Gas.END_POINT}?action=regist`);
-
-  const response = await fetch(fullUrl, {
+const callAPI = async (params: any, action: string) => {
+  const response = await fetch(new URL(`${Config.Gas.END_POINT}?action=${action}`), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -18,22 +16,17 @@ export const callNewClub = async (params: CallNewClubArg): Promise<ResponseInter
   return response.json();
 };
 
-export const callApproveClub = async ({
-  club: { channelId },
-  authorizer,
-}: CallApproveClubArgs): Promise<ResponseInterface> => {
-  const fullUrl = new URL(`${Config.Gas.END_POINT}?action=approve`);
+export const callNewClub = async (params: CallNewClubArg): Promise<ResponseInterface> => callAPI(params, "regist");
 
-  const response = await fetch(fullUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      slackChannelId: channelId,
+export const callApproveClub = async ({
+  club: { channelId: slackChannelId },
+  authorizer,
+}: CallApproveClubArgs): Promise<ResponseInterface> =>
+  callAPI(
+    {
+      slackChannelId,
       authorizer,
       isApproved: true,
-    }),
-  });
-  return response.json();
-};
+    },
+    "approve"
+  );
