@@ -107,7 +107,7 @@ const sectionForm = ({ label, placeholder, actionId, blockId }: FormArg) => {
 };
 
 const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }: StaticSelectArgs) => {
-  // default
+  // NOTE: 初期値、エラーの場合はこれをreturn
   const defaultResult = {
     type: "input",
     block_id: blockId,
@@ -122,14 +122,13 @@ const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }:
       action_id: actionId,
     },
   };
-
   if (!initialOption) return defaultResult;
 
   return {
     ...defaultResult,
     element: {
       ...defaultResult.element,
-      // element: defaultElement e.g. {...}
+      // NOTE: element: defaultElement e.g. {...}
       initial_option: {
         text: {
           type: "plain_text",
