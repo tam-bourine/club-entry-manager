@@ -12,6 +12,7 @@ import { ButtonArg } from "../types/Messages";
 import * as kibela from "../api/kibela";
 import * as slack from "../api/slack";
 import * as gas from "../api/gas";
+import { Config } from "../constant";
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
@@ -42,11 +43,9 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         state: { values },
       },
       client,
-      body,
     }) => {
       ack();
 
-      const postUserId = body.user.id;
       const memberIds = values.member_name.member.selected_users as string[];
       const members = await Promise.all(
         memberIds.map(async (slackId) => {
@@ -76,11 +75,9 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       if (!response.success) {
         await client.chat
           .postMessage({
-            channel: postUserId,
+            channel: approvalChannelId,
             text: "エラーが発生しました",
-            blocks: [
-              sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。開発者に連絡してください" }),
-            ],
+            blocks: [sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。" })],
           })
           .catch((error) => {
             console.error({ error });
@@ -178,30 +175,52 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         state: { values },
       },
       client,
+      body,
     }) => {
       ack();
 
       const clubChannelId = values.approval_input.approval.selected_option.value as string;
+      const authorizer = await slack.user.getById(body.user.id);
 
       /* 16. シートの承認APIをコール */
+      const response = await gas.api.callApproveClub({
+        club: {
+          channelId: clubChannelId,
+        },
+        authorizer: {
+          slackId: authorizer.id,
+          name: authorizer.real_name,
+        },
+      });
 
-      /* 21. KibelaAPIにて創部時処理 */
-      const clubName = "Among Us";
-      const url = "https://tambourine.kibe.la/notes/19541";
-      const userIds = ["UR285JW80"];
+      if (!response.success) {
+        await client.chat
+          .postMessage({
+            channel: approvalChannelId,
+            text: "エラーが発生しました",
+            blocks: [sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。" })],
+          })
+          .catch((error) => {
+            console.error({ error });
+          });
+        return;
+      }
 
-      await kibela.mutation.note.moveOfficialFolder(url, clubName);
+      const { club } = response;
+      if (!club) return;
+      if (!club.name || !club.kibelaUrl || !club.members) return;
+      const { name, kibelaUrl, members } = club;
 
-      const group = await kibela.query.group.getByNoteUrl(url);
+      await kibela.mutation.note.moveOfficialFolder({ name, kibelaUrl });
 
       // NOTE: slack user ids -> user emails
-      const emails = await Promise.all(
-        userIds.map(async (userId) => (await slack.user.getById(userId)).profile!.email)
+      const memberEmails = await Promise.all(
+        members.map(async ({ slackId }) => (await slack.user.getById(slackId)).profile!.email)
       );
-
+      const group = await kibela.query.group.getByNoteUrl(kibelaUrl);
       // NOTE: kibela users -> target kibela users
       kibela.query.user.getAll().then((users) =>
-        emails
+        memberEmails
           .map((email) => kibela.query.user.findByEmail(email, users))
           .map(async (hitUser) => {
             await kibela.mutation.user.joinGroup(hitUser.id, group.id);
@@ -213,7 +232,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         .postMessage({
           token: client.token,
           channel: approvalChannelId,
-          text: `<#${clubChannelId}>が承認されました<:tada:>`,
+          text: `<#${clubChannelId}>が承認されました:tada:`,
         })
         .catch((error) => {
           console.error({ error });
@@ -224,7 +243,10 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         .postMessage({
           token: client.token,
           channel: clubChannelId,
-          text: `<!channel> 部活申請が承認されました:tada:`,
+          text:
+            Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL
+              ? `@channel 部活申請が承認されました:tada:`
+              : `<!channel> 部活申請が承認されました:tada:`,
         })
         .catch((error) => {
           console.error({ error });
