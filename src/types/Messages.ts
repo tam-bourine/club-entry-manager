@@ -47,23 +47,6 @@ export interface ModalArg {
   submit: string;
 }
 
-export interface CallNewClubArg {
-  club: {
-    name: string;
-    description: string;
-    budgetUse: string;
-    kibelaUrl: string;
-    channelId: string;
-  };
-  captain: {
-    slackId: string;
-    name: string;
-  };
-  members: {
-    slackId: string;
-    name: string;
-  }[];
-}
 export interface Option {
   text: string;
   value: string;
@@ -83,3 +66,31 @@ export type SectionArgType =
       type: string;
       text: string;
     }[];
+
+export interface CallNewClubArg {
+  club: {
+    name: string;
+    description: string;
+    budgetUse: string;
+    kibelaUrl: string;
+    channelId: string;
+  };
+  captain: {
+    slackId: string;
+    name: string;
+  };
+  members: {
+    slackId: string;
+    name: string;
+  }[];
+}
+
+export interface CallApproveClubArgs {
+  club: {
+    channelId: string;
+  };
+  authorizer: {
+    slackId: string;
+    name: string;
+  };
+}
