@@ -30,3 +30,5 @@ export const callApproveClub = async ({
     },
     "approve"
   );
+
+export const callNewJoinClub = async (): Promise<ResponseInterface> => callAPI(null, "get");

@@ -17,7 +17,7 @@ app.error((err) => {
 });
 
 useNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
-useJoinClubCommand(app);
+useJoinClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
 
 (async () => {
   await app.start(Config.Slack.Bolt.SERVE_PORT ?? 3000);
