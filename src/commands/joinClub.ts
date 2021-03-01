@@ -41,7 +41,7 @@ export const useJoinClubCommand = (app: App) => {
     }) => {
       ack();
 
-      const joinClubs: { value: string }[] = values.join_input.join.selected_options;
+      const { value: channel }: { value: string } = values.join_input.join.selected_options;
 
       const {
         profile: { email },
@@ -49,24 +49,20 @@ export const useJoinClubCommand = (app: App) => {
       const kibelaUsers = await kibela.query.user.getAll();
       const userKibelaInfo = await kibela.query.user.findByEmail(email, kibelaUsers);
 
-      await Promise.all(
-        joinClubs.map(async ({ value: channel }) => {
-          // TODO: GASに申請処理 -> 部活紹介記事のKibelaUrlを貰う
-          const kibelaUrl = "https://tambourine.kibe.la/notes/17232"; // FIX ME
-          // if (!response.success) return
+      // TODO: GASに申請処理 -> 部活紹介記事のKibelaUrlを貰う
+      const kibelaUrl = "https://tambourine.kibe.la/notes/17232"; // FIX ME
+      // if (!response.success) return
 
-          await Promise.all([
-            client.conversations.invite({
-              channel,
-              users: body.user.id,
-            }),
-            (async () => {
-              const group = await kibela.query.group.getByNoteUrl(kibelaUrl);
-              kibela.mutation.user.joinGroup(userKibelaInfo.id, group.id);
-            })(),
-          ]);
-        })
-      );
+      await Promise.all([
+        client.conversations.invite({
+          channel,
+          users: body.user.id,
+        }),
+        (async () => {
+          const group = await kibela.query.group.getByNoteUrl(kibelaUrl);
+          kibela.mutation.user.joinGroup(userKibelaInfo.id, group.id);
+        })(),
+      ]);
     }
   );
 };
