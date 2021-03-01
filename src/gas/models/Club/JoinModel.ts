@@ -16,23 +16,27 @@ export default class JoinModel {
     const { slackChannelId, member } = params;
 
     try {
-      const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
-      if (!sheetTabName) {
-        return this.view.provide(this.res.internalServer);
-      }
-
-      const clubsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
-      const clubs = clubsSheet?.getDataRange().getValues();
-
+      const clubs = this.getClubs();
       const club = this.findClubBySlackChannelId(clubs, slackChannelId);
 
       const clubNameArrayNumber = this.constants.SPREAD_SHEET.CLUBS.CLUB_NAME_COLUMN_NUMBER - 1;
       const clubName = club[clubNameArrayNumber];
+
       this.createMember(member, clubName);
       return this.view.provide(this.res.created);
     } catch (error) {
       return this.view.provide(this.res.internalServer);
     }
+  }
+
+  private getClubs() {
+    const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
+    if (!sheetTabName) {
+      return [];
+    }
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
+    const clubs = sheet?.getDataRange().getValues();
+    return clubs;
   }
 
   private findClubBySlackChannelId(clubs: any[] | undefined, slackChannelId: string) {
