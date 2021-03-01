@@ -139,6 +139,8 @@ cd ../..
     - スクリプトのプロパティをクリック
     - 行を追加をクリックしプロパティに「SHEET_TAB_NAME」を入力、値に「部活動一覧」を入力
         - ![image](https://user-images.githubusercontent.com/38882716/109267761-707d3200-784d-11eb-8545-714fab39be50.png)
+    - 行を追加をクリックしプロパティに「SLACK_WORKSPACE_URL」を入力、値にSlackのワークスペースのURLを入力
+        - 例: `https://example.slack.com`
     - 保存をクリック
 5. ローカルのコードを script ファイルに反映
     - https://script.google.com/home/usersettingsw を開いて、Google Apps Script API をオンにする。
