@@ -18,8 +18,8 @@ app.error((err) => {
 useNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
 
 (async () => {
-  await app.start(Config.Slack.Bolt.SERVE_PORT ?? 3000);
-  console.log("⚡️ Bolt app is running!");
+  await app.start(Config.Slack.Bolt.SERVE_PORT);
+  console.log(`⚡️ Bolt app is running! on PORT: ${Config.Slack.Bolt.SERVE_PORT}!`);
 
   if (Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL) {
     app.client.chat.postMessage({
