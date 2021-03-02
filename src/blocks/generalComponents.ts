@@ -106,7 +106,7 @@ const sectionForm = ({ label, placeholder, actionId, blockId }: FormArg) => {
   };
 };
 
-const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }: StaticSelectArgs) => {
+const inputStaticSelect = ({ label, options, actionId, blockId, initialOption, placeholder }: StaticSelectArgs) => {
   // default
   const defaultResult = {
     type: "input",
@@ -123,7 +123,20 @@ const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }:
     },
   };
 
-  if (!initialOption) return defaultResult;
+  if (placeholder) {
+    return {
+      ...defaultResult,
+      element: {
+        ...defaultResult.element,
+        // element: defaultElement e.g. {...}
+        placeholder: {
+          type: "plain_text",
+          text: placeholder,
+          emoji: true,
+        },
+      },
+    };
+  }
 
   return {
     ...defaultResult,
