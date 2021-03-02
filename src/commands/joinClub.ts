@@ -62,7 +62,7 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
     }) => {
       ack();
 
-      const { value: channel }: { value: string } = values.join_input.join.selected_options;
+      const { value: channel }: { value: string } = values.join_input.join.selected_option;
 
       const {
         profile: { email },
@@ -70,7 +70,7 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
       const kibelaUsers = await kibela.query.user.getAll();
       const userKibelaInfo = await kibela.query.user.findByEmail(email, kibelaUsers);
 
-      // TODO: GASに申請処理 -> 部活紹介記事のKibelaUrlを貰う
+      // TODO: GASに申請処理 -> 部活紹介記事のKibelaUrlを貰う <- API側できてない
       const kibelaUrl = "https://tambourine.kibe.la/notes/17232"; // FIX ME
       // if (!response.success) return
 
