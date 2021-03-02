@@ -103,3 +103,13 @@ export interface CallApproveClubArgs {
     name: string;
   };
 }
+
+export interface CallJoinClubArgs {
+  club: {
+    channelId: string;
+  };
+  member: {
+    slackId: string;
+    name: string;
+  };
+}

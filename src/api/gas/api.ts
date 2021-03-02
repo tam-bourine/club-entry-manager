@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { URL } from "url";
-import { CallNewClubArg, CallApproveClubArgs } from "../../types/Messages";
+import { CallNewClubArg, CallApproveClubArgs, CallJoinClubArgs } from "../../types/Messages";
 import { Config } from "../../constant";
 import ResponseInterface from "../../gas/shared/types/ResponseInterface";
 
@@ -36,3 +36,15 @@ export const callApproveClub = async ({
   );
 
 export const callNewJoinClub = async (): Promise<ResponseInterface> => callAPIGet("get");
+
+export const callJoinClub = async ({
+  club: { channelId: slackChannelId },
+  member,
+}: CallJoinClubArgs): Promise<ResponseInterface> =>
+  callAPIPost(
+    {
+      slackChannelId,
+      member,
+    },
+    "join"
+  );

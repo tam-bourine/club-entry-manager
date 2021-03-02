@@ -58,26 +58,49 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
         state: { values },
       },
       client,
-      body,
+      body: {
+        user: { id: slackUserId },
+      },
     }) => {
       ack();
 
       const { value: channel }: { value: string } = values.join_input.join.selected_option;
 
-      const {
-        profile: { email },
-      } = await slack.user.getById(body.user.id);
+      const member = await slack.user.getById(slackUserId);
       const kibelaUsers = await kibela.query.user.getAll();
-      const userKibelaInfo = await kibela.query.user.findByEmail(email, kibelaUsers);
+      const userKibelaInfo = await kibela.query.user.findByEmail(member.profile.email, kibelaUsers);
 
-      // TODO: GASに申請処理 -> 部活紹介記事のKibelaUrlを貰う <- API側できてない
-      const kibelaUrl = "https://tambourine.kibe.la/notes/17232"; // FIX ME
-      // if (!response.success) return
+      const response = await gas.api.callJoinClub({
+        club: {
+          channelId: channel,
+        },
+        member: {
+          slackId: member.id,
+          name: member.real_name,
+        },
+      });
+      if (!response.success) {
+        await client.chat
+          .postMessage({
+            channel: approvalChannelId,
+            text: "エラーが発生しました",
+            blocks: [sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。" })],
+          })
+          .catch((error) => {
+            console.error({ error });
+          });
+        return;
+      }
+
+      const { club } = response;
+      if (!club) return;
+      if (!club.kibelaUrl) return;
+      const { kibelaUrl } = club;
 
       await Promise.all([
         client.conversations.invite({
           channel,
-          users: body.user.id,
+          users: slackUserId,
         }),
         (async () => {
           const group = await kibela.query.group.getByNoteUrl(kibelaUrl);
