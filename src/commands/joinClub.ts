@@ -14,9 +14,9 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
     async ({ ack, body, context: { botToken }, client }: SlackCommandMiddlewareArgs & AllMiddlewareArgs) => {
       ack();
 
-      // TODO: GASに実行ユーザーのデータを送信 -> 未入部の部活チャンネルの一覧情報を受け取る(Bolt側でchannelsとして整形)
       const response = await gas.api.callNewJoinClub();
       if (!response.success) {
+        console.error(response, null, "\n");
         await client.chat
           .postMessage({
             channel: approvalChannelId,
