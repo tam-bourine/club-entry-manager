@@ -106,8 +106,8 @@ const sectionForm = ({ label, placeholder, actionId, blockId }: FormArg) => {
   };
 };
 
-const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }: StaticSelectArgs) => {
-  // NOTE: 初期値、エラーの場合はこれをreturn
+const inputStaticSelect = ({ label, options, actionId, blockId, initialOption, placeholder }: StaticSelectArgs) => {
+  // default
   const defaultResult = {
     type: "input",
     block_id: blockId,
@@ -122,7 +122,21 @@ const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }:
       action_id: actionId,
     },
   };
-  if (!initialOption) return defaultResult;
+
+  if (placeholder) {
+    return {
+      ...defaultResult,
+      element: {
+        ...defaultResult.element,
+        // NOTE: element: defaultElement e.g. {...}
+        placeholder: {
+          type: "plain_text",
+          text: placeholder,
+          emoji: true,
+        },
+      },
+    };
+  }
 
   return {
     ...defaultResult,

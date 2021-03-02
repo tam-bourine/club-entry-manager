@@ -2,28 +2,49 @@ import { AllMiddlewareArgs, App, SlackCommandMiddlewareArgs } from "@slack/bolt"
 import { getModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
 import { getJoinClubBlocks } from "../blocks/joinClub";
+import { Club } from "../config/clubConfig";
+import { sectionPlainText } from "../blocks/generalComponents";
 import * as slack from "../api/slack";
 import * as kibela from "../api/kibela";
+import * as gas from "../api/gas";
 
 const joinClubViewsId = "joinClubId";
 
-export const useJoinClubCommand = (app: App) => {
+export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
   app.command(
     "/join-club",
     async ({ ack, body, context: { botToken }, client }: SlackCommandMiddlewareArgs & AllMiddlewareArgs) => {
       ack();
 
-      // TODO: GASに実行ユーザーのデータを送信 -> 未入部の部活チャンネルの一覧情報を受け取る(Bolt側でchannelsとして整形)
+      const response = await gas.api.callNewJoinClub();
+      if (!response.success) {
+        console.error(response, null, "\n");
+        await client.chat
+          .postMessage({
+            channel: approvalChannelId,
+            text: "エラーが発生しました",
+            blocks: [sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。" })],
+          })
+          .catch((error) => {
+            console.error({ error });
+          });
+        return;
+      }
+
+      const { clubs } = response;
+      if (!clubs) return;
+      const injectClubs = clubs.map(({ id, name }) => ({
+        text: name,
+        value: id,
+      }));
+
       getModal({
         client,
         botToken,
         triggerId: body.trigger_id,
         callbackId: joinClubViewsId,
         title: Modal.Title.join,
-        blocks: getJoinClubBlocks([
-          { text: "<#C04RUP79K>", value: "C04RUP79K" }, // FIX ME
-          { text: "<#C04RUP79X>", value: "C04RUP79X" },
-        ]),
+        blocks: getJoinClubBlocks(injectClubs),
         submit: Modal.Button.request,
       });
     }
