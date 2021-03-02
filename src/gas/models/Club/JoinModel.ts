@@ -20,13 +20,20 @@ export default class JoinModel {
         throw new Error("部活動が見つかりませんでした");
       }
 
-      const club = this.findClubBySlackChannelId(clubs, slackChannelId);
+      const club: string[] = this.findClubBySlackChannelId(clubs, slackChannelId);
 
       const clubNameArrayNumber = this.constants.SPREAD_SHEET.CLUBS.CLUB_NAME_COLUMN_NUMBER - 1;
       const clubName = club[clubNameArrayNumber];
 
       this.createMember(member, clubName);
-      return this.view.provide(this.res.created);
+      return this.view.provide({
+        ...this.res.created,
+        club: {
+          id: club[5],
+          kibelaUrl: club[4],
+          name: club[1],
+        },
+      });
     } catch (error) {
       Logger.log(error.message);
       return this.view.provide(this.res.internalServer);
