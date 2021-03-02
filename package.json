@@ -7,7 +7,7 @@
     "node": "12.x"
   },
   "scripts": {
-    "tsc": "./node_modules/.bin/tsc",
+    "tsc": "npx -p typescript@4.1.3 tsc",
     "lint": "eslint src --ext .ts,.json --cache",
     "lint --no-cache": "eslint src --ext .ts,.json",
     "lint:fix": "eslint src --fix --ext .ts,.json --cache",
