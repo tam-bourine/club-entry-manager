@@ -1,4 +1,3 @@
-src/gas/
 lib/
 node_modules/
 .env
