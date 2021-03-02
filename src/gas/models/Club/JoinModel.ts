@@ -34,9 +34,8 @@ export default class JoinModel {
           name: club[1],
         },
       });
-    } catch (error) {
-      Logger.log(error.message);
-      return this.view.provide(this.res.internalServer);
+    } catch ({ message }) {
+      return this.view.provide({ ...this.res.internalServer, message });
     }
   }
 
