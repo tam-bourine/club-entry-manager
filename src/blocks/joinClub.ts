@@ -1,6 +1,6 @@
 import { inputStaticSelect } from "./generalComponents";
 import { Option } from "../types/Messages";
-import { Club } from "../config/clubConfig"
+import { Club } from "../config/clubConfig";
 
 export const getJoinClubBlocks = (channels: Option[]) => [
   inputStaticSelect({

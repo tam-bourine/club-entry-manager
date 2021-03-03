@@ -1,5 +1,5 @@
 import { AllMiddlewareArgs, App, SlackCommandMiddlewareArgs } from "@slack/bolt";
-import { getModal } from "../modal/modalTemplate";
+import { getModal, openAlertModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
 import { getJoinClubBlocks } from "../blocks/joinClub";
 import * as gas from "../api/gas";
@@ -8,8 +8,6 @@ import { Error } from "../config/errorConfig";
 import { sectionPlainText } from "../blocks/generalComponents";
 
 const joinClubViewsId = "joinClubId";
-const notExistViewsId = "noClubId"
-
 export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
   app.command(
     "/join-club",
@@ -32,7 +30,16 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
       }
 
       const { clubs } = response;
-      if (!clubs) return;
+      if (!clubs) {
+        await openAlertModal({
+          client,
+          botToken,
+          triggerId: body.trigger_id,
+          title: Modal.Title.none,
+          text: Error.Text.noExistClub,
+        });
+        return;
+      }
       const injectClubs = clubs.map(({ id, name }) => ({
         text: name,
         value: id,
