@@ -4,9 +4,11 @@ import { Modal } from "../config/modalConfig";
 import { getJoinClubBlocks } from "../blocks/joinClub";
 import * as gas from "../api/gas";
 import { Club } from "../config/clubConfig";
+import { Error } from "../config/errorConfig";
 import { sectionPlainText } from "../blocks/generalComponents";
 
 const joinClubViewsId = "joinClubId";
+const notExistViewsId = "noClubId"
 
 export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
   app.command(
@@ -20,8 +22,8 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: "エラーが発生しました",
-            blocks: [sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。" })],
+            text: Error.Text.notification,
+            blocks: [sectionPlainText({ title: Club.Label.error, text: Error.Text.contactDeveloper })],
           })
           .catch((error) => {
             console.error({ error });
