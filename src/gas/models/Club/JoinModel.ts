@@ -1,4 +1,3 @@
-import { kibelaUrl } from "../../../config/clubConfig";
 import Constants from "../../shared/Constants";
 import Response from "../../shared/Response";
 import JoinInterface from "../../shared/types/JoinInterface";
