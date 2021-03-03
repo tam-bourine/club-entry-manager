@@ -1,5 +1,5 @@
 import { AllMiddlewareArgs, App, SlackCommandMiddlewareArgs } from "@slack/bolt";
-import { getModal, openAlertModal } from "../modal/modalTemplate";
+import { openModal, openAlertModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
 import { getJoinClubBlocks } from "../blocks/joinClub";
 import * as gas from "../api/gas";
@@ -45,7 +45,7 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
         value: id,
       }));
 
-      getModal({
+      openModal({
         client,
         botToken,
         triggerId: body.trigger_id,

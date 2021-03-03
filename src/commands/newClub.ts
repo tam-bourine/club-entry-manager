@@ -4,7 +4,7 @@ import { inputClubModal } from "../blocks/inputClub";
 import { getMessageBlocks } from "../blocks/messages/modal";
 import { getRejectBlocks } from "../blocks/reject";
 import { getApprovalBlocks } from "../blocks/approval";
-import { getModal } from "../modal/modalTemplate";
+import { openModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
 import { sectionPlainText } from "../blocks/generalComponents";
 import { Club } from "../config/clubConfig";
@@ -23,7 +23,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
   app.command("/new-club", async ({ ack, body, context, client }) => {
     ack();
 
-    getModal({
+    openModal({
       client,
       botToken: context.botToken,
       triggerId: body.trigger_id,
@@ -132,7 +132,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
   app.action("reject_modal", async ({ ack, client, body, context }) => {
     ack();
 
-    getModal({
+    openModal({
       client,
       botToken: context.botToken,
       triggerId: (<BlockAction>body).trigger_id,
@@ -155,7 +155,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
     }: SlackActionMiddlewareArgs<InteractiveMessage<ButtonClick>> & AllMiddlewareArgs) => {
       ack();
 
-      getModal({
+      openModal({
         client,
         botToken: context.botToken,
         triggerId: body.trigger_id,
