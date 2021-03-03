@@ -1,7 +1,7 @@
 import { App } from "@slack/bolt";
 import { useNewClubCommand } from "./commands/newClub";
 import { Config } from "./constant";
-import { useNewClubShortcut } from "./shortcuts/newClub"
+import { useNewClubShortcut } from "./shortcuts/newClub";
 
 export const app = new App({
   socketMode: Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL,
