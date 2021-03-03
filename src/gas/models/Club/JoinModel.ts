@@ -1,3 +1,4 @@
+import { kibelaUrl } from "../../../config/clubConfig";
 import Constants from "../../shared/Constants";
 import Response from "../../shared/Response";
 import JoinInterface from "../../shared/types/JoinInterface";
@@ -25,13 +26,15 @@ export default class JoinModel {
       const clubNameArrayNumber = this.constants.SPREAD_SHEET.CLUBS.CLUB_NAME_COLUMN_NUMBER - 1;
       const clubName = club[clubNameArrayNumber];
 
+      const slackChannelIdArrayNumber = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
+      const kibelaUrlArrayNumber = this.constants.SPREAD_SHEET.CLUBS.KIBELA_URL_COLUMN_NUMBER - 1;
       this.createMember(member, clubName);
       return this.view.provide({
         ...this.res.created,
         club: {
-          id: club[5],
-          kibelaUrl: club[4],
-          name: club[1],
+          id: club[slackChannelIdArrayNumber],
+          kibelaUrl: club[kibelaUrlArrayNumber],
+          name: clubName,
         },
       });
     } catch ({ message }) {
