@@ -10,4 +10,10 @@ export namespace Modal {
     export const reject = "却下理由入力";
     export const approval = "承認";
   }
+
+  export namespace Id {
+    export const clubViewsId = "newClubId";
+    export const approvalViewsId = "approvalId";
+    export const rejectViewsId = "rejectId";
+  }
 }

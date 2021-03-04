@@ -1,7 +1,6 @@
 import { App } from "@slack/bolt";
 import { getModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
-import { clubViewsId } from "../commands/newClub";
 import { inputClubModal } from "../blocks/inputClub";
 
 export const enableNewClubShortcut = (app: App) => {
@@ -12,7 +11,7 @@ export const enableNewClubShortcut = (app: App) => {
       client,
       botToken: context.botToken,
       triggerId: body.trigger_id,
-      callbackId: clubViewsId,
+      callbackId: Modal.Id.clubViewsId,
       title: Modal.Title.request,
       blocks: inputClubModal,
       submit: Modal.Button.request,

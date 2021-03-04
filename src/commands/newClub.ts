@@ -15,10 +15,6 @@ import * as gas from "../api/gas";
 import { Config } from "../constant";
 /* eslint strict: [2, "global"] */
 
-export const clubViewsId = "newClubId";
-const approvalViewsId = "approvalId";
-const rejectViewsId = "rejectId";
-
 export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
   app.command("/new-club", async ({ ack, body, context, client }) => {
     ack();
@@ -27,7 +23,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       client,
       botToken: context.botToken,
       triggerId: body.trigger_id,
-      callbackId: clubViewsId,
+      callbackId: Modal.Id.clubViewsId,
       title: Modal.Title.request,
       blocks: inputClubModal,
       submit: Modal.Button.request,
@@ -36,7 +32,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
 
   // 承認専用チャンネルに創部申請情報を流す処理
   app.view(
-    clubViewsId,
+    Modal.Id.clubViewsId,
     async ({
       ack,
       view: {
@@ -136,7 +132,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       client,
       botToken: context.botToken,
       triggerId: (<BlockAction>body).trigger_id,
-      callbackId: rejectViewsId,
+      callbackId: Modal.Id.rejectViewsId,
       title: Modal.Title.reject,
       blocks: getRejectBlocks(),
       submit: Modal.Button.reject,
@@ -159,7 +155,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         client,
         botToken: context.botToken,
         triggerId: body.trigger_id,
-        callbackId: approvalViewsId,
+        callbackId: Modal.Id.approvalViewsId,
         title: Modal.Title.approval,
         blocks: getApprovalBlocks({ text: `<#${payload.value}>`, value: payload.value }),
         submit: Modal.Button.approval,
@@ -168,7 +164,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
   );
 
   app.view(
-    approvalViewsId,
+    Modal.Id.approvalViewsId,
     async ({
       ack,
       view: {
