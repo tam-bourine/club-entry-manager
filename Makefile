@@ -24,6 +24,8 @@ logs:
 	docker-compose -f $(DOCKER_FILE_PATH) logs $(arg)
 logs-tail:
 	docker-compose -f $(DOCKER_FILE_PATH) logs -f --tail=500 $(arg)
+config:
+	docker-compose -f $(DOCKER_FILE_PATH) config
 
 # general -------
 init:
