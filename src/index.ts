@@ -3,6 +3,7 @@ import { ChatPostMessageArguments } from "@slack/web-api";
 import { useNewClubCommand } from "./commands/newClub";
 import { Config } from "./constant";
 import * as slackAPI from "./api/slack";
+import { useNewClubShortcut } from "./shortcuts/newClub";
 
 export const app = new App({
   socketMode: Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL,
@@ -17,6 +18,7 @@ app.error((err) => {
   });
 });
 
+useNewClubShortcut(app);
 useNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
 
 (async () => {

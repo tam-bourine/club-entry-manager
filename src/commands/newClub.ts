@@ -15,7 +15,7 @@ import * as gas from "../api/gas";
 import { Config } from "../constant";
 /* eslint strict: [2, "global"] */
 
-const clubViewsId = "newClubId";
+export const clubViewsId = "newClubId";
 const approvalViewsId = "approvalId";
 const rejectViewsId = "rejectId";
 
