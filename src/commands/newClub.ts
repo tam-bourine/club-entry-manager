@@ -77,7 +77,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
           .postMessage({
             channel: approvalChannelId,
             text: "エラーが発生しました",
-            blocks: [sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。" })],
+            blocks: [sectionPlainText({ title: Club.label.error, text: "エラーが発生しました。" })],
           })
           .catch((error) => {
             console.error({ error });
@@ -198,7 +198,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
           .postMessage({
             channel: approvalChannelId,
             text: "エラーが発生しました",
-            blocks: [sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。" })],
+            blocks: [sectionPlainText({ title: Club.label.error, text: "エラーが発生しました。" })],
           })
           .catch((error) => {
             console.error({ error });
