@@ -1,7 +1,7 @@
 import { App } from "@slack/bolt";
-import { useNewClubCommand } from "./commands/newClub";
+import { enableNewClubCommand } from "./commands/newClub";
 import { Config } from "./constant";
-import { useNewClubShortcut } from "./shortcuts/newClub";
+import { enableNewClubShortcut } from "./shortcuts/newClub";
 
 export const app = new App({
   socketMode: Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL,
@@ -16,8 +16,8 @@ app.error((err) => {
   });
 });
 
-useNewClubShortcut(app);
-useNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
+enableNewClubShortcut(app);
+enableNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
 
 (async () => {
   await app.start(Config.Slack.Bolt.SERVE_PORT);

@@ -19,7 +19,7 @@ export const clubViewsId = "newClubId";
 const approvalViewsId = "approvalId";
 const rejectViewsId = "rejectId";
 
-export const useNewClubCommand = (app: App, approvalChannelId: string) => {
+export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
   app.command("/new-club", async ({ ack, body, context, client }) => {
     ack();
 

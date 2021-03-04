@@ -4,7 +4,7 @@ import { Modal } from "../config/modalConfig";
 import { clubViewsId } from "../commands/newClub";
 import { inputClubModal } from "../blocks/inputClub";
 
-export const useNewClubShortcut = (app: App) => {
+export const enableNewClubShortcut = (app: App) => {
   app.shortcut("open_new_club_modal", async ({ ack, body, client, context }) => {
     ack();
 
