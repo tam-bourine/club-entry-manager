@@ -11,9 +11,9 @@ export namespace Modal {
     export const approval = "承認";
   }
 
-  export namespace Id {
-    export const clubViewsId = "newClubId";
-    export const approvalViewsId = "approvalId";
-    export const rejectViewsId = "rejectId";
-  }
+  export const id = {
+    clubViewsId: "newClubId",
+    approvalViewsId: "approvalId",
+    rejectViewsId: "rejectId",
+  };
 }
