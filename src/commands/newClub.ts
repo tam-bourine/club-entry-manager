@@ -24,9 +24,9 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       botToken: context.botToken,
       triggerId: body.trigger_id,
       callbackId: Modal.id.clubViewsId,
-      title: Modal.Title.request,
+      title: Modal.title.request,
       blocks: inputClubModal,
-      submit: Modal.Button.request,
+      submit: Modal.button.request,
     });
   });
 
@@ -133,9 +133,9 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       botToken: context.botToken,
       triggerId: (<BlockAction>body).trigger_id,
       callbackId: Modal.id.rejectViewsId,
-      title: Modal.Title.reject,
+      title: Modal.title.reject,
       blocks: getRejectBlocks(),
-      submit: Modal.Button.reject,
+      submit: Modal.button.reject,
     });
   });
 
@@ -156,9 +156,9 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         botToken: context.botToken,
         triggerId: body.trigger_id,
         callbackId: Modal.id.approvalViewsId,
-        title: Modal.Title.approval,
+        title: Modal.title.approval,
         blocks: getApprovalBlocks({ text: `<#${payload.value}>`, value: payload.value }),
-        submit: Modal.Button.approval,
+        submit: Modal.button.approval,
       });
     }
   );

@@ -12,9 +12,9 @@ export const enableNewClubShortcut = (app: App) => {
       botToken: context.botToken,
       triggerId: body.trigger_id,
       callbackId: Modal.id.clubViewsId,
-      title: Modal.Title.request,
+      title: Modal.title.request,
       blocks: inputClubModal,
-      submit: Modal.Button.request,
+      submit: Modal.button.request,
     });
   });
 };
