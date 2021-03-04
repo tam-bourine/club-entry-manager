@@ -13,6 +13,7 @@ import * as kibela from "../api/kibela";
 import * as slack from "../api/slack";
 import * as gas from "../api/gas";
 import { Config } from "../constant";
+import { Error } from "../config/errorConfig";
 /* eslint strict: [2, "global"] */
 
 const clubViewsId = "newClubId";
@@ -76,8 +77,8 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: "エラーが発生しました",
-            blocks: [sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。" })],
+            text: Error.text.notification,
+            blocks: [sectionPlainText({ title: Club.Label.error, text: Error.text.contactDeveloper })],
           })
           .catch((error) => {
             console.error({ error });

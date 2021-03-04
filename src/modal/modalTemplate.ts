@@ -1,6 +1,6 @@
 import { Modal } from "../config/modalConfig";
 import { ModalArg, AlertModalArg } from "../types/Messages";
-import { sectionPlainText } from "../blocks/generalComponents";
+import { sectionImage } from "../blocks/generalComponents";
 
 export const openModal = async ({ client, botToken, triggerId, callbackId, title, blocks, submit }: ModalArg) => {
   await client.views
@@ -43,7 +43,12 @@ export const openAlertModal = async ({ client, botToken, triggerId, title, text 
           text: title,
           emoji: true,
         },
-        blocks: [sectionPlainText({ text })],
+        blocks: [
+          sectionImage({
+            text,
+            imageUrl: "https://pbs.twimg.com/profile_images/625633822235693056/lNGUneLX_400x400.jpg",
+          }),
+        ],
         close: {
           type: "plain_text",
           text: Modal.Button.close,

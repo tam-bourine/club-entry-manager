@@ -20,8 +20,8 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: Error.Text.notification,
-            blocks: [sectionPlainText({ title: Club.Label.error, text: Error.Text.contactDeveloper })],
+            text: Error.text.notification,
+            blocks: [sectionPlainText({ title: Club.Label.error, text: Error.text.contactDeveloper })],
           })
           .catch((error) => {
             console.error({ error });
@@ -36,7 +36,7 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
           botToken,
           triggerId: body.trigger_id,
           title: Modal.Title.none,
-          text: Error.Text.noExistClub,
+          text: Error.text.noExistClub,
         });
         return;
       }

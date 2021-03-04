@@ -26,7 +26,7 @@ useJoinClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
   if (Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL) {
     app.client.chat.postMessage({
       token: Config.Slack.BOT_TOKEN,
-      text: `<!here> アプリ起動: <@${Config.Slack.Bolt.DEBUG_USER}>`,
+      text: `アプリ起動: <@${Config.Slack.Bolt.DEBUG_USER}>`,
       channel: Config.Slack.APPROVAL_CHANNEL_ID,
     });
   }

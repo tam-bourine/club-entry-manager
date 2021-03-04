@@ -35,6 +35,21 @@ const sectionLabel = (title?: string) => {
     : {};
 };
 
+export const sectionImage = ({ imageUrl, text }: { imageUrl: string; text: string }) => {
+  return {
+    type: "section",
+    text: {
+      type: "mrkdwn",
+      text,
+    },
+    accessory: {
+      type: "image",
+      image_url: imageUrl,
+      alt_text: "picture",
+    },
+  };
+};
+
 const sectionPlainText = ({ title, text }: { title?: string; text: SectionArgType }) => {
   return {
     ...sectionLabel(title),
@@ -178,6 +193,6 @@ export {
   sectionFields,
   sectionButton,
   sectionForm,
-  inputStaticSelect,
   inputMultiSelect,
+  inputStaticSelect,
 };
