@@ -1,10 +1,9 @@
 import { App } from "@slack/bolt";
 import { getModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
-import { clubViewsId } from "../commands/newClub";
 import { inputClubModal } from "../blocks/inputClub";
 
-export const useNewClubShortcut = (app: App) => {
+export const enableNewClubShortcut = (app: App) => {
   app.shortcut("open_new_club_modal", async ({ ack, body, client, context }) => {
     ack();
 
@@ -12,10 +11,10 @@ export const useNewClubShortcut = (app: App) => {
       client,
       botToken: context.botToken,
       triggerId: body.trigger_id,
-      callbackId: clubViewsId,
-      title: Modal.Title.request,
+      callbackId: Modal.id.clubViewsId,
+      title: Modal.title.request,
       blocks: inputClubModal,
-      submit: Modal.Button.request,
+      submit: Modal.button.request,
     });
   });
 };
