@@ -21,6 +21,7 @@ export namespace Config {
     export const USER_TOKEN = process.env.SLACK_USER_TOKEN as string;
     export const SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET as string;
     export const APPROVAL_CHANNEL_ID = (process.env.SLACK_APPROVAL_CHANNEL_ID as string) || "C01F6HWUGUA";
+    export const DEBUG_CHANNEL_ID = (process.env.SLACK_DEBUG_CHANNEL_ID as string) || "C01P2BADCNB";
 
     export namespace Bolt {
       export const SERVE_PORT = parseInt(process.env.PORT || "3000", 10);

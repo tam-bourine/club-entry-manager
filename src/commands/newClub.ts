@@ -16,11 +16,7 @@ import { Config } from "../constant";
 import { Error } from "../config/errorConfig";
 /* eslint strict: [2, "global"] */
 
-const clubViewsId = "newClubId";
-const approvalViewsId = "approvalId";
-const rejectViewsId = "rejectId";
-
-export const useNewClubCommand = (app: App, approvalChannelId: string) => {
+export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
   app.command("/new-club", async ({ ack, body, context, client }) => {
     ack();
 
@@ -28,16 +24,16 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       client,
       botToken: context.botToken,
       triggerId: body.trigger_id,
-      callbackId: clubViewsId,
-      title: Modal.Title.request,
+      callbackId: Modal.id.clubViewsId,
+      title: Modal.title.request,
       blocks: inputClubModal,
-      submit: Modal.Button.request,
+      submit: Modal.button.request,
     });
   });
 
   // 承認専用チャンネルに創部申請情報を流す処理
   app.view(
-    clubViewsId,
+    Modal.id.clubViewsId,
     async ({
       ack,
       view: {
@@ -137,10 +133,10 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
       client,
       botToken: context.botToken,
       triggerId: (<BlockAction>body).trigger_id,
-      callbackId: rejectViewsId,
-      title: Modal.Title.reject,
+      callbackId: Modal.id.rejectViewsId,
+      title: Modal.title.reject,
       blocks: getRejectBlocks(),
-      submit: Modal.Button.reject,
+      submit: Modal.button.reject,
     });
   });
 
@@ -160,16 +156,16 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         client,
         botToken: context.botToken,
         triggerId: body.trigger_id,
-        callbackId: approvalViewsId,
-        title: Modal.Title.approval,
+        callbackId: Modal.id.approvalViewsId,
+        title: Modal.title.approval,
         blocks: getApprovalBlocks({ text: `<#${payload.value}>`, value: payload.value }),
-        submit: Modal.Button.approval,
+        submit: Modal.button.approval,
       });
     }
   );
 
   app.view(
-    approvalViewsId,
+    Modal.id.approvalViewsId,
     async ({
       ack,
       view: {
