@@ -5,5 +5,7 @@ export interface SlackUser {
   real_name: string;
   profile?: {
     email: string;
+    display_name?: string;
+    image_original?: string;
   };
 }
