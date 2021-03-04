@@ -1,16 +1,10 @@
 steps:
   - name: "gcr.io/cloud-builders/docker"
-    args:
-      [
-        "build",
-        "-f",
-        "docker/Dockerfile",
-        "-t",
-        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}/${_STAGE}",
-        "--build-arg",
-        "STAGE=${_STAGE}",
-        ".",
-      ]
+    args: [ 'build', '-f', 'docker/Dockerfile',
+                   '-t','gcr.io/$PROJECT_ID/${_SERVICE_NAME}/${_STAGE}',
+                   '--build-arg', 'STAGE=${_STAGE}',
+                   '.'
+    ]
 substitutions:
   _STAGE: ${APP_ENV}
   _SERVICE_NAME: club-manager
