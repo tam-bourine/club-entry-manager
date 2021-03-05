@@ -4,7 +4,7 @@ import { inputClubModal } from "../blocks/inputClub";
 import { getMessageBlocks } from "../blocks/messages/modal";
 import { getRejectBlocks } from "../blocks/reject";
 import { getApprovalBlocks } from "../blocks/approval";
-import { getModal } from "../modal/modalTemplate";
+import { openModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
 import { sectionPlainText } from "../blocks/generalComponents";
 import { Club } from "../config/clubConfig";
@@ -13,13 +13,14 @@ import * as kibela from "../api/kibela";
 import * as slack from "../api/slack";
 import * as gas from "../api/gas";
 import { Config } from "../constant";
+import { Error } from "../config/errorConfig";
 /* eslint strict: [2, "global"] */
 
 export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
   app.command("/new-club", async ({ ack, body, context, client }) => {
     ack();
 
-    getModal({
+    openModal({
       client,
       botToken: context.botToken,
       triggerId: body.trigger_id,
@@ -72,8 +73,8 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: "エラーが発生しました",
-            blocks: [sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。" })],
+            text: Error.text.notification,
+            blocks: [sectionPlainText({ title: Club.Label.error, text: Error.text.contactDeveloper })],
           })
           .catch((error) => {
             console.error({ error });
@@ -128,7 +129,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
   app.action("reject_modal", async ({ ack, client, body, context }) => {
     ack();
 
-    getModal({
+    openModal({
       client,
       botToken: context.botToken,
       triggerId: (<BlockAction>body).trigger_id,
@@ -151,7 +152,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
     }: SlackActionMiddlewareArgs<InteractiveMessage<ButtonClick>> & AllMiddlewareArgs) => {
       ack();
 
-      getModal({
+      openModal({
         client,
         botToken: context.botToken,
         triggerId: body.trigger_id,

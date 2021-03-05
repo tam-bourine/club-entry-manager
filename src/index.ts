@@ -4,6 +4,7 @@ import { Config } from "./constant";
 import * as slackAPI from "./api/slack";
 import { enableNewClubCommand } from "./commands/newClub";
 import { enableNewClubShortcut } from "./shortcuts/newClub";
+import { enableJoinClubCommand } from "./commands/joinClub";
 
 export const app = new App({
   socketMode: Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL,
@@ -19,6 +20,7 @@ app.error((err) => {
 });
 
 enableNewClubShortcut(app);
+enableJoinClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
 enableNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
 
 (async () => {
@@ -32,8 +34,8 @@ enableNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
 
     const msgOption: ChatPostMessageArguments = {
       token: Config.Slack.BOT_TOKEN,
+      text: `アプリ起動なう :zap: <@${Config.Slack.Bolt.DEBUG_USER}>`,
       channel: Config.Slack.DEBUG_CHANNEL_ID,
-      text: "<!here> アプリ起動なう :zap:",
       icon_url: icon,
       username: name,
     };
