@@ -22,7 +22,7 @@ export const openModal = async ({ client, botToken, triggerId, callbackId, title
         },
         close: {
           type: "plain_text",
-          text: Modal.Button.cancel,
+          text: Modal.button.cancel,
         },
       },
     })
