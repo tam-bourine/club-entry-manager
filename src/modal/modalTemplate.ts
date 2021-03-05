@@ -31,7 +31,7 @@ export const openModal = async ({ client, botToken, triggerId, callbackId, title
     });
 };
 
-export const openAlertModal = async ({ client, botToken, triggerId, title, text }: AlertModalArg) => {
+export const openAlertModal = async ({ client, botToken, triggerId, title, text, imageUrl }: AlertModalArg) => {
   await client.views
     .open({
       context: botToken,
@@ -46,7 +46,7 @@ export const openAlertModal = async ({ client, botToken, triggerId, title, text 
         blocks: [
           sectionImage({
             text,
-            imageUrl: "https://pbs.twimg.com/profile_images/625633822235693056/lNGUneLX_400x400.jpg",
+            imageUrl,
           }),
         ],
         close: {

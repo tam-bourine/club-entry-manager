@@ -53,6 +53,7 @@ export interface AlertModalArg {
   triggerId: string;
   title: string;
   text: string;
+  imageUrl: string;
 }
 
 export interface Option {

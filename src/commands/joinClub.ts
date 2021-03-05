@@ -37,6 +37,7 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
           triggerId: body.trigger_id,
           title: Modal.Title.none,
           text: Error.text.noExistClub,
+          imageUrl: Error.image.sorry,
         });
         return;
       }
