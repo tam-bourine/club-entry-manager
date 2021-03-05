@@ -34,7 +34,7 @@ enableNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
 
     const msgOption: ChatPostMessageArguments = {
       token: Config.Slack.BOT_TOKEN,
-      text: `アプリ起動なう :zap: <@${Config.Slack.Bolt.DEBUG_USER}>`,
+      text: "アプリ起動なう :zap:",
       channel: Config.Slack.DEBUG_CHANNEL_ID,
       icon_url: icon,
       username: name,
