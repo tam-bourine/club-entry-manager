@@ -12,6 +12,7 @@ const callAPIPost = async (params: any, action: "regist" | "approve" | "join") =
   });
   return response.json();
 };
+
 const callAPIGet = async (action: "get") => {
   const response = await fetch(new URL(`${Config.Gas.END_POINT}?action=${action}`), {
     method: "GET",

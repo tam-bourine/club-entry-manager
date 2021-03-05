@@ -1,16 +1,17 @@
 import { AllMiddlewareArgs, App, SlackCommandMiddlewareArgs } from "@slack/bolt";
-import { getModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
 import { getJoinClubBlocks } from "../blocks/joinClub";
 import { Club } from "../config/clubConfig";
 import { sectionPlainText } from "../blocks/generalComponents";
+import { openModal, openAlertModal } from "../modal/modalTemplate";
+import { Error } from "../config/errorConfig";
 import * as slack from "../api/slack";
 import * as kibela from "../api/kibela";
 import * as gas from "../api/gas";
 
 const joinClubViewsId = "joinClubId";
 
-export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
+export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
   app.command(
     "/join-club",
     async ({ ack, body, context: { botToken }, client }: SlackCommandMiddlewareArgs & AllMiddlewareArgs) => {
@@ -22,8 +23,8 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: "エラーが発生しました",
-            blocks: [sectionPlainText({ title: Club.Label.error, text: "エラーが発生しました。" })],
+            text: Error.text.notification,
+            blocks: [sectionPlainText({ title: Club.Label.error, text: Error.text.contactDeveloper })],
           })
           .catch((error) => {
             console.error({ error });
@@ -32,20 +33,32 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
       }
 
       const { clubs } = response;
+      /* ??? */
       if (!clubs) return;
+      if (!clubs) {
+        await openAlertModal({
+          client,
+          botToken,
+          triggerId: body.trigger_id,
+          title: Modal.title.noClub,
+          text: Error.text.noExistClub,
+          imageUrl: Error.image.sorry,
+        });
+        return;
+      }
       const injectClubs = clubs.map(({ id, name }) => ({
         text: name,
         value: id,
       }));
 
-      getModal({
+      openModal({
         client,
         botToken,
         triggerId: body.trigger_id,
         callbackId: joinClubViewsId,
-        title: Modal.Title.join,
+        title: Modal.title.join,
         blocks: getJoinClubBlocks(injectClubs),
-        submit: Modal.Button.request,
+        submit: Modal.button.request,
       });
     }
   );

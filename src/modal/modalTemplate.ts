@@ -1,7 +1,8 @@
 import { Modal } from "../config/modalConfig";
-import { ModalArg } from "../types/Messages";
+import { ModalArg, AlertModalArg } from "../types/Messages";
+import { sectionImage } from "../blocks/generalComponents";
 
-export const getModal = async ({ client, botToken, triggerId, callbackId, title, blocks, submit }: ModalArg) => {
+export const openModal = async ({ client, botToken, triggerId, callbackId, title, blocks, submit }: ModalArg) => {
   await client.views
     .open({
       context: botToken,
@@ -27,5 +28,34 @@ export const getModal = async ({ client, botToken, triggerId, callbackId, title,
     })
     .catch((error) => {
       console.error({ error }); // `dispatch_failed`と出た際にはこの中身を探る
+    });
+};
+
+export const openAlertModal = async ({ client, botToken, triggerId, title, text, imageUrl }: AlertModalArg) => {
+  await client.views
+    .open({
+      context: botToken,
+      trigger_id: triggerId,
+      view: {
+        type: "modal",
+        title: {
+          type: "plain_text",
+          text: title,
+          emoji: true,
+        },
+        blocks: [
+          sectionImage({
+            text,
+            imageUrl,
+          }),
+        ],
+        close: {
+          type: "plain_text",
+          text: Modal.button.close,
+        },
+      },
+    })
+    .catch((error) => {
+      console.error({ error });
     });
 };

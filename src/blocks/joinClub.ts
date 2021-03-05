@@ -1,12 +1,13 @@
 import { inputStaticSelect } from "./generalComponents";
 import { Option } from "../types/Messages";
+import { Club } from "../config/clubConfig";
 
 export const getJoinClubBlocks = (channels: Option[]) => [
   inputStaticSelect({
-    label: "部活チャンネル",
+    label: Club.Label.clubChannel,
     actionId: "join",
     blockId: "join_input",
     options: channels,
-    placeholder: "入部したい部活チャンネルを選んでください",
+    placeholder: Club.Placeholder.selectJoinClub,
   }),
 ];

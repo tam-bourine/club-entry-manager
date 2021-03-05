@@ -47,6 +47,15 @@ export interface ModalArg {
   submit: string;
 }
 
+export interface AlertModalArg {
+  client: WebClient;
+  botToken: string;
+  triggerId: string;
+  title: string;
+  text: string;
+  imageUrl: string;
+}
+
 export interface Option {
   text: string;
   value: string;
