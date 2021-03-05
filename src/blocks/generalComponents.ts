@@ -1,4 +1,4 @@
-import { SectionArgType, ButtonArg, FormArg, StaticSelectArg } from "../types/Messages";
+import { MultiSelectArgs, SectionArgType, ButtonArg, FormArg, StaticSelectArgs, Option } from "../types/Messages";
 
 export const header = (title: string) => ({
   type: "header",
@@ -12,6 +12,16 @@ export const header = (title: string) => ({
 export const divider = {
   type: "divider",
 };
+
+const GenerateOptionElement = (options: Option[]) =>
+  options.map(({ text, value }) => ({
+    text: {
+      type: "plain_text",
+      text,
+      emoji: true,
+    },
+    value,
+  }));
 
 const sectionLabel = (title?: string) => {
   return title
@@ -96,37 +106,78 @@ const sectionForm = ({ label, placeholder, actionId, blockId }: FormArg) => {
   };
 };
 
-const inputStaticSelect = ({ label, options, actionId, blockId, initialOption }: StaticSelectArg) => {
-  const elementOptions = options.map(({ text, value }) => ({
-    text: {
-      type: "plain_text",
-      text,
-      emoji: true,
-    },
-    value,
-  }));
-
-  return {
+const inputStaticSelect = ({ label, options, actionId, blockId, initialOption, placeholder }: StaticSelectArgs) => {
+  // default
+  const defaultResult = {
     type: "input",
     block_id: blockId,
-    element: {
-      type: "static_select",
-      options: elementOptions,
-      action_id: actionId,
-      initial_option: {
-        text: {
-          type: "plain_text",
-          text: initialOption.text,
-        },
-        value: initialOption.value,
-      },
-    },
     label: {
       type: "plain_text",
       text: label,
       emoji: true,
     },
+    element: {
+      type: "static_select",
+      options: GenerateOptionElement(options),
+      action_id: actionId,
+    },
+  };
+
+  if (placeholder) {
+    return {
+      ...defaultResult,
+      element: {
+        ...defaultResult.element,
+        // NOTE: element: defaultElement e.g. {...}
+        placeholder: {
+          type: "plain_text",
+          text: placeholder,
+          emoji: true,
+        },
+      },
+    };
+  }
+
+  return {
+    ...defaultResult,
+    element: {
+      ...defaultResult.element,
+      // NOTE: element: defaultElement e.g. {...}
+      initial_option: {
+        text: {
+          type: "plain_text",
+          text: initialOption!.text,
+        },
+        value: initialOption!.value,
+      },
+    },
   };
 };
 
-export { sectionPlainText, sectionMrkdwn, sectionFields, sectionButton, sectionForm, inputStaticSelect };
+const inputMultiSelect = ({ text, options, actionId, blockId, placeholder }: MultiSelectArgs) => ({
+  type: "section",
+  block_id: blockId,
+  text: {
+    type: "mrkdwn",
+    text: text,
+  },
+  accessory: {
+    action_id: actionId,
+    type: "multi_static_select",
+    placeholder: {
+      type: "plain_text",
+      text: placeholder,
+    },
+    options: GenerateOptionElement(options),
+  },
+});
+
+export {
+  sectionPlainText,
+  sectionMrkdwn,
+  sectionFields,
+  sectionButton,
+  sectionForm,
+  inputStaticSelect,
+  inputMultiSelect,
+};

@@ -52,12 +52,21 @@ export interface Option {
   value: string;
 }
 
-export interface StaticSelectArg {
+export interface StaticSelectArgs {
   label: string;
   options: Option[];
   actionId: string;
   blockId: string;
-  initialOption: Option;
+  initialOption?: Option;
+  placeholder?: string;
+}
+
+export interface MultiSelectArgs {
+  text: string;
+  options: Option[];
+  actionId: string;
+  blockId: string;
+  placeholder: string;
 }
 
 export type SectionArgType =
@@ -90,6 +99,16 @@ export interface CallApproveClubArgs {
     channelId: string;
   };
   authorizer: {
+    slackId: string;
+    name: string;
+  };
+}
+
+export interface CallJoinClubArgs {
+  club: {
+    channelId: string;
+  };
+  member: {
     slackId: string;
     name: string;
   };
