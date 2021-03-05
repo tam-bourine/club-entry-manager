@@ -33,8 +33,6 @@ export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
       }
 
       const { clubs } = response;
-      /* ??? */
-      if (!clubs) return;
       if (!clubs) {
         await openAlertModal({
           client,
