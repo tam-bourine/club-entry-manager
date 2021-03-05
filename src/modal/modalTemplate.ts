@@ -51,7 +51,7 @@ export const openAlertModal = async ({ client, botToken, triggerId, title, text,
         ],
         close: {
           type: "plain_text",
-          text: Modal.Button.close,
+          text: Modal.button.close,
         },
       },
     })

@@ -8,7 +8,7 @@ import { Error } from "../config/errorConfig";
 import { sectionPlainText } from "../blocks/generalComponents";
 
 const joinClubViewsId = "joinClubId";
-export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
+export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
   app.command(
     "/join-club",
     async ({ ack, body, context: { botToken }, client }: SlackCommandMiddlewareArgs & AllMiddlewareArgs) => {
@@ -35,7 +35,7 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
           client,
           botToken,
           triggerId: body.trigger_id,
-          title: Modal.Title.none,
+          title: Modal.title.noClub,
           text: Error.text.noExistClub,
           imageUrl: Error.image.sorry,
         });
@@ -51,9 +51,9 @@ export const useJoinClubCommand = (app: App, approvalChannelId: string) => {
         botToken,
         triggerId: body.trigger_id,
         callbackId: joinClubViewsId,
-        title: Modal.Title.join,
+        title: Modal.title.join,
         blocks: getJoinClubBlocks(injectClubs),
-        submit: Modal.Button.request,
+        submit: Modal.button.request,
       });
     }
   );
