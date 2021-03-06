@@ -1,6 +1,8 @@
+#!make
+
 # variables ----
-	# STAGE := dev
-	STAGE := PRD
+  # STAGE := ${APP_ENV}
+	STAGE := DEV
 	SERVICE_NAME := club-manager
 	PROJECT := club-manager
   DOCKER_FILE_PATH := docker/docker-compose.yml
@@ -15,7 +17,7 @@ down:
 down-v:
 	docker-compose -f $(DOCKER_FILE_PATH) down -v
 down-all:
-	docker-compose-f $(DOCKER_FILE_PATH)  down --rmi all --volumes --remove-orphans
+	docker-compose -f $(DOCKER_FILE_PATH)  down --rmi all --volumes --remove-orphans
 ps:
 	docker-compose -f $(DOCKER_FILE_PATH) ps
 restart:
@@ -26,7 +28,3 @@ logs-tail:
 	docker-compose -f $(DOCKER_FILE_PATH) logs -f --tail=500 $(arg)
 config:
 	docker-compose -f $(DOCKER_FILE_PATH) config
-
-# general -------
-init:
-	export STAGE=$(STAGE)
