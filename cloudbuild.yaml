@@ -1,4 +1,7 @@
 steps:
+  # Download .env file
+  - name: "gcr.io/cloud-builders/gsutil"
+    args: ["cp", "gs://secrets-locker-club-manager/.env", ".env"]
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     args:
