@@ -9,7 +9,6 @@ steps:
       - "-f"
       - "docker/Dockerfile"
       - "-t"
-      # - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:latest"
       - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}/${_STAGE}:latest"
       - "--build-arg"
       - "STAGE=${_STAGE}"
