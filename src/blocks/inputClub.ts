@@ -45,12 +45,12 @@ const inputComponentBudgetUse = {
     action_id: "budget",
     placeholder: {
       type: "plain_text",
-      text: Club.placeholder.BUDGETUSE,
+      text: Club.placeholder.BUDGET_USE,
     },
   },
   label: {
     type: "plain_text",
-    text: Club.label.BUDGETUSE,
+    text: Club.label.BUDGET_USE,
   },
 };
 

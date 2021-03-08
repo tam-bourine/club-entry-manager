@@ -10,7 +10,7 @@ export const getMessageBlocks = (args: ClubInfoArg) => {
     divider,
     sectionPlainText({ title: Club.label.CLUB_NAME, text: name }),
     sectionPlainText({ title: Club.label.DESCRIPTION, text: description }),
-    sectionPlainText({ title: Club.label.BUDGETUSE, text: budgetUse }),
+    sectionPlainText({ title: Club.label.BUDGET_USE, text: budgetUse }),
     sectionMrkdwn({ title: Club.label.CHANNEL, text: channelId }),
     sectionMrkdwn({ title: Club.label.CAPTAIN, text: captainId }),
     sectionFields({ title: Club.label.MEMBER, text: membersId }),
