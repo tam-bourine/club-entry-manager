@@ -9,12 +9,12 @@ const inputComponentName = {
     action_id: "name",
     placeholder: {
       type: "plain_text",
-      text: Club.Placeholder.clubName,
+      text: Club.placeholder.CLUB_NAME,
     },
   },
   label: {
     type: "plain_text",
-    text: Club.Label.clubName,
+    text: Club.label.CLUB_NAME,
   },
 };
 
@@ -27,12 +27,12 @@ const inputComponentDescription = {
     action_id: "description",
     placeholder: {
       type: "plain_text",
-      text: Club.Placeholder.description,
+      text: Club.placeholder.DESCRIPTION,
     },
   },
   label: {
     type: "plain_text",
-    text: Club.Label.description,
+    text: Club.label.DESCRIPTION,
   },
 };
 
@@ -45,12 +45,12 @@ const inputComponentBudgetUse = {
     action_id: "budget",
     placeholder: {
       type: "plain_text",
-      text: Club.Placeholder.budgetUse,
+      text: Club.placeholder.BUDGET_USE,
     },
   },
   label: {
     type: "plain_text",
-    text: Club.Label.budgetUse,
+    text: Club.label.BUDGET_USE,
   },
 };
 
@@ -62,12 +62,12 @@ const inputComponentChannel = {
     action_id: "channel",
     placeholder: {
       type: "plain_text",
-      text: Club.Placeholder.channel,
+      text: Club.placeholder.CHANNEL,
     },
   },
   label: {
     type: "plain_text",
-    text: Club.Label.channel,
+    text: Club.label.CHANNEL,
   },
 };
 
@@ -79,12 +79,12 @@ const inputComponentCaptain = {
     action_id: "captain",
     placeholder: {
       type: "plain_text",
-      text: Club.Placeholder.captain,
+      text: Club.placeholder.CAPTAIN,
     },
   },
   label: {
     type: "plain_text",
-    text: Club.Label.captain,
+    text: Club.label.CAPTAIN,
   },
 };
 
@@ -96,12 +96,12 @@ const inputComponentMember = {
     action_id: "member",
     placeholder: {
       type: "plain_text",
-      text: Club.Placeholder.member,
+      text: Club.placeholder.MEMBER,
     },
   },
   label: {
     type: "plain_text",
-    text: Club.Label.member,
+    text: Club.label.MEMBER,
   },
 };
 
@@ -113,12 +113,12 @@ const inputComponentKibelaUrl = {
     action_id: "url",
     placeholder: {
       type: "plain_text",
-      text: Club.Placeholder.kibelaUrl,
+      text: Club.placeholder.KIBELA_URL,
     },
   },
   label: {
     type: "plain_text",
-    text: Club.Label.kibelaUrl,
+    text: Club.label.KIBELA_URL,
   },
 };
 
