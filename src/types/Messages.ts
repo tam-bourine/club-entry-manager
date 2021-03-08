@@ -47,17 +47,35 @@ export interface ModalArg {
   submit: string;
 }
 
+export interface AlertModalArg {
+  client: WebClient;
+  botToken: string;
+  triggerId: string;
+  title: string;
+  text: string;
+  imageUrl: string;
+}
+
 export interface Option {
   text: string;
   value: string;
 }
 
-export interface StaticSelectArg {
+export interface StaticSelectArgs {
   label: string;
   options: Option[];
   actionId: string;
   blockId: string;
-  initialOption: Option;
+  initialOption?: Option;
+  placeholder?: string;
+}
+
+export interface MultiSelectArgs {
+  text: string;
+  options: Option[];
+  actionId: string;
+  blockId: string;
+  placeholder: string;
 }
 
 export type SectionArgType =

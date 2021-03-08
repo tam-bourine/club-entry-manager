@@ -1,7 +1,10 @@
 lib/
 node_modules/
-.env
+.env*
+.vscode/
 .git
 .gitignore
 .github/
-
+docs/
+out/
+.clasp*

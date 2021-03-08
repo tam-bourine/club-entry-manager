@@ -4,7 +4,7 @@ import { inputClubModal } from "../blocks/inputClub";
 import { getMessageBlocks } from "../blocks/messages/modal";
 import { getRejectBlocks } from "../blocks/reject";
 import { getApprovalBlocks } from "../blocks/approval";
-import { getModal } from "../modal/modalTemplate";
+import { openModal } from "../modal/modalTemplate";
 import { Modal } from "../config/modalConfig";
 import { sectionPlainText } from "../blocks/generalComponents";
 import { Club } from "../config/clubConfig";
@@ -13,30 +13,27 @@ import * as kibela from "../api/kibela";
 import * as slack from "../api/slack";
 import * as gas from "../api/gas";
 import { Config } from "../constant";
+import { Error } from "../config/errorConfig";
 /* eslint strict: [2, "global"] */
 
-export const clubViewsId = "newClubId";
-const approvalViewsId = "approvalId";
-const rejectViewsId = "rejectId";
-
-export const useNewClubCommand = (app: App, approvalChannelId: string) => {
+export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
   app.command("/new-club", async ({ ack, body, context, client }) => {
     ack();
 
-    getModal({
+    openModal({
       client,
       botToken: context.botToken,
       triggerId: body.trigger_id,
-      callbackId: clubViewsId,
-      title: Modal.Title.request,
+      callbackId: Modal.id.clubViewsId,
+      title: Modal.title.request,
       blocks: inputClubModal,
-      submit: Modal.Button.request,
+      submit: Modal.button.request,
     });
   });
 
   // 承認専用チャンネルに創部申請情報を流す処理
   app.view(
-    clubViewsId,
+    Modal.id.clubViewsId,
     async ({
       ack,
       view: {
@@ -76,8 +73,8 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: "エラーが発生しました",
-            blocks: [sectionPlainText({ title: Club.label.error, text: "エラーが発生しました。" })],
+            text: Error.text.notification,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.contactDeveloper })],
           })
           .catch((error) => {
             console.error({ error });
@@ -132,14 +129,14 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
   app.action("reject_modal", async ({ ack, client, body, context }) => {
     ack();
 
-    getModal({
+    openModal({
       client,
       botToken: context.botToken,
       triggerId: (<BlockAction>body).trigger_id,
-      callbackId: rejectViewsId,
-      title: Modal.Title.reject,
+      callbackId: Modal.id.rejectViewsId,
+      title: Modal.title.reject,
       blocks: getRejectBlocks(),
-      submit: Modal.Button.reject,
+      submit: Modal.button.reject,
     });
   });
 
@@ -155,20 +152,20 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
     }: SlackActionMiddlewareArgs<InteractiveMessage<ButtonClick>> & AllMiddlewareArgs) => {
       ack();
 
-      getModal({
+      openModal({
         client,
         botToken: context.botToken,
         triggerId: body.trigger_id,
-        callbackId: approvalViewsId,
-        title: Modal.Title.approval,
+        callbackId: Modal.id.approvalViewsId,
+        title: Modal.title.approval,
         blocks: getApprovalBlocks({ text: `<#${payload.value}>`, value: payload.value }),
-        submit: Modal.Button.approval,
+        submit: Modal.button.approval,
       });
     }
   );
 
   app.view(
-    approvalViewsId,
+    Modal.id.approvalViewsId,
     async ({
       ack,
       view: {
@@ -198,7 +195,7 @@ export const useNewClubCommand = (app: App, approvalChannelId: string) => {
           .postMessage({
             channel: approvalChannelId,
             text: "エラーが発生しました",
-            blocks: [sectionPlainText({ title: Club.label.error, text: "エラーが発生しました。" })],
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: "エラーが発生しました。" })],
           })
           .catch((error) => {
             console.error({ error });
