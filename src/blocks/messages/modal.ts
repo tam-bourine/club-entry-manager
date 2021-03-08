@@ -6,15 +6,15 @@ export const getMessageBlocks = (args: ClubInfoArg) => {
   const { name, description, budgetUse, kibela, captainId, membersId, channelId, buttons } = args;
 
   return [
-    header(Club.label.title),
+    header(Club.label.TITLE),
     divider,
-    sectionPlainText({ title: Club.label.clubName, text: name }),
-    sectionPlainText({ title: Club.label.description, text: description }),
-    sectionPlainText({ title: Club.label.budgetUse, text: budgetUse }),
-    sectionMrkdwn({ title: Club.label.channel, text: channelId }),
-    sectionMrkdwn({ title: Club.label.captain, text: captainId }),
-    sectionFields({ title: Club.label.member, text: membersId }),
-    sectionPlainText({ title: Club.label.kibelaUrl, text: kibela }),
+    sectionPlainText({ title: Club.label.CLUB_NAME, text: name }),
+    sectionPlainText({ title: Club.label.DESCRIPTION, text: description }),
+    sectionPlainText({ title: Club.label.BUDGETUSE, text: budgetUse }),
+    sectionMrkdwn({ title: Club.label.CHANNEL, text: channelId }),
+    sectionMrkdwn({ title: Club.label.CAPTAIN, text: captainId }),
+    sectionFields({ title: Club.label.MEMBER, text: membersId }),
+    sectionPlainText({ title: Club.label.KIBELA_URL, text: kibela }),
     sectionButton(buttons),
   ];
 };

@@ -15,8 +15,8 @@ export namespace Modal {
   };
 
   export const id = {
-    CLUBVIEWSID: "newClubId",
-    APPROVALVIEWSID: "approvalId",
-    REJECTVIEWSID: "rejectId",
+    CLUB_VIEWS_ID: "newClubId",
+    APPROVAL_VIEWS_ID: "approvalId",
+    REJECT_VIEWS_ID: "rejectId",
   };
 }

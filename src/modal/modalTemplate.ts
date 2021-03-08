@@ -22,7 +22,7 @@ export const openModal = async ({ client, botToken, triggerId, callbackId, title
         },
         close: {
           type: "plain_text",
-          text: Modal.button.cancel,
+          text: Modal.button.CANCEL,
         },
       },
     })
@@ -51,7 +51,7 @@ export const openAlertModal = async ({ client, botToken, triggerId, title, text,
         ],
         close: {
           type: "plain_text",
-          text: Modal.button.close,
+          text: Modal.button.CLOSE,
         },
       },
     })

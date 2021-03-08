@@ -24,7 +24,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       client,
       botToken: context.botToken,
       triggerId: body.trigger_id,
-      callbackId: Modal.id.CLUBVIEWSID,
+      callbackId: Modal.id.CLUB_VIEWS_ID,
       title: Modal.title.REQUEST,
       blocks: inputClubModal,
       submit: Modal.button.REQUEST,
@@ -33,7 +33,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
 
   // 承認専用チャンネルに創部申請情報を流す処理
   app.view(
-    Modal.id.CLUBVIEWSID,
+    Modal.id.CLUB_VIEWS_ID,
     async ({
       ack,
       view: {
@@ -74,7 +74,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
           .postMessage({
             channel: approvalChannelId,
             text: Error.text.NOTIFICATION,
-            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACTDEVELOPER })],
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             console.error({ error });
@@ -133,7 +133,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       client,
       botToken: context.botToken,
       triggerId: (<BlockAction>body).trigger_id,
-      callbackId: Modal.id.REJECTVIEWSID,
+      callbackId: Modal.id.REJECT_VIEWS_ID,
       title: Modal.title.REJECT,
       blocks: getRejectBlocks(),
       submit: Modal.button.REJECT,
@@ -156,7 +156,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         client,
         botToken: context.botToken,
         triggerId: body.trigger_id,
-        callbackId: Modal.id.APPROVALVIEWSID,
+        callbackId: Modal.id.APPROVAL_VIEWS_ID,
         title: Modal.title.APPROVAL,
         blocks: getApprovalBlocks({ text: `<#${payload.value}>`, value: payload.value }),
         submit: Modal.button.APPROVAL,
@@ -165,7 +165,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
   );
 
   app.view(
-    Modal.id.APPROVALVIEWSID,
+    Modal.id.APPROVAL_VIEWS_ID,
     async ({
       ack,
       view: {

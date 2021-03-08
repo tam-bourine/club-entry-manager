@@ -21,7 +21,7 @@ export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
           .postMessage({
             channel: approvalChannelId,
             text: Error.text.NOTIFICATION,
-            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACTDEVELOPER })],
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             console.error({ error });
@@ -36,7 +36,7 @@ export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
           botToken,
           triggerId: body.trigger_id,
           title: Modal.title.NOCLUB,
-          text: Error.text.NOEXISTCLUB,
+          text: Error.text.NO_EXIST_CLUB,
           imageUrl: Error.image.SORRY,
         });
         return;
