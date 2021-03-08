@@ -11,7 +11,7 @@ export namespace Modal {
     REJECT: "却下理由入力",
     APPROVAL: "承認",
     JOIN: "入部申請",
-    NOCLUB: "部活動が存在しません",
+    NO_CLUB: "部活動が存在しません",
   };
 
   export const id = {

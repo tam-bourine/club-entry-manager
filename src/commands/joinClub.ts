@@ -35,7 +35,7 @@ export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
           client,
           botToken,
           triggerId: body.trigger_id,
-          title: Modal.title.NOCLUB,
+          title: Modal.title.NO_CLUB,
           text: Error.text.NO_EXIST_CLUB,
           imageUrl: Error.image.SORRY,
         });
