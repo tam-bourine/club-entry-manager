@@ -1,22 +1,22 @@
 export namespace Modal {
   export const button = {
-    request: "申請",
-    reject: "却下",
-    approval: "承認",
-    cancel: "キャンセル",
-    close: "閉じる",
+    REQUEST: "申請",
+    REJECT: "却下",
+    APPROVAL: "承認",
+    CANCEL: "キャンセル",
+    CLOSE: "閉じる",
   };
   export const title = {
-    request: "創部申請",
-    reject: "却下理由入力",
-    approval: "承認",
-    join: "入部申請",
-    noClub: "部活動が存在しません",
+    REQUEST: "創部申請",
+    REJECT: "却下理由入力",
+    APPROVAL: "承認",
+    JOIN: "入部申請",
+    NOCLUB: "部活動が存在しません",
   };
 
   export const id = {
-    clubViewsId: "newClubId",
-    approvalViewsId: "approvalId",
-    rejectViewsId: "rejectId",
+    CLUBVIEWSID: "newClubId",
+    APPROVALVIEWSID: "approvalId",
+    REJECTVIEWSID: "rejectId",
   };
 }
