@@ -10,6 +10,7 @@ export namespace Club {
     KIBELA_URL: "部活動紹介記事のKibelaのURL",
     REJECT: "却下理由",
     ERROR: "創部申請エラー",
+    CLUB_CHANNEL: "部活チャンネル",
   };
   export const placeholder = {
     CLUB_NAME: "部活動名を入力してください",
@@ -20,5 +21,6 @@ export namespace Club {
     MEMBER: "部員を選択してください",
     KIBELA_URL: "KibelaのURLを入力してください",
     REJECT_REASON: "却下理由を入力してください",
+    SELECT_JOIN_CLUB: "入部したい部活チャンネルを選んでください",
   };
 }
