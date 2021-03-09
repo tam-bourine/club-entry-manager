@@ -20,8 +20,8 @@ export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: Error.text.notification,
-            blocks: [sectionPlainText({ title: Club.Label.error, text: Error.text.contactDeveloper })],
+            text: Error.text.NOTIFICATION,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             console.error({ error });
@@ -35,9 +35,9 @@ export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
           client,
           botToken,
           triggerId: body.trigger_id,
-          title: Modal.title.noClub,
-          text: Error.text.noExistClub,
-          imageUrl: Error.image.sorry,
+          title: Modal.title.NO_CLUB,
+          text: Error.text.NO_EXIST_CLUB,
+          imageUrl: Error.image.SORRY,
         });
         return;
       }
@@ -51,9 +51,9 @@ export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
         botToken,
         triggerId: body.trigger_id,
         callbackId: joinClubViewsId,
-        title: Modal.title.join,
+        title: Modal.title.JOIN,
         blocks: getJoinClubBlocks(injectClubs),
-        submit: Modal.button.request,
+        submit: Modal.button.REQUEST,
       });
     }
   );
