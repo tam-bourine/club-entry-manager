@@ -104,8 +104,7 @@ export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
       }
 
       const { club } = response;
-      if (!club) return;
-      if (!club.kibelaUrl) return;
+      if (!club || !club.kibelaUrl) return;
       const { kibelaUrl } = club;
 
       await Promise.all([
