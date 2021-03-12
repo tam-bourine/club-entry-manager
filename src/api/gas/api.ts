@@ -13,7 +13,7 @@ const callAPIPost = async (params: CallApiPostArgs, action: "regist" | "approve"
   return response.json();
 };
 
-const callAPIGet = async (action: "get") => {
+const callAPIGet = async (action: "get"): Promise<ResponseInterface> => {
   const response = await fetch(new URL(`${Config.Gas.END_POINT}?action=${action}`), {
     method: "GET",
     headers: { "Content-Type": "application/json" },
@@ -24,23 +24,22 @@ const callAPIGet = async (action: "get") => {
 export const callNewClub = async (params: CallNewClubArg) => callAPIPost(params, "regist");
 
 export const callApproveClub = async (params: CallApproveClubArgs) => {
-  const data = await callAPIPost(
+  const response = await callAPIPost(
     params,
     "approve"
   );
-  return data;
+  return response;
 }
 
-export const callNewJoinClub = async () => callAPIGet("get");
+export const callNewJoinClub = async () => {
+  const response = await callAPIGet("get");
+  return response;
+}
 
-export const callJoinClub = async ({
-  club: { channelId: slackChannelId },
-  member,
-}: CallJoinClubArgs) =>
-  callAPIPost(
-    {
-      slackChannelId,
-      member,
-    },
+export const callJoinClub = async (params: CallJoinClubArgs) => {
+  const response = await callAPIPost(
+    params,
     "join"
   );
+  return response;
+}
