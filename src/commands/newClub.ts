@@ -69,6 +69,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         members,
       };
       const response = await gas.api.callNewClub(clubInfo);
+
       if (!response.success) {
         await client.chat
           .postMessage({
@@ -188,6 +189,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
           slackId: authorizer.id,
           name: authorizer.real_name,
         },
+        isApproved: true
       });
 
       if (!response.success) {

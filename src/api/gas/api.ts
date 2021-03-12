@@ -1,10 +1,10 @@
 import fetch from "node-fetch";
 import { URL } from "url";
-import { CallNewClubArg, CallApproveClubArgs, CallJoinClubArgs } from "../../types/Messages";
+import { CallNewClubArg, CallApproveClubArgs, CallJoinClubArgs, CallApiPostArgs } from "../../types/Messages";
 import { Config } from "../../constant";
 import ResponseInterface from "../../gas/shared/types/ResponseInterface";
 
-const callAPIPost = async (params: any, action: "regist" | "approve" | "join") => {
+const callAPIPost = async (params: CallApiPostArgs, action: "regist" | "approve" | "join"): Promise<ResponseInterface> => {
   const response = await fetch(new URL(`${Config.Gas.END_POINT}?action=${action}`), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -21,27 +21,22 @@ const callAPIGet = async (action: "get") => {
   return response.json();
 };
 
-export const callNewClub = async (params: CallNewClubArg): Promise<ResponseInterface> => callAPIPost(params, "regist");
+export const callNewClub = async (params: CallNewClubArg) => callAPIPost(params, "regist");
 
-export const callApproveClub = async ({
-  club: { channelId: slackChannelId },
-  authorizer,
-}: CallApproveClubArgs): Promise<ResponseInterface> =>
-  callAPIPost(
-    {
-      slackChannelId,
-      authorizer,
-      isApproved: true,
-    },
+export const callApproveClub = async (params: CallApproveClubArgs) => {
+  const data = await callAPIPost(
+    params,
     "approve"
   );
+  return data;
+}
 
-export const callNewJoinClub = async (): Promise<ResponseInterface> => callAPIGet("get");
+export const callNewJoinClub = async () => callAPIGet("get");
 
 export const callJoinClub = async ({
   club: { channelId: slackChannelId },
   member,
-}: CallJoinClubArgs): Promise<ResponseInterface> =>
+}: CallJoinClubArgs) =>
   callAPIPost(
     {
       slackChannelId,

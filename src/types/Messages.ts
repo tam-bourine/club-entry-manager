@@ -111,6 +111,7 @@ export interface CallApproveClubArgs {
     slackId: string;
     name: string;
   };
+  isApproved: boolean;
 }
 
 export interface CallJoinClubArgs {
@@ -122,3 +123,5 @@ export interface CallJoinClubArgs {
     name: string;
   };
 }
+
+export type CallApiPostArgs = CallNewClubArg | CallApproveClubArgs | CallJoinClubArgs;
