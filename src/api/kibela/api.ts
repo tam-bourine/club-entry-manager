@@ -2,8 +2,15 @@ import nodeFetch from "node-fetch";
 import { print as printGql } from "graphql/language/printer";
 import { ASTNode } from "graphql/language/ast";
 import { Config } from "../../constant";
+import type { Mutation, Query } from "../../../@types/kibela.d";
 
-export const callAPI = async (query: ASTNode): Promise<any> => {
+export const callAPI = async (
+  query: ASTNode
+): Promise<{
+  noteFromPath: Query["noteFromPath"];
+  updateNoteFolder: Mutation["updateNoteFolder"];
+  group: Query["group"];
+}> => {
   const response = await nodeFetch(`${Config.Kibela.END_POINT}`, {
     method: "POST",
     headers: {
