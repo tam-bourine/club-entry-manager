@@ -229,9 +229,11 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "slackChannelId": {
-                    "type": "string",
-                    "example": "fugapiyo"
+                  "club": {
+                    "type": "object",
+                    "example": {
+                      "channelId": "piyopiyo"
+                    }
                   },
                   "authorizer": {
                     "type": "object",
@@ -362,9 +364,11 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "slackChannelId": {
-                    "type": "string",
-                    "example": "fugapiyo"
+                  "club": {
+                    "type": "object",
+                    "example": {
+                      "channelId": "piyopiyo"
+                    }
                   },
                   "member": {
                     "type": "object",

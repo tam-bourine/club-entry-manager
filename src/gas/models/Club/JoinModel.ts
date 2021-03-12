@@ -10,7 +10,7 @@ export default class JoinModel {
 
   private constants = new Constants();
 
-  addMember({ slackChannelId, member }: JoinInterface) {
+  addMember({ club, member }: JoinInterface) {
     // FIXME #111 https://github.com/tam-bourine/club-manager/issues/111
     // @ts-ignore
 
@@ -20,10 +20,10 @@ export default class JoinModel {
         throw new Error("部活動が見つかりませんでした");
       }
 
-      const club: string[] = this.findClubBySlackChannelId(clubs, slackChannelId);
+      const result: string[] = this.findClubBySlackChannelId(clubs, club.channelId);
 
       const clubNameArrayNumber = this.constants.SPREAD_SHEET.CLUBS.CLUB_NAME_COLUMN_NUMBER - 1;
-      const clubName = club[clubNameArrayNumber];
+      const clubName = result[clubNameArrayNumber];
 
       const slackChannelIdArrayNumber = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
       const kibelaUrlArrayNumber = this.constants.SPREAD_SHEET.CLUBS.KIBELA_URL_COLUMN_NUMBER - 1;
@@ -31,8 +31,8 @@ export default class JoinModel {
       return this.view.provide({
         ...this.res.created,
         club: {
-          id: club[slackChannelIdArrayNumber],
-          kibelaUrl: club[kibelaUrlArrayNumber],
+          id: result[slackChannelIdArrayNumber],
+          kibelaUrl: result[kibelaUrlArrayNumber],
           name: clubName,
         },
       });
@@ -51,9 +51,9 @@ export default class JoinModel {
     return clubs;
   }
 
-  private findClubBySlackChannelId(clubs: any[], slackChannelId: string) {
+  private findClubBySlackChannelId(clubs: any[], clubChannelId: string) {
     const slackChannelIdArrayNumber = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
-    return clubs?.filter((club: Array<string | boolean>) => club[slackChannelIdArrayNumber] === slackChannelId)[0];
+    return clubs?.filter((club: Array<string | boolean>) => club[slackChannelIdArrayNumber] === clubChannelId)[0];
   }
 
   private createMember({ name, slackId }: JoinInterface["member"], clubName: string) {

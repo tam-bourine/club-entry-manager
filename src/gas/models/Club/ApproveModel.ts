@@ -12,13 +12,13 @@ export interface UpdateAuthorizerParams {
 }
 
 export interface updateIsApproved {
-  slackChannelId: ApproveInterface["slackChannelId"];
+  club: ApproveInterface["club"];
   authorizer: ApproveInterface["authorizer"];
   isApproved: ApproveInterface["isApproved"];
 }
 
 export interface CreateClubSheetParams {
-  slackChannelId: ApproveInterface["slackChannelId"];
+  club: ApproveInterface["club"];
 }
 
 export interface InsertInitialValuesParams {
@@ -49,9 +49,9 @@ export default class ApproveModel {
      *  Approved : 公認セルを TRUE で更新
      *  Rejected : 公認セルを FALSE で更新
      */
-    const { slackChannelId, authorizer, isApproved } = params;
+    const { club, authorizer, isApproved } = params;
 
-    const response = this.updateIsApproved({ slackChannelId, authorizer, isApproved });
+    const response = this.updateIsApproved({ club, authorizer, isApproved });
 
     /**
      * @description
@@ -62,7 +62,7 @@ export default class ApproveModel {
   }
 
   private updateIsApproved(params: updateIsApproved) {
-    const { slackChannelId, authorizer, isApproved } = params;
+    const { club, authorizer, isApproved } = params;
     try {
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
       if (sheetTabName) {
@@ -81,7 +81,7 @@ export default class ApproveModel {
          *    [false, 4, false, false, ... ,false] のようなデータになる
          */
         const existsClubInRow = data?.map((rowData, rowIndex) => {
-          return rowData.includes(slackChannelId) && rowIndex;
+          return rowData.includes(club.channelId) && rowIndex;
         });
         /**
          * @description
@@ -133,7 +133,7 @@ export default class ApproveModel {
   }
 
   private createClubSheet(params: CreateClubSheetParams) {
-    const { slackChannelId } = params;
+    const { club } = params;
     try {
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
       if (sheetTabName) {
@@ -147,7 +147,7 @@ export default class ApproveModel {
          *  reduce で Bolt 側から送信された slackChannelId を includes している行を取り出す
          */
         const rowDataIncludesClub = data?.reduce((acc, cur) => {
-          if (cur.includes(slackChannelId)) return cur;
+          if (cur.includes(club.channelId)) return cur;
           return acc;
         }, []);
         if (rowDataIncludesClub) {
