@@ -1,11 +1,9 @@
 #!make
 
 # variables ----
-	STAGE := prd
-	# STAGE := dev
 	SERVICE_NAME := club-manager-auto-deploy
 	PROJECT := club-manager-305511
-  DOCKER_FILE_PATH := docker/docker-compose.yml
+  DOCKER_FILE_PATH := docker/docker-compose.yaml
 
 # docker -------
 buildup:
@@ -30,16 +28,10 @@ config:
 	docker-compose -f $(DOCKER_FILE_PATH) config
 
 # gcloud for building on local
-gcr-push:
+deploy:
 	export PROJECT=$(PROJECT)
 	gcloud builds submit \
   --project="$(PROJECT)" \
   --config cloudbuild.yaml
-gcr-open:
+open:
 	open https://console.cloud.google.com/run?hl=ja&project=$(PROJECT)
-
-# gsutil
-gsutil-mb:
-	gsutil mb gs://secrets-locker-club-manager/
-gsutil-cp:
-	gsutil cp .env gs://secrets-locker-club-manager/.env.$(STAGE)
