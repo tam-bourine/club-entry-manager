@@ -36,9 +36,9 @@ export namespace Config {
   export namespace General {
     export const { APP_ENV } = process.env;
     export const APP_ENV_TYPE = {
-      LOCAL: "LOCAL",
-      DEV: "DEV",
-      PRD: "PRD",
+      LOCAL: "local",
+      DEV: "dev",
+      PRD: "prd",
     };
     // NOTE: Union Types いらないかな？、一旦書いとく（いらないなら消しておk）
     // export type DETECTED_APP_ENV = typeof APP_ENV_TYPE[keyof typeof APP_ENV_TYPE];

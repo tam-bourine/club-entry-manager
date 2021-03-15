@@ -1,12 +1,43 @@
 steps:
-  - name: "gcr.io/cloud-builders/docker"
-    args: [ 'build', '-f', 'docker/Dockerfile',
-                   '-t','gcr.io/$PROJECT_ID/${_SERVICE_NAME}/${_STAGE}',
-                   '--build-arg', 'STAGE=${_STAGE}',
-                   '.'
-    ]
+  # Download .env file
+  - name: "gcr.io/cloud-builders/gsutil"
+    args:
+      - "cp"
+      - "gs://secrets-locker-club-manager/.env.${_STAGE}"
+      - ".env"
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - "build"
+      - "-f"
+      - "docker/Dockerfile"
+      - "-t"
+      - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-${_STAGE}:latest"
+      - "--build-arg"
+      - "STAGE=${_STAGE}"
+      - "."
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-${_STAGE}:latest"
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image'
+      - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-${_STAGE}:latest"
+      - '--region'
+      - '${_REGION}'
+      - '--platform'
+      - 'managed'
 substitutions:
-  _STAGE: ${APP_ENV}
-  _SERVICE_NAME: club-manager
+  # _STAGE: prd | dev NOTE: Cloud build トリガーでは、ビルド時の環境変数で切り替え
+  # _STAGE: dev
+  _SERVICE_NAME: club-manager-auto-deploy
+  _REGION: 'us-central1'
 images:
-  - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}/${_STAGE}"
+  - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-${_STAGE}:latest"

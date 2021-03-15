@@ -11,10 +11,10 @@ export const enableNewClubShortcut = (app: App) => {
       client,
       botToken: context.botToken,
       triggerId: body.trigger_id,
-      callbackId: Modal.id.clubViewsId,
-      title: Modal.title.request,
+      callbackId: Modal.id.CLUB_VIEWS_ID,
+      title: Modal.title.REQUEST,
       blocks: inputClubModal,
-      submit: Modal.button.request,
+      submit: Modal.button.REQUEST,
     });
   });
 };

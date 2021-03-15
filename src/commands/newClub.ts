@@ -24,16 +24,16 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       client,
       botToken: context.botToken,
       triggerId: body.trigger_id,
-      callbackId: Modal.id.clubViewsId,
-      title: Modal.title.request,
+      callbackId: Modal.id.CLUB_VIEWS_ID,
+      title: Modal.title.REQUEST,
       blocks: inputClubModal,
-      submit: Modal.button.request,
+      submit: Modal.button.REQUEST,
     });
   });
 
   // 承認専用チャンネルに創部申請情報を流す処理
   app.view(
-    Modal.id.clubViewsId,
+    Modal.id.CLUB_VIEWS_ID,
     async ({
       ack,
       view: {
@@ -74,8 +74,8 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: Error.text.notification,
-            blocks: [sectionPlainText({ title: Club.Label.error, text: Error.text.contactDeveloper })],
+            text: Error.text.NOTIFICATION,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             console.error({ error });
@@ -134,10 +134,10 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       client,
       botToken: context.botToken,
       triggerId: (<BlockAction>body).trigger_id,
-      callbackId: Modal.id.rejectViewsId,
-      title: Modal.title.reject,
+      callbackId: Modal.id.REJECT_VIEWS_ID,
+      title: Modal.title.REJECT,
       blocks: getRejectBlocks(),
-      submit: Modal.button.reject,
+      submit: Modal.button.REJECT,
     });
   });
 
@@ -157,16 +157,16 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         client,
         botToken: context.botToken,
         triggerId: body.trigger_id,
-        callbackId: Modal.id.approvalViewsId,
-        title: Modal.title.approval,
+        callbackId: Modal.id.APPROVAL_VIEWS_ID,
+        title: Modal.title.APPROVAL,
         blocks: getApprovalBlocks({ text: `<#${payload.value}>`, value: payload.value }),
-        submit: Modal.button.approval,
+        submit: Modal.button.APPROVAL,
       });
     }
   );
 
   app.view(
-    Modal.id.approvalViewsId,
+    Modal.id.APPROVAL_VIEWS_ID,
     async ({
       ack,
       view: {
@@ -196,8 +196,8 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: Error.text.notification,
-            blocks: [sectionPlainText({ title: Club.Label.error, text: Error.text.contactDeveloper })],
+            text: Error.text.NOTIFICATION,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             console.error({ error });

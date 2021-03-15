@@ -4,10 +4,10 @@ import { Club } from "../config/clubConfig";
 
 export const getJoinClubBlocks = (channels: Option[]) => [
   inputStaticSelect({
-    label: Club.Label.clubChannel,
+    label: Club.label.CLUB_CHANNEL,
     actionId: "join",
     blockId: "join_input",
     options: channels,
-    placeholder: Club.Placeholder.selectJoinClub,
+    placeholder: Club.placeholder.SELECT_JOIN_CLUB,
   }),
 ];

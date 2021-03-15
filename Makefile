@@ -1,8 +1,10 @@
+#!make
+
 # variables ----
+	STAGE := prd
 	# STAGE := dev
-	STAGE := PRD
-	SERVICE_NAME := club-manager
-	PROJECT := club-manager
+	SERVICE_NAME := club-manager-auto-deploy
+	PROJECT := club-manager-305511
   DOCKER_FILE_PATH := docker/docker-compose.yml
 
 # docker -------
@@ -15,7 +17,7 @@ down:
 down-v:
 	docker-compose -f $(DOCKER_FILE_PATH) down -v
 down-all:
-	docker-compose-f $(DOCKER_FILE_PATH)  down --rmi all --volumes --remove-orphans
+	docker-compose -f $(DOCKER_FILE_PATH)  down --rmi all --volumes --remove-orphans
 ps:
 	docker-compose -f $(DOCKER_FILE_PATH) ps
 restart:
@@ -27,6 +29,17 @@ logs-tail:
 config:
 	docker-compose -f $(DOCKER_FILE_PATH) config
 
-# general -------
-init:
-	export STAGE=$(STAGE)
+# gcloud for building on local
+gcr-push:
+	export PROJECT=$(PROJECT)
+	gcloud builds submit \
+  --project="$(PROJECT)" \
+  --config cloudbuild.yaml
+gcr-open:
+	open https://console.cloud.google.com/run?hl=ja&project=$(PROJECT)
+
+# gsutil
+gsutil-mb:
+	gsutil mb gs://secrets-locker-club-manager/
+gsutil-cp:
+	gsutil cp .env gs://secrets-locker-club-manager/.env.$(STAGE)
