@@ -189,7 +189,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
           slackId: authorizer.id,
           name: authorizer.real_name,
         },
-        isApproved: true
+        isApproved: true,
       });
 
       if (!response.success) {
