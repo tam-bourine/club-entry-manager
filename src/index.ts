@@ -4,7 +4,7 @@ import { Config } from "./constant";
 import * as slackAPI from "./api/slack";
 import { enableNewClubCommand } from "./commands/newClub";
 import { enableNewClubShortcut } from "./shortcuts/newClub";
-import { enableJoinClubCommand } from "./commands/joinClub";
+import { enableJoinClubShortcut } from "./shortcuts/joinClub";
 
 export const app = new App({
   socketMode: Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL,
@@ -20,7 +20,7 @@ app.error((err) => {
 });
 
 enableNewClubShortcut(app);
-enableJoinClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
+enableJoinClubShortcut(app, Config.Slack.APPROVAL_CHANNEL_ID);
 enableNewClubCommand(app, Config.Slack.APPROVAL_CHANNEL_ID);
 
 (async () => {
