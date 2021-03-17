@@ -94,8 +94,8 @@ export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: Error.text.notification,
-            blocks: [sectionPlainText({ title: Club.Label.error, text: Error.text.contactDeveloper })],
+            text: Error.text.NOTIFICATION,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             console.error({ error });
