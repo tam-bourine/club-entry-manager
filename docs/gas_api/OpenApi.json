@@ -367,14 +367,10 @@
                   "club": {
                     "type": "object",
                     "example": {
-                      "channelId": "piyopiyo"
-                    }
-                  },
-                  "member": {
-                    "type": "object",
-                    "example": {
-                      "slackId": "DFKEIOD",
-                      "name": "風本颯太"
+                      "id": "xxxxxx",
+                      "channelId": "piyopiyo",
+                      "kibelaUrl": "https://example.kibe.la/",
+                      "name": "foo部"
                     }
                   }
                 }

@@ -20,18 +20,23 @@ export default class JoinModel {
         throw new Error("部活動が見つかりませんでした");
       }
 
-      const result: string[] = this.findClubBySlackChannelId(clubs, club.channelId);
+      const result = clubs && this.findClubBySlackChannelId(clubs, club.channelId);
+      if (!result) {
+        throw new Error(`${club.channelId}が見つかりませんでした`);
+      }
 
       const clubNameArrayNumber = this.constants.SPREAD_SHEET.CLUBS.CLUB_NAME_COLUMN_NUMBER - 1;
       const clubName = result[clubNameArrayNumber];
 
+      const idArrayNumber = this.constants.SPREAD_SHEET.CLUBS.ID_COLUMN_NUMBER - 1;
       const slackChannelIdArrayNumber = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
       const kibelaUrlArrayNumber = this.constants.SPREAD_SHEET.CLUBS.KIBELA_URL_COLUMN_NUMBER - 1;
       this.createMember(member, clubName);
       return this.view.provide({
         ...this.res.created,
         club: {
-          id: result[slackChannelIdArrayNumber],
+          id: result[idArrayNumber],
+          channelId: result[slackChannelIdArrayNumber],
           kibelaUrl: result[kibelaUrlArrayNumber],
           name: clubName,
         },
@@ -51,7 +56,7 @@ export default class JoinModel {
     return clubs;
   }
 
-  private findClubBySlackChannelId(clubChannelId: string, clubs?: any[][]) {
+  private findClubBySlackChannelId(clubs: any[][] | undefined, clubChannelId: string) {
     const slackChannelIdArrayNumber = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
     return clubs?.reduce((prev, cur) => {
       if (cur[slackChannelIdArrayNumber] === clubChannelId) return cur;
