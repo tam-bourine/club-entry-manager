@@ -1,6 +1,5 @@
 import { App, AllMiddlewareArgs, ButtonClick, InteractiveMessage, SlackActionMiddlewareArgs } from "@slack/bolt";
 import { BlockAction } from "@slack/bolt/dist/types/actions/block-action";
-import { inputClubModal } from "../blocks/inputClub";
 import { getMessageBlocks } from "../blocks/messages/modal";
 import { getRejectBlocks } from "../blocks/reject";
 import { getApprovalBlocks } from "../blocks/approval";
@@ -17,23 +16,9 @@ import { Error } from "../config/errorConfig";
 /* eslint strict: [2, "global"] */
 
 export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
-  app.command("/new-club", async ({ ack, body, context, client }) => {
-    ack();
-
-    openModal({
-      client,
-      botToken: context.botToken,
-      triggerId: body.trigger_id,
-      callbackId: Modal.id.CLUB_VIEWS_ID,
-      title: Modal.title.REQUEST,
-      blocks: inputClubModal,
-      submit: Modal.button.REQUEST,
-    });
-  });
-
   // 承認専用チャンネルに創部申請情報を流す処理
   app.view(
-    Modal.id.CLUB_VIEWS_ID,
+    Modal.id.NEW_CLUB_VIEWS_ID,
     async ({
       ack,
       view: {
