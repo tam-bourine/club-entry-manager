@@ -1,0 +1,11 @@
+lib/
+node_modules/
+*.md
+.env*
+.vscode/
+.git
+.gitignore
+.github/
+docs/
+out/
+.clasp*
