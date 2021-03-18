@@ -51,9 +51,12 @@ export default class JoinModel {
     return clubs;
   }
 
-  private findClubBySlackChannelId(clubs: any[], clubChannelId: string) {
+  private findClubBySlackChannelId(clubChannelId: string, clubs?: any[][]) {
     const slackChannelIdArrayNumber = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
-    return clubs?.filter((club: Array<string | boolean>) => club[slackChannelIdArrayNumber] === clubChannelId)[0];
+    return clubs?.reduce((prev, cur) => {
+      if (cur[slackChannelIdArrayNumber] === clubChannelId) return cur;
+      return prev;
+    }, []);
   }
 
   private createMember({ name, slackId }: JoinInterface["member"], clubName: string) {
