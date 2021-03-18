@@ -1,6 +1,12 @@
 /* global GoogleAppsScript */
+global.PropertiesService = {} as GoogleAppsScript.Properties.PropertiesService;
 global.ContentService = {} as GoogleAppsScript.Content.ContentService;
 global.SpreadsheetApp = {} as GoogleAppsScript.Spreadsheet.SpreadsheetApp;
+
+PropertiesService.getScriptProperties = () =>
+  (({
+    getProperty: () => {},
+  } as unknown) as GoogleAppsScript.Properties.Properties);
 
 ContentService.createTextOutput = () =>
   (({
