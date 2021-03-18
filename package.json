@@ -15,6 +15,7 @@
     "run": "node lib/index.js",
     "dev": "nodemon src/index.ts",
     "test": "jest",
+    "test:watch": "jest --watch",
     "postinstall:types-gas": "npx replace-in-file \"declare var console\" \"//declare var console\" node_modules/@types/google-apps-script/google-apps-script.base.d.ts",
     "start": "npm ci && npm run postinstall:types-gas && npm run bolt:serve",
     "bolt:serve": "npm run tsc && npx node lib/index.js",
