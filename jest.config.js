@@ -4,4 +4,7 @@ module.exports = {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
+  testPathIgnorePatterns: ["<rootDir>/src/__tests__/gas/config"],
+  setupFiles: ["<rootDir>/src/__tests__/gas/config/setup-test.ts"],
+  testEnvironment: "node",
 };

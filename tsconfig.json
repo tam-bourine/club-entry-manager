@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["es2020"],
-    "types": ["@types/node", "@types/google-apps-script"],
+    "types": ["@types/node", "@types/google-apps-script", "@types/jest"],
     "experimentalDecorators": true,
     "outDir": "./lib",
     "resolveJsonModule": true,
