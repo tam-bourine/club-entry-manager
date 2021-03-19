@@ -50,11 +50,11 @@
                       "type": "array",
                       "example": [
                         {
-                          "id": "C01G2N9ADLK",
+                          "id": "419e96d7-1a97-422a-b539-ac1080fe3739",
                           "name": "LT部"
                         },
                         {
-                          "id": "CSKLT550T",
+                          "id": "519e96d7-1a97-422a-b539-ac1080fd4201",
                           "name": "OSS部"
                         }
                       ]

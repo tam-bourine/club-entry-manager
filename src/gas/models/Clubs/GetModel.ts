@@ -17,7 +17,7 @@ export default class GetModel {
         throw new Error("SHEET_TAB_NAMEが設定されていません");
       }
 
-      const slackChannelIdArrayNumber = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
+      const idArrayNumber = this.constants.SPREAD_SHEET.CLUBS.ID_COLUMN_NUMBER - 1;
       const clubNameArrayNumber = this.constants.SPREAD_SHEET.CLUBS.CLUB_NAME_COLUMN_NUMBER - 1;
 
       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
@@ -25,7 +25,7 @@ export default class GetModel {
       const clubs: ResponseInterface["clubs"] = data
         ?.filter((_, index) => index !== 0)
         .map((values: Array<string>) => ({
-          id: values[slackChannelIdArrayNumber],
+          id: values[idArrayNumber],
           name: values[clubNameArrayNumber],
         }));
       return this.view.provide({ ...this.res.ok, clubs });
