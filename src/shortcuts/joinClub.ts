@@ -1,7 +1,7 @@
 import { AllMiddlewareArgs, App, SlackShortcutMiddlewareArgs } from "@slack/bolt";
 import { Modal } from "../config/modalConfig";
 import { openModal, openAlertModal } from "../modal/modalTemplate";
-import { ErrorMsg } from "../config/errorConfig";
+import { ErrorAlert } from "../config/errorConfig";
 import { Club } from "../config/clubConfig";
 import { sectionPlainText } from "../blocks/generalComponents";
 import { getJoinClubBlocks } from "../blocks/joinClub";
@@ -20,8 +20,8 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: ErrorMsg.text.NOTIFICATION,
-            blocks: [sectionPlainText({ title: Club.label.ERROR, text: ErrorMsg.text.CONTACT_DEVELOPER })],
+            text: ErrorAlert.text.NOTIFICATION,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: ErrorAlert.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             throw new Error(error);
@@ -36,8 +36,8 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
           botToken,
           triggerId: body.trigger_id,
           title: Modal.title.NO_CLUB,
-          text: ErrorMsg.text.NO_EXIST_CLUB,
-          imageUrl: ErrorMsg.image.SORRY,
+          text: ErrorAlert.text.NO_EXIST_CLUB,
+          imageUrl: ErrorAlert.image.SORRY,
         });
         return;
       }
@@ -91,8 +91,8 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: ErrorMsg.text.NOTIFICATION,
-            blocks: [sectionPlainText({ title: Club.label.ERROR, text: ErrorMsg.text.CONTACT_DEVELOPER })],
+            text: ErrorAlert.text.NOTIFICATION,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: ErrorAlert.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             console.error({ error });
