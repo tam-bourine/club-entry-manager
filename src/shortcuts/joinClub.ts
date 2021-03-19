@@ -41,11 +41,11 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
         });
         return;
       }
+
       const injectClubs = clubs.map(({ id, name }) => ({
         text: name,
         value: id,
       }));
-
       openModal({
         client,
         botToken,
