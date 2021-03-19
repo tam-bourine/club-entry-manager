@@ -15,6 +15,7 @@ export namespace Config {
     export const END_POINT = `https://${TEAM_NAME}.kibe.la/api/v1` as string;
     export const USER_AGENT = "club-manager/1.0.0";
     export const HOME_GROUP_ID = (process.env.KIBELA_HOME_GROUP_ID as string) || "R3JvdXAvMQ";
+    export const MANAGE_FOLDER_ID = (process.env.KIBELA_CLUB_MANAGE_FOLDER_ID as string) || "Rm9sZGVyLzQzMA";
   }
 
   export namespace Slack {
