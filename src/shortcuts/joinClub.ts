@@ -72,7 +72,7 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
     }) => {
       ack();
 
-      const { value: channel }: { value: string } = values.join_input.join.selected_option;
+      const { value: clubRecordId }: { value: string } = values.join_input.join.selected_option;
 
       const member = await slack.user.getById(slackUserId);
       const kibelaUsers = await kibela.query.user.getAll();
@@ -80,7 +80,7 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
 
       const response = await gas.api.callJoinClub({
         club: {
-          channelId: channel,
+          id: clubRecordId,
         },
         member: {
           slackId: member.id,
@@ -101,12 +101,12 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
       }
 
       const { club } = response;
-      if (!club || !club.kibelaUrl) return;
-      const { kibelaUrl } = club;
+      if (!club || !club.kibelaUrl || !club.channelId) return;
+      const { kibelaUrl, channelId } = club;
 
       await Promise.all([
         client.conversations.invite({
-          channel,
+          channel: channelId,
           users: slackUserId,
         }),
         (async () => {

@@ -116,7 +116,7 @@ export interface CallApproveClubArgs {
 
 export interface CallJoinClubArgs {
   club: {
-    channelId: string;
+    id: string;
   };
   member: {
     slackId: string;
