@@ -1,4 +1,4 @@
-export namespace Error {
+export namespace ErrorMsg {
   export const text = {
     NOTIFICATION: "エラーが発生しました",
     CONTACT_DEVELOPER: "エラーが発生しました。開発者に連絡して下さい。",

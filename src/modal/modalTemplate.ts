@@ -27,7 +27,7 @@ export const openModal = async ({ client, botToken, triggerId, callbackId, title
       },
     })
     .catch((error) => {
-      console.error({ error }); // `dispatch_failed`と出た際にはこの中身を探る
+      throw new Error(error);
     });
 };
 
@@ -56,6 +56,6 @@ export const openAlertModal = async ({ client, botToken, triggerId, title, text,
       },
     })
     .catch((error) => {
-      console.error({ error });
+      console.error(JSON.stringify(error, null, "\n"));
     });
 };

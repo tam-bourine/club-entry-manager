@@ -12,7 +12,7 @@ import * as kibela from "../api/kibela";
 import * as slack from "../api/slack";
 import * as gas from "../api/gas";
 import { Config } from "../constant";
-import { Error } from "../config/errorConfig";
+import { ErrorMsg } from "../config/errorConfig";
 /* eslint strict: [2, "global"] */
 
 export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
@@ -59,8 +59,8 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: Error.text.NOTIFICATION,
-            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACT_DEVELOPER })],
+            text: ErrorMsg.text.NOTIFICATION,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: ErrorMsg.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             console.error({ error });
@@ -181,8 +181,8 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: Error.text.NOTIFICATION,
-            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACT_DEVELOPER })],
+            text: ErrorMsg.text.NOTIFICATION,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: ErrorMsg.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             console.error({ error });

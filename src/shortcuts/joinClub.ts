@@ -1,7 +1,7 @@
 import { AllMiddlewareArgs, App, SlackShortcutMiddlewareArgs } from "@slack/bolt";
 import { Modal } from "../config/modalConfig";
 import { openModal, openAlertModal } from "../modal/modalTemplate";
-import { Error } from "../config/errorConfig";
+import { ErrorMsg } from "../config/errorConfig";
 import { Club } from "../config/clubConfig";
 import { sectionPlainText } from "../blocks/generalComponents";
 import { getJoinClubBlocks } from "../blocks/joinClub";
@@ -17,15 +17,14 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
 
       const response = await gas.api.callNewJoinClub();
       if (!response.success) {
-        console.error(response, null, "\n");
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: Error.text.NOTIFICATION,
-            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACT_DEVELOPER })],
+            text: ErrorMsg.text.NOTIFICATION,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: ErrorMsg.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
-            console.error({ error });
+            throw new Error(error);
           });
         return;
       }
@@ -37,8 +36,8 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
           botToken,
           triggerId: body.trigger_id,
           title: Modal.title.NO_CLUB,
-          text: Error.text.NO_EXIST_CLUB,
-          imageUrl: Error.image.SORRY,
+          text: ErrorMsg.text.NO_EXIST_CLUB,
+          imageUrl: ErrorMsg.image.SORRY,
         });
         return;
       }
@@ -92,8 +91,8 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: Error.text.NOTIFICATION,
-            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACT_DEVELOPER })],
+            text: ErrorMsg.text.NOTIFICATION,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: ErrorMsg.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             console.error({ error });
