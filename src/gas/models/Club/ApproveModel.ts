@@ -81,7 +81,7 @@ export default class ApproveModel {
          *    [false, 4, false, false, ... ,false] のようなデータになる
          */
         const existsClubInRow = data?.map((rowData, rowIndex) => {
-          return rowData.includes(club.channelId) && rowIndex;
+          return rowData.includes(club.id) && rowIndex;
         });
         /**
          * @description
@@ -147,7 +147,7 @@ export default class ApproveModel {
          *  reduce で Bolt 側から送信された slackChannelId を includes している行を取り出す
          */
         const rowDataIncludesClub = data?.reduce((acc, cur) => {
-          if (cur.includes(club.channelId)) return cur;
+          if (cur.includes(club.id)) return cur;
           return acc;
         }, []);
         if (rowDataIncludesClub) {
