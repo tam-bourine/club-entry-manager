@@ -28,14 +28,24 @@ cd ../..
 <!-- NOTE: lagacy -->
 
 1. [SlackAPI の your apps](https://api.slack.com/apps)で 任意の名前で Bot を作成
+1. アプリの表示名の設定
+   - FeaturesのApp Homeを開く
+   ![image](https://user-images.githubusercontent.com/57348761/110273975-1f212f80-8011-11eb-91f9-54cbd839ebaa.png)
+   - Your App’s Presence in Slack 内のEditをクリックし、アプリの表示名を設定
+   ![image](https://user-images.githubusercontent.com/57348761/110274558-6d82fe00-8012-11eb-8447-4cc45aa5d4f8.png)
 1. [SlackAPI](https://api.slack.com/)の Permissons で Bot Token Scopes を設定
    ![image](https://user-images.githubusercontent.com/39648121/90381396-4980bf00-e0b8-11ea-85e4-390d38a41d55.png)
     - channels:history
     - chat:write
+    - chat:write.customize
+    - commands
     - groups:history
+    - groups:write
     - im:history
     - mpim:history
-    - workflow.steps:execute
+    - users.profile:read
+    - users:read
+    - users:read.email
 1. ワークスペースにインストール
 1. Basic Information の Singing Secret を src/functions/config.json の signing_secret に設定
 1. Permissions の中にある、Bot User OAuth Access Token を src/functions/config.json の bot_token に設定
@@ -174,6 +184,14 @@ cd ../..
 
 ※club-manager の SlackApp に招待してもらっている前提
 
+### SocketMode 有効化の手順
+1. SettingsのSocket Modeを開く
+   ![image](https://user-images.githubusercontent.com/57348761/110275590-afad3f00-8014-11eb-9ee3-353b887b5ddd.png)
+1. Enable Socket Modeを有効化
+   ![image](https://user-images.githubusercontent.com/57348761/110275351-331a6080-8014-11eb-8c78-014946790d96.png)
+1. Modal内のToken Nameに名前を入力
+   ![image](https://user-images.githubusercontent.com/57348761/110275345-31509d00-8014-11eb-9247-762ce547bbf5.png)
+1. Generateボタンを押す
 #### .env の作成
 
 `cp .env.example .env`で.env をコピーし、その中にある各値を以下の手順で取得 & 貼り付けしていく。
