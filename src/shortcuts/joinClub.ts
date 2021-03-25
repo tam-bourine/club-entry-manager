@@ -1,17 +1,16 @@
-import { AllMiddlewareArgs, App, SlackCommandMiddlewareArgs } from "@slack/bolt";
-import { openModal, openAlertModal } from "../modal/modalTemplate";
+import { AllMiddlewareArgs, App, SlackShortcutMiddlewareArgs } from "@slack/bolt";
 import { Modal } from "../config/modalConfig";
-import { getJoinClubBlocks } from "../blocks/joinClub";
+import { openModal, openAlertModal } from "../modal/modalTemplate";
 import * as gas from "../api/gas";
-import { Club } from "../config/clubConfig";
 import { Error } from "../config/errorConfig";
+import { Club } from "../config/clubConfig";
 import { sectionPlainText } from "../blocks/generalComponents";
+import { getJoinClubBlocks } from "../blocks/joinClub";
 
-const joinClubViewsId = "joinClubId";
-export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
-  app.command(
-    "/join-club",
-    async ({ ack, body, context: { botToken }, client }: SlackCommandMiddlewareArgs & AllMiddlewareArgs) => {
+export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
+  app.shortcut(
+    "open_join_club_modal",
+    async ({ ack, body, client, context: { botToken } }: SlackShortcutMiddlewareArgs & AllMiddlewareArgs) => {
       ack();
 
       const response = await gas.api.callNewJoinClub();
@@ -50,7 +49,7 @@ export const enableJoinClubCommand = (app: App, approvalChannelId: string) => {
         client,
         botToken,
         triggerId: body.trigger_id,
-        callbackId: joinClubViewsId,
+        callbackId: Modal.id.JOIN_CLUB_VIEWS_ID,
         title: Modal.title.JOIN,
         blocks: getJoinClubBlocks(injectClubs),
         submit: Modal.button.REQUEST,
