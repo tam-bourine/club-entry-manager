@@ -52,7 +52,7 @@ export type AccessTokenConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<AccessTokenEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<AccessToken>>>;
+  nodes?: Maybe<Array<AccessToken>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -86,7 +86,7 @@ export type AccessTokenLogConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<AccessTokenLogEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<AccessTokenLog>>>;
+  nodes?: Maybe<Array<AccessTokenLog>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -258,7 +258,7 @@ export type CommentConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<CommentEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<Comment>>>;
+  nodes?: Maybe<Array<Comment>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -319,7 +319,7 @@ export type CommentReplyConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<CommentReplyEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<CommentReply>>>;
+  nodes?: Maybe<Array<CommentReply>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -593,7 +593,7 @@ export type CustomEmojiConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<CustomEmojiEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<CustomEmoji>>>;
+  nodes?: Maybe<Array<CustomEmoji>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -916,7 +916,7 @@ export type FolderConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<FolderEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<Folder>>>;
+  nodes?: Maybe<Array<Folder>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -1006,7 +1006,7 @@ export type GroupConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<GroupEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<Group>>>;
+  nodes?: Maybe<Array<Group>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -1064,7 +1064,7 @@ export type ImportableUserConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<ImportableUserEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<ImportableUser>>>;
+  nodes?: Maybe<Array<ImportableUser>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -1723,7 +1723,7 @@ export type NoteBrowsingHistoryConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<NoteBrowsingHistoryEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<NoteBrowsingHistory>>>;
+  nodes?: Maybe<Array<NoteBrowsingHistory>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -1744,7 +1744,7 @@ export type NoteConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<NoteEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<Note>>>;
+  nodes?: Maybe<Array<Note>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -1801,7 +1801,7 @@ export type NoteTemplateConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<NoteTemplateEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<NoteTemplate>>>;
+  nodes?: Maybe<Array<NoteTemplate>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -1834,7 +1834,7 @@ export type NotificationConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<NotificationEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<Notification>>>;
+  nodes?: Maybe<Array<Notification>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -2262,7 +2262,7 @@ export type ReviewableDraftCommentConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<ReviewableDraftCommentEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<ReviewableDraftComment>>>;
+  nodes?: Maybe<Array<ReviewableDraftComment>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -2329,7 +2329,7 @@ export type SearchResultConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<SearchResultEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<SearchResult>>>;
+  nodes?: Maybe<Array<SearchResult>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
@@ -2803,7 +2803,7 @@ export type UserConnection = {
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<UserEdge>>>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<User>>>;
+  nodes?: Maybe<Array<User>>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   totalCount: Scalars["Int"];
