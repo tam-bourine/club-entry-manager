@@ -10,6 +10,8 @@ export const callAPI = async (
   noteFromPath: Query["noteFromPath"];
   updateNoteFolder: Mutation["updateNoteFolder"];
   group: Query["group"];
+  folders: Query["folders"];
+  folder: Query["folder"];
 }> => {
   const response = await nodeFetch(`${Config.Kibela.END_POINT}`, {
     method: "POST",
