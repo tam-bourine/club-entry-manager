@@ -3,7 +3,7 @@ import { Config } from "../constant";
 import type { Folder } from "../../@types/kibela.d";
 import { callAPI } from "../api/kibela/api";
 
-export const deleteFolder = ({ id, name }: Folder) => {
+export const deleteFolder = ({ id, path }: Folder) => {
   const timestamp = new Date().getTime();
 
   callAPI(gql`
@@ -26,7 +26,7 @@ export const deleteFolder = ({ id, name }: Folder) => {
         }
       }
     `).then(() => {
-      console.log(`${name}が削除されました`);
+      console.log(`${path}が削除されました`);
     });
   });
 };
@@ -39,6 +39,7 @@ const getClubFoldersByClubTypeFolder = async (clubTypeFolder: Folder) => {
           nodes {
             id
             name
+            path
           }
         }
       }
@@ -48,7 +49,7 @@ const getClubFoldersByClubTypeFolder = async (clubTypeFolder: Folder) => {
   if (!data.folder?.folders?.nodes || data.folder?.folders?.nodes === null) {
     console.error(`${clubTypeFolder.name}下には各部活専用フォルダは存在しませんでした。`);
   }
-  return data.folder?.folders?.nodes as Folder[];
+  return data.folder?.folders?.nodes;
 };
 
 export const getClubTypeFolders = async () => {
@@ -74,10 +75,17 @@ export const migrateClubFolders = async () => {
 
   await Promise.all(
     clubTypeFolders.map(async (clubTypeFolder) => {
-      if (clubTypeFolder === null) throw new Error();
+      if (clubTypeFolder === null) {
+        throw new Error(`部活管理フォルダが取得できませんでした。`);
+      }
 
       const clubFolders = await getClubFoldersByClubTypeFolder(clubTypeFolder);
+      if (!clubFolders) {
+        console.error(`${clubTypeFolder.name}内にフォルダは見つかりませんでした。`);
+        return;
+      }
       clubFolders.forEach((clubFolder) => {
+        if (clubFolder === null) return;
         deleteFolder(clubFolder);
       });
     })
