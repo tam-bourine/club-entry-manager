@@ -87,7 +87,9 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
           name: member.real_name,
         },
       });
-      if (!response.success) {
+
+      const { success, club } = response;
+      if (!success || !club || !club.kibelaUrl || !club.channelId) {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
@@ -100,8 +102,6 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
         return;
       }
 
-      const { club } = response;
-      if (!club || !club.kibelaUrl || !club.channelId) return;
       const { kibelaUrl, channelId } = club;
 
       await Promise.all([
