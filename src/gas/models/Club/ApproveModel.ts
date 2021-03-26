@@ -22,6 +22,7 @@ export interface CreateClubSheetParams {
 }
 
 export interface InsertInitialValuesParams {
+  channelId: string;
   clubName: string;
   kibelaUrl: string;
   members: {
@@ -154,10 +155,12 @@ export default class ApproveModel {
           /**
            * @description
            *  GAS は index が1開始なので constants.SPREAD_SHEET.CLUB_NAME_COLUMN_NUMBER - 1 で配列から
-           *  clubName を取り出す
+           *  clubName と channelId を取り出す
            */
           const clubNameIndex = this.constants.SPREAD_SHEET.CLUBS.CLUB_NAME_COLUMN_NUMBER - 1;
           const clubName = rowDataIncludesClub[clubNameIndex];
+          const channelIdIndex = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
+          const channelId = rowDataIncludesClub[channelIdIndex];
           const targetSheet = SpreadsheetApp.getActiveSpreadsheet();
           const result = targetSheet.insertSheet(clubName);
 
@@ -185,7 +188,7 @@ export default class ApproveModel {
 
           const kibelaUrl = rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.KIBELA_URL_COLUMN_NUMBER - 1];
 
-          if (result) return this.insertClubInitialValues({ clubName, kibelaUrl, members });
+          if (result) return this.insertClubInitialValues({ clubName, kibelaUrl, members, channelId });
           return this.res.notFound;
         }
       }
@@ -196,7 +199,7 @@ export default class ApproveModel {
   }
 
   private insertClubInitialValues(params: InsertInitialValuesParams): ResponseInterface {
-    const { clubName, kibelaUrl, members } = params;
+    const { clubName, kibelaUrl, members, channelId } = params;
     try {
       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(clubName);
       /**
@@ -218,7 +221,7 @@ export default class ApproveModel {
         sheet?.appendRow([member.name, member.slackId, member.role, member.joinedDate, member.leftDate]);
       });
       const header = this.res.created;
-      return { ...header, club: { name: clubName, kibelaUrl: kibelaUrl, members: members } };
+      return { ...header, club: { channelId, name: clubName, kibelaUrl, members } };
     } catch (error) {
       return this.res.internalServer;
     }
