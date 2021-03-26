@@ -11,7 +11,7 @@
     }
   ],
   "paths": {
-    "?action=get": {
+    "/?action=get": {
       "get": {
         "tags": ["clubs"],
         "summary": "入部申請用 部活動一覧",
@@ -93,7 +93,7 @@
         }
       }
     },
-    "?action=regist": {
+    "/?action=regist": {
       "post": {
         "tags": ["club"],
         "summary": "創部申請",
@@ -209,7 +209,7 @@
         }
       }
     },
-    "?action=approve": {
+    "/?action=approve": {
       "post": {
         "summary": "創部承認",
         "description": "該当部活動の認可をTRUEにして、新しく部活動タブを作成する",
@@ -344,7 +344,7 @@
         }
       }
     },
-    "?action=join": {
+    "/?action=join": {
       "post": {
         "summary": "入部申請",
         "description": "申請のあった該当部活動シートに、申請者の名前を追加",
@@ -369,10 +369,14 @@
                   "club": {
                     "type": "object",
                     "example": {
-                      "id": "xxxxxx",
-                      "channelId": "piyopiyo",
-                      "kibelaUrl": "https://example.kibe.la/",
-                      "name": "foo部"
+                      "id": "419e96d7-1a97-422a-b539-ac1080fe3739"
+                    }
+                  },
+                  "member": {
+                    "type": "object",
+                    "example": {
+                      "slackId": "UR285JW80",
+                      "name": "邪馬太郎"
                     }
                   }
                 }
