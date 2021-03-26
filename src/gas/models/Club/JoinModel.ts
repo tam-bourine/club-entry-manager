@@ -20,9 +20,9 @@ export default class JoinModel {
         throw new Error("部活動が見つかりませんでした");
       }
 
-      const result = clubs && this.findClubBySlackChannelId(clubs, club.channelId);
+      const result = clubs && this.findClubById(clubs, club.id);
       if (!result) {
-        throw new Error(`${club.channelId}が見つかりませんでした`);
+        throw new Error(`${club.id}が見つかりませんでした`);
       }
 
       const clubNameArrayNumber = this.constants.SPREAD_SHEET.CLUBS.CLUB_NAME_COLUMN_NUMBER - 1;
@@ -56,8 +56,8 @@ export default class JoinModel {
     return clubs;
   }
 
-  private findClubBySlackChannelId(clubs: any[][] | undefined, clubChannelId: string) {
-    const slackChannelIdArrayNumber = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
+  private findClubById(clubs: any[][] | undefined, clubChannelId: string) {
+    const slackChannelIdArrayNumber = this.constants.SPREAD_SHEET.CLUBS.ID_COLUMN_NUMBER - 1;
     return clubs?.reduce((prev, cur) => {
       if (cur[slackChannelIdArrayNumber] === clubChannelId) return cur;
       return prev;
