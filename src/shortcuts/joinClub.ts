@@ -6,7 +6,7 @@ import { Club } from "../config/clubConfig";
 import { sectionPlainText } from "../blocks/generalComponents";
 import { getJoinClubBlocks } from "../blocks/joinClub";
 import * as gas from "../api/gas";
-import * as kibela from "../api/kibela";
+// import * as kibela from "../api/kibela";
 import * as slack from "../api/slack";
 
 export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
@@ -75,8 +75,8 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
       const { value: clubRecordId }: { value: string } = values.join_input.join.selected_option;
 
       const member = await slack.user.getById(slackUserId);
-      const kibelaUsers = await kibela.query.user.getAll();
-      const userKibelaInfo = await kibela.query.user.findByEmail(member.profile.email, kibelaUsers);
+      // const kibelaUsers = await kibela.query.user.getAll();
+      // const userKibelaInfo = await kibela.query.user.findByEmail(member.profile.email, kibelaUsers);
 
       const response = await gas.api.callJoinClub({
         club: {
@@ -109,10 +109,10 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
           channel: channelId,
           users: slackUserId,
         }),
-        (async () => {
-          const group = await kibela.query.group.getByNoteUrl(kibelaUrl);
-          kibela.mutation.user.joinGroup(userKibelaInfo.id, group.id);
-        })(),
+        // (async () => {
+        //   const group = await kibela.query.group.getByNoteUrl(kibelaUrl);
+        //   kibela.mutation.user.joinGroup(userKibelaInfo.id, group.id);
+        // })(),
       ]);
     }
   );
