@@ -4,6 +4,8 @@ import { ASTNode } from "graphql/language/ast";
 import { Config } from "../../constant";
 import type { Mutation, Query } from "../../../@types/kibela.d";
 
+const asyncSleep = (msec = 100) => new Promise((resolve) => setTimeout(resolve, msec));
+
 export const callAPI = async (
   query: ASTNode
 ): Promise<{
@@ -23,6 +25,7 @@ export const callAPI = async (
     },
     body: JSON.stringify({ query: printGql(query) }),
   });
+  await asyncSleep();
   if (!response.ok) {
     const body = await response.text();
     throw new Error(`not ok: ${response.statusText}\n${body}`);
