@@ -1,5 +1,7 @@
 export default interface JoinInterface {
-  slackChannelId: string;
+  club: {
+    id: string;
+  };
   member: {
     slackId: string;
     name: string;

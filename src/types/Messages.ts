@@ -105,10 +105,23 @@ export interface CallNewClubArg {
 
 export interface CallApproveClubArgs {
   club: {
-    channelId: string;
+    id: string;
   };
   authorizer: {
     slackId: string;
     name: string;
   };
+  isApproved: boolean;
 }
+
+export interface CallJoinClubArgs {
+  club: {
+    id: string;
+  };
+  member: {
+    slackId: string;
+    name: string;
+  };
+}
+
+export type CallApiPostArgs = CallNewClubArg | CallApproveClubArgs | CallJoinClubArgs;

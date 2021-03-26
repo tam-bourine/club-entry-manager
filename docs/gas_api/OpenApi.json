@@ -11,7 +11,7 @@
     }
   ],
   "paths": {
-    "?action=get": {
+    "/?action=get": {
       "get": {
         "tags": ["clubs"],
         "summary": "入部申請用 部活動一覧",
@@ -50,11 +50,13 @@
                       "type": "array",
                       "example": [
                         {
-                          "id": "C01G2N9ADLK",
+                          "id": "419e96d7-1a97-422a-b539-ac1080fe3739",
+                          "channelId": "C01R3LHHUQZ",
                           "name": "LT部"
                         },
                         {
-                          "id": "CSKLT550T",
+                          "id": "519e96d7-1a97-422a-b539-ac1080fd4201",
+                          "channelId": "C05REANHUQ9",
                           "name": "OSS部"
                         }
                       ]
@@ -91,7 +93,7 @@
         }
       }
     },
-    "?action=regist": {
+    "/?action=regist": {
       "post": {
         "tags": ["club"],
         "summary": "創部申請",
@@ -171,7 +173,7 @@
                     "club": {
                       "type": "object",
                       "example": {
-                        "id": "fugapiyo",
+                        "id": "419e96d7-1a97-422a-b539-ac1080fe3739",
                         "name": "テニス部"
                       }
                     }
@@ -207,7 +209,7 @@
         }
       }
     },
-    "?action=approve": {
+    "/?action=approve": {
       "post": {
         "summary": "創部承認",
         "description": "該当部活動の認可をTRUEにして、新しく部活動タブを作成する",
@@ -229,9 +231,11 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "slackChannelId": {
-                    "type": "string",
-                    "example": "fugapiyo"
+                  "club": {
+                    "type": "object",
+                    "example": {
+                      "id": "419e96d7-1a97-422a-b539-ac1080fe3739"
+                    }
                   },
                   "authorizer": {
                     "type": "object",
@@ -271,6 +275,7 @@
                     "club": {
                       "type": "object",
                       "example": {
+                        "channelId": "C01E64P9NUC",
                         "name": "Piyo",
                         "kibelaUrl": "https://piyo.kibe.la/notes/12345",
                         "members": [
@@ -340,7 +345,7 @@
         }
       }
     },
-    "?action=join": {
+    "/?action=join": {
       "post": {
         "summary": "入部申請",
         "description": "申請のあった該当部活動シートに、申請者の名前を追加",
@@ -362,15 +367,17 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "slackChannelId": {
-                    "type": "string",
-                    "example": "fugapiyo"
+                  "club": {
+                    "type": "object",
+                    "example": {
+                      "id": "419e96d7-1a97-422a-b539-ac1080fe3739"
+                    }
                   },
                   "member": {
                     "type": "object",
                     "example": {
-                      "slackId": "DFKEIOD",
-                      "name": "風本颯太"
+                      "slackId": "UR285JW80",
+                      "name": "邪馬太郎"
                     }
                   }
                 }
