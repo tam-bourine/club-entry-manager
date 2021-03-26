@@ -18,6 +18,7 @@ export default class GetModel {
       }
 
       const idArrayNumber = this.constants.SPREAD_SHEET.CLUBS.ID_COLUMN_NUMBER - 1;
+      const slackChannelIdArrayNumber = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
       const clubNameArrayNumber = this.constants.SPREAD_SHEET.CLUBS.CLUB_NAME_COLUMN_NUMBER - 1;
 
       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetTabName);
@@ -26,6 +27,7 @@ export default class GetModel {
         ?.filter((_, index) => index !== 0)
         .map((values: Array<string>) => ({
           id: values[idArrayNumber],
+          channelId: values[slackChannelIdArrayNumber],
           name: values[clubNameArrayNumber],
         }));
       return this.view.provide({ ...this.res.ok, clubs });
