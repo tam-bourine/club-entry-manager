@@ -6,6 +6,7 @@ import { callAPI } from "../api/kibela/api";
 export const deleteFolder = async ({ id, path }: Folder) => {
   const timestamp = new Date().getTime();
 
+  // NOTE: uniqueでuselessなフォルダ名に書き換え
   await callAPI(gql`
     mutation {
       updateFolderName(input: { id: "${id}", name: "${timestamp}" }) {
@@ -16,6 +17,7 @@ export const deleteFolder = async ({ id, path }: Folder) => {
       }
     }
   `);
+  // NOTE: アーカイブ化し、以後queryでヒットさせない
   await callAPI(gql`
     mutation {
       archiveFolder(input: { id: "${id}" }) {
@@ -31,6 +33,7 @@ export const deleteFolder = async ({ id, path }: Folder) => {
 };
 
 const deleteNote = async ({ id, path }: Note) => {
+  // NOTE: archiveNote() -> deleteNote() の順で実行しなければエラー
   await callAPI(gql`
     mutation {
       archiveNote(input: { id: "${id}" }) {
@@ -50,6 +53,7 @@ const deleteNote = async ({ id, path }: Note) => {
 };
 
 const getClubFoldersByClubTypeFolder = async (clubTypeFolder: Folder) => {
+  // NOTE: folder.folders.nodes.notes でnotesまで一括で取れない為、処理を分離
   const data = await callAPI(gql`
     query {
       folder(id: "${clubTypeFolder.id}") {
@@ -112,21 +116,17 @@ export const migrateClubFolders = async () => {
 
   // NOTE: {公認|非公認}フォルダの数だけ繰り返す
   clubTypeFolders.forEach(async (clubTypeFolder) => {
-    if (clubTypeFolder === null) {
-      throw new Error(`部活管理フォルダが取得できませんでした。`);
-    }
-
     const clubFolders = await getClubFoldersByClubTypeFolder(clubTypeFolder);
-    if (!clubFolders) {
-      console.error(`${clubTypeFolder.name}内にフォルダは見つかりませんでした。`);
+    if (!clubFolders.length) {
+      console.error(`${clubTypeFolder.name}フォルダ内に部活フォルダは見つかりませんでした。`);
       return;
     }
 
     // NOTE: 部活専用フォルダの数だけ繰り返す
     clubFolders.forEach(async (clubFolder) => {
-      // NOTE: フォルダ内の記事の数だけ繰り返す
       if (clubFolder.notes.nodes) {
         console.log(`${clubFolder.name}に記事がありました`);
+        // NOTE: フォルダ内の記事の数だけ繰り返す
         await Promise.all(clubFolder.notes.nodes.map(async (note) => deleteNote(note)));
       }
       await deleteFolder(clubFolder);
