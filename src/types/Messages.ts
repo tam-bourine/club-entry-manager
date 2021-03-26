@@ -105,7 +105,7 @@ export interface CallNewClubArg {
 
 export interface CallApproveClubArgs {
   club: {
-    channelId: string;
+    id: string;
   };
   authorizer: {
     slackId: string;
