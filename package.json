@@ -20,7 +20,7 @@
     "bolt:serve": "npm run tsc && npx node lib/index.js",
     "bolt:dev": "npm run tsc && node --require dotenv/config --inspect=localhost:9229 lib/index.js",
     "bolt:dev:watch": "ts-node-dev --transpile-only src/index.ts",
-    "migrate:kibela:reset": "ts-node src/migrate/kibela.ts",
+    "migrate:kibela:reset": "ts-node src/migration/kibela.ts",
     "codegen": "graphql-codegen"
   },
   "keywords": [
