@@ -275,6 +275,7 @@
                     "club": {
                       "type": "object",
                       "example": {
+                        "channelId": "C01E64P9NUC",
                         "name": "Piyo",
                         "kibelaUrl": "https://piyo.kibe.la/notes/12345",
                         "members": [
