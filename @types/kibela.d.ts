@@ -1904,7 +1904,7 @@ export type Query = {
   customEmojis: CustomEmojiConnection;
   defaultGroup?: Maybe<Group>;
   feedSections: FeedSectionSimpleConnection;
-  folder?: Maybe<Folder>;
+  folder: Folder;
   folders: FolderConnection;
   group: Group;
   /** The active groups in the team including private ones */
