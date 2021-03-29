@@ -108,6 +108,10 @@ Install App to Your Team / Install to Workspace をクリック
 
 ## ローカル環境の設定 (`.env`ファイルの設定)
 
+### ■ .env の作成
+
+`cp .env.example .env`で.env をコピーし、その中にある各値を以下の手順で取得 & 貼り付けしていく。
+
 ### ■ SLACK_APP_TOKEN
 
 左サイドバーの Settings / Basic Information にアクセス
