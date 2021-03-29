@@ -202,4 +202,9 @@ Who has access to the app を `Anyone, even anonymous` にして更新ボタン�
 
 ![スクリーンショット 2021-03-29 15 56 38](https://user-images.githubusercontent.com/39585292/112801162-862f8280-90ab-11eb-8942-bcef8cc3d793.png)
 
+### ■ 動作確認
+
+club-manager フォルダ下で`npm run bolt:dev`を実行すると正常にサーバが起動し、
+#p_club-manager_notification にてアプリ起動なう⚡️と出れば環境構築終了
+
 <!-- TODO: Kibela系はβ版になってから書く -->
