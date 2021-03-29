@@ -170,40 +170,11 @@ cd ../..
 7. Postman などで ↑ の URL を叩いて動作確認
     - ![image](https://user-images.githubusercontent.com/38882716/109268429-69a2ef00-784e-11eb-8004-7eb38079e5b0.png)
 
-### SocketMode での開発方法
+### Bolt 側の環境構築
 
 ※club-manager の SlackApp に招待してもらっている前提
 
-#### .env の作成
-
-`cp .env.example .env`で.env をコピーし、その中にある各値を以下の手順で取得 & 貼り付けしていく。
-
-##### [SLACK_APP_TOKEN]
-
-赤枠をクリック(モーダルを開く)
-
-![basicInfo1](https://user-images.githubusercontent.com/39585292/108169723-6caa2b00-713c-11eb-9e14-4879d2b5526c.png)
-
-赤枠内の Copy をクリック
-
-![basicInfo2](https://user-images.githubusercontent.com/39585292/108169657-57cd9780-713c-11eb-86d1-ec9ebbe02561.png)
-
-##### [SLACK_BOT_TOKEN]
-
-赤枠内の Copy をクリック
-
-![InstallApp](https://user-images.githubusercontent.com/39585292/108169749-76339300-713c-11eb-9c7b-e76df49731f9.png)
-
-##### [SLACK_APPROVAL_CHANNEL_ID]
-
-開発用チャンネルの ID を`Copy link`を押して、
-https://tam-bourine.slack.com/archives/xxxxx の xxxx をコピー(今回はコピー済)
-
-![copyLink](https://user-images.githubusercontent.com/39585292/108169784-85b2dc00-713c-11eb-863d-2da8df918d98.png)
-
-#### サーバ起動方法
-
-`npm run serve`で bolt 起動
+[ドキュメント](docs/slack/setup.local.md)
 
 ## Software Design
 
