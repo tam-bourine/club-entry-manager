@@ -42,6 +42,7 @@ OAuth & Permissions / Scopes / Bot Token Scopes / Add an OAuth Scope より、�
   - `users.profile:read`
 
 Scopeを追加していくと↓のようになる
+
 <img width="840" alt="スクリーンショット 2021-03-29 13 54 43" src="https://user-images.githubusercontent.com/39585292/112788663-56c24b00-9096-11eb-8aac-59d116b1938a.png">
 
 ### ■ Socket Mode の設定
