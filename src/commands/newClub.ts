@@ -74,8 +74,6 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         text: `*<@${member}>*`,
       }));
 
-      console.log("response?.club?.id", response?.club?.id);
-
       const buttons: ButtonArg[] = [
         {
           text: "却下",
@@ -180,8 +178,6 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       });
 
       const { success, club } = response;
-
-      console.log(JSON.stringify(response, null, 2));
 
       if (!success || !club || !club.name || /*! club.kibelaUrl || */ !club.members || !club.channelId) {
         await client.chat
