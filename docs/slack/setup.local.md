@@ -21,20 +21,25 @@ Create New App ボタンから以下のように入力し Create App ボタン�
 
 OAuth & Permissions / Scopes / Bot Token Scopes / Add an OAuth Scope より、以下全ての Scope を入力し追加する
 
-<!-- TODO: ミニマムにしたい -->
-
-- `channels:history`
-- `channels:manage`
-- `chat:write`
-- `chat:write.customize`
-- `commands`
-- `groups:history`
-- `groups:write`
-- `im:history`
-- `mpim:history`
-- `users.profile:read`
-- `users:read`
-- `users:read.email`
+- 無条件で必要
+  - `channels:history`
+  - `groups:history`
+  - `im:history`
+  - `mpim:history`
+- conversations.invite()で必要
+  - `channels:manage`
+  - `groups:write`
+  - `im:write`
+  - `mpim:write`
+- app.shortcut()で必要
+  - `commands`
+- chat.postMessage()で必要
+  - `chat:write`
+  - `chat:write.customize`
+- users.info()で必要
+  - `users:read`
+  - `users:read.email`
+  - `users.profile:read`
 
 Scopeを追加していくと↓のようになる
 <img width="840" alt="スクリーンショット 2021-03-29 13 54 43" src="https://user-images.githubusercontent.com/39585292/112788663-56c24b00-9096-11eb-8aac-59d116b1938a.png">
