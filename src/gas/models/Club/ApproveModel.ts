@@ -12,16 +12,17 @@ export interface UpdateAuthorizerParams {
 }
 
 export interface updateIsApproved {
-  slackChannelId: ApproveInterface["slackChannelId"];
+  club: ApproveInterface["club"];
   authorizer: ApproveInterface["authorizer"];
   isApproved: ApproveInterface["isApproved"];
 }
 
 export interface CreateClubSheetParams {
-  slackChannelId: ApproveInterface["slackChannelId"];
+  club: ApproveInterface["club"];
 }
 
 export interface InsertInitialValuesParams {
+  channelId: string;
   clubName: string;
   kibelaUrl: string;
   members: {
@@ -49,9 +50,9 @@ export default class ApproveModel {
      *  Approved : 公認セルを TRUE で更新
      *  Rejected : 公認セルを FALSE で更新
      */
-    const { slackChannelId, authorizer, isApproved } = params;
+    const { club, authorizer, isApproved } = params;
 
-    const response = this.updateIsApproved({ slackChannelId, authorizer, isApproved });
+    const response = this.updateIsApproved({ club, authorizer, isApproved });
 
     /**
      * @description
@@ -62,7 +63,7 @@ export default class ApproveModel {
   }
 
   private updateIsApproved(params: updateIsApproved) {
-    const { slackChannelId, authorizer, isApproved } = params;
+    const { club, authorizer, isApproved } = params;
     try {
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
       if (sheetTabName) {
@@ -81,7 +82,7 @@ export default class ApproveModel {
          *    [false, 4, false, false, ... ,false] のようなデータになる
          */
         const existsClubInRow = data?.map((rowData, rowIndex) => {
-          return rowData.includes(slackChannelId) && rowIndex;
+          return rowData.includes(club.id) && rowIndex;
         });
         /**
          * @description
@@ -133,7 +134,7 @@ export default class ApproveModel {
   }
 
   private createClubSheet(params: CreateClubSheetParams) {
-    const { slackChannelId } = params;
+    const { club } = params;
     try {
       const sheetTabName = PropertiesService.getScriptProperties().getProperty("SHEET_TAB_NAME");
       if (sheetTabName) {
@@ -147,17 +148,19 @@ export default class ApproveModel {
          *  reduce で Bolt 側から送信された slackChannelId を includes している行を取り出す
          */
         const rowDataIncludesClub = data?.reduce((acc, cur) => {
-          if (cur.includes(slackChannelId)) return cur;
+          if (cur.includes(club.id)) return cur;
           return acc;
         }, []);
         if (rowDataIncludesClub) {
           /**
            * @description
            *  GAS は index が1開始なので constants.SPREAD_SHEET.CLUB_NAME_COLUMN_NUMBER - 1 で配列から
-           *  clubName を取り出す
+           *  clubName と channelId を取り出す
            */
           const clubNameIndex = this.constants.SPREAD_SHEET.CLUBS.CLUB_NAME_COLUMN_NUMBER - 1;
           const clubName = rowDataIncludesClub[clubNameIndex];
+          const channelIdIndex = this.constants.SPREAD_SHEET.CLUBS.SLACK_CHANNEL_ID_COLUMN_NUMBER - 1;
+          const channelId = rowDataIncludesClub[channelIdIndex];
           const targetSheet = SpreadsheetApp.getActiveSpreadsheet();
           const result = targetSheet.insertSheet(clubName);
 
@@ -185,7 +188,7 @@ export default class ApproveModel {
 
           const kibelaUrl = rowDataIncludesClub[this.constants.SPREAD_SHEET.CLUBS.KIBELA_URL_COLUMN_NUMBER - 1];
 
-          if (result) return this.insertClubInitialValues({ clubName, kibelaUrl, members });
+          if (result) return this.insertClubInitialValues({ clubName, kibelaUrl, members, channelId });
           return this.res.notFound;
         }
       }
@@ -196,7 +199,7 @@ export default class ApproveModel {
   }
 
   private insertClubInitialValues(params: InsertInitialValuesParams): ResponseInterface {
-    const { clubName, kibelaUrl, members } = params;
+    const { clubName, kibelaUrl, members, channelId } = params;
     try {
       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(clubName);
       /**
@@ -218,7 +221,7 @@ export default class ApproveModel {
         sheet?.appendRow([member.name, member.slackId, member.role, member.joinedDate, member.leftDate]);
       });
       const header = this.res.created;
-      return { ...header, club: { name: clubName, kibelaUrl: kibelaUrl, members: members } };
+      return { ...header, club: { channelId, name: clubName, kibelaUrl, members } };
     } catch (error) {
       return this.res.internalServer;
     }

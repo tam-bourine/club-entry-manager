@@ -143,7 +143,7 @@ const inputStaticSelect = ({ label, options, actionId, blockId, initialOption, p
       ...defaultResult,
       element: {
         ...defaultResult.element,
-        // element: defaultElement e.g. {...}
+        // NOTE: element: defaultElement e.g. {...}
         placeholder: {
           type: "plain_text",
           text: placeholder,
@@ -157,7 +157,7 @@ const inputStaticSelect = ({ label, options, actionId, blockId, initialOption, p
     ...defaultResult,
     element: {
       ...defaultResult.element,
-      // element: defaultElement e.g. {...}
+      // NOTE: element: defaultElement e.g. {...}
       initial_option: {
         text: {
           type: "plain_text",
@@ -193,6 +193,6 @@ export {
   sectionFields,
   sectionButton,
   sectionForm,
-  inputMultiSelect,
   inputStaticSelect,
+  inputMultiSelect,
 };

@@ -10,6 +10,7 @@ export default interface ResponseInterface {
   }[];
   club?: Partial<{
     id: string;
+    channelId: string;
     name: string;
     kibelaUrl: string;
     members: InsertInitialValuesParams["members"];
