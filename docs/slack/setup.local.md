@@ -26,17 +26,17 @@ OAuth & Permissions / Scopes / Bot Token Scopes / Add an OAuth Scope より、�
   - `groups:history`
   - `im:history`
   - `mpim:history`
-- conversations.invite()で必要
+- conversations.invite() に必要
   - `channels:manage`
   - `groups:write`
   - `im:write`
   - `mpim:write`
-- app.shortcut()で必要
+- app.shortcut() に必要
   - `commands`
-- chat.postMessage()で必要
+- chat.postMessage() に必要
   - `chat:write`
   - `chat:write.customize`
-- users.info()で必要
+- users.info() に必要
   - `users:read`
   - `users:read.email`
   - `users.profile:read`
