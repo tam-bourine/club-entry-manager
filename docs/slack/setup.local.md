@@ -186,31 +186,50 @@ Slack アプリの左サイドバーにある #p_club-manager_notification チ�
 コピーしたURLの末尾のチャンネルID(https://~~~.slack.com/archives/[チャンネルID])を、
 .env ファイルの`SLACK_DEBUG_CHANNEL_ID=`の右辺に貼り付ける
 
-### ■ GAS_ENDPOINT
+### ■ GAS_ENDPOINT & scriptId
 
-部活動一覧: dev のスプレッドシートを開く
+GoogleDrive / 共有ドライブ / club-manager / GAS 環境 / 個人環境 / [自分の名前] のスプレッドシートを開く
 
-![スクリーンショット 2021-03-29 15 55 10](https://user-images.githubusercontent.com/39585292/112798293-ab21f680-90a7-11eb-9441-785f9ea226dd.png)
+また、別タブ(ウィンドウ)で dev 環境の GAS のエディタ画面も開いておく
 
-ツール / スクリプトエディタ をクリックしGASのエディタ画面を開く
+(自分の名前のスプレッドシートが無ければ、他の人または dev 環境のスプレッドシートを個人環境フォルダ内にコピーし、自分の名前に変更する)
 
-![スクリーンショット 2021-03-29 15 55 19](https://user-images.githubusercontent.com/39585292/112800394-9004b600-90aa-11eb-837d-94615bda7e52.png)
 
-![スクリーンショット 2021-03-29 15 55 30](https://user-images.githubusercontent.com/39585292/112800525-b88cb000-90aa-11eb-8ba4-59330c0e4b76.png)
+<img width="1001" alt="スクリーンショット 2021-03-30 11 33 34" src="https://user-images.githubusercontent.com/39585292/112924912-f2fa5980-914b-11eb-9d74-1398423e35ac.png">
+
+<img width="988" alt="スクリーンショット 2021-03-30 11 38 58" src="https://user-images.githubusercontent.com/39585292/112925330-a82d1180-914c-11eb-82a3-61c29e7a5056.png">
+
+ツール / スクリプトエディタ をクリックし GAS のエディタ画面を開く
+
+<img width="988" alt="スクリーンショット 2021-03-30 11 39 03" src="https://user-images.githubusercontent.com/39585292/112925375-b8dd8780-914c-11eb-91f2-b41e0d0d9e78.png">
+
+<img width="988" alt="スクリーンショット 2021-03-30 11 40 42" src="https://user-images.githubusercontent.com/39585292/112925399-c5fa7680-914c-11eb-8649-8e443df1e76b.png">
+
+ファイル / プロジェクトのプロパティ を開く
+
+<img width="988" alt="スクリーンショット 2021-03-30 11 43 23" src="https://user-images.githubusercontent.com/39585292/112925868-884a1d80-914d-11eb-8b72-5525528492b9.png">
+
+プロジェクトのプロパティ / 情報 / スクリプトID の値を、.clasp.json ファイルの"scriptId"の value として貼り付ける
+
+<img width="988" alt="スクリーンショット 2021-03-30 11 43 48" src="https://user-images.githubusercontent.com/39585292/112925821-71a3c680-914d-11eb-9a59-7f635e6c05ce.png">
+
+プロジェクトのプロパティ / スクリプトのプロパティ から、dev 環境のそれと同じになるようにコピー&ペーストでプロパティと値を設定する
+
+<img width="988" alt="スクリーンショット 2021-03-30 11 48 03" src="https://user-images.githubusercontent.com/39585292/112926109-ec6ce180-914d-11eb-8c01-2d449d7c0009.png">
 
 公開 / ウェブアプリケーションとして導入… をクリック
 
-![スクリーンショット 2021-03-29 15 55 36](https://user-images.githubusercontent.com/39585292/112800609-d65a1500-90aa-11eb-9df7-e8b0e8175bb9.png)
+<img width="988" alt="スクリーンショット 2021-03-30 11 52 33" src="https://user-images.githubusercontent.com/39585292/112926593-9ea4a900-914e-11eb-8acf-3fd84d722b12.png">
 
 Project version を `New`, Execute the app as を `Me` に,
 
 Who has access to the app を `Anyone, even anonymous` にして更新ボタンを押す
 
-![スクリーンショット 2021-03-29 15 56 31](https://user-images.githubusercontent.com/39585292/112800916-3fda2380-90ab-11eb-8fd4-f57286700511.png)
+<img width="988" alt="スクリーンショット 2021-03-30 11 52 24" src="https://user-images.githubusercontent.com/39585292/112926608-a5332080-914e-11eb-8529-2fdff792cfbf.png">
 
 切り替わったモーダルの Current web app URL をコピーし、.env ファイルの`GAS_ENDPOINT=`の右辺に貼り付ける
 
-![スクリーンショット 2021-03-29 15 56 38](https://user-images.githubusercontent.com/39585292/112801162-862f8280-90ab-11eb-8942-bcef8cc3d793.png)
+<img width="988" alt="スクリーンショット 2021-03-30 11 52 51" src="https://user-images.githubusercontent.com/39585292/112926612-a6fce400-914e-11eb-98f4-c99813df42ab.png">
 
 ### ■ SlackApp をチャンネルに追加
 
