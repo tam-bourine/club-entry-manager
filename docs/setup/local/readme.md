@@ -8,7 +8,7 @@
 
 ## 環境構築
 
-### ローカル開発環境
+### [1] ローカル開発環境
 
 ```zsh
 git clone https://github.com/tam-bourine/club-manager.git
@@ -16,10 +16,10 @@ cd club-manager
 npm i & npm run postinstall:types-gas
 ```
 
-### Google Apps Script
+### [2] Google Apps Script
 
 [こちら](gas.local.md)
 
-### SlackApp (Bolt for TypeScript)
+### [3] SlackApp (Bolt for TypeScript)
 
 [こちら](slack.local.md)
