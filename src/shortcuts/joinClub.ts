@@ -13,7 +13,7 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
   app.shortcut(
     "open_join_club_modal",
     async ({ ack, body, client, context: { botToken } }: SlackShortcutMiddlewareArgs & AllMiddlewareArgs) => {
-      ack();
+      await ack();
 
       const response = await gas.api.callNewJoinClub();
       if (!response.success) {
@@ -70,7 +70,7 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
         user: { id: slackUserId },
       },
     }) => {
-      ack();
+      await ack();
 
       const { value: clubRecordId }: { value: string } = values.join_input.join.selected_option;
 
