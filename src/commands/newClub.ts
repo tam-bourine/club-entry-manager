@@ -26,7 +26,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       },
       client,
     }) => {
-      await ack();
+      ack();
 
       const memberIds = values.member_name.member.selected_users as string[];
       const members = await Promise.all(
@@ -113,7 +113,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
 
   // 却下理由入力モーダル表示
   app.action("reject_modal", async ({ ack, client, body, context }) => {
-    await ack();
+    ack();
 
     openModal({
       client,
@@ -136,7 +136,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       client,
       context,
     }: SlackActionMiddlewareArgs<InteractiveMessage<ButtonClick>> & AllMiddlewareArgs) => {
-      await ack();
+      ack();
 
       const [channelId, id] = payload.value.split(",");
 
@@ -162,7 +162,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       client,
       body,
     }) => {
-      await ack();
+      ack();
 
       const id = values.approval_input.approval.selected_option.value as string;
       const authorizer = await slack.user.getById(body.user.id);

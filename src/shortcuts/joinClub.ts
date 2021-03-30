@@ -70,7 +70,7 @@ export const enableJoinClubShortcut = (app: App, approvalChannelId: string) => {
         user: { id: slackUserId },
       },
     }) => {
-      await ack();
+      ack();
 
       const { value: clubRecordId }: { value: string } = values.join_input.join.selected_option;
 
