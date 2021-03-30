@@ -5,7 +5,7 @@ import { inputClubModal } from "../blocks/inputClub";
 
 export const enableNewClubShortcut = (app: App) => {
   app.shortcut("open_new_club_modal", async ({ ack, body, client, context }) => {
-    await ack();
+    ack();
 
     openModal({
       client,
