@@ -8,3 +8,7 @@ node_modules/
 docs/
 out/
 .clasp*
+.eslint*
+codegen*
+nodemon*
+.editorconfig
