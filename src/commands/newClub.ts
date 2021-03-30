@@ -1,6 +1,5 @@
 import { App, AllMiddlewareArgs, ButtonClick, InteractiveMessage, SlackActionMiddlewareArgs } from "@slack/bolt";
 import { BlockAction } from "@slack/bolt/dist/types/actions/block-action";
-import { inputClubModal } from "../blocks/inputClub";
 import { getMessageBlocks } from "../blocks/messages/modal";
 import { getRejectBlocks } from "../blocks/reject";
 import { getApprovalBlocks } from "../blocks/approval";
@@ -9,31 +8,17 @@ import { Modal } from "../config/modalConfig";
 import { sectionPlainText } from "../blocks/generalComponents";
 import { Club } from "../config/clubConfig";
 import { ButtonArg } from "../types/Messages";
-import * as kibela from "../api/kibela";
+// import * as kibela from "../api/kibela";
 import * as slack from "../api/slack";
 import * as gas from "../api/gas";
 import { Config } from "../constant";
-import { Error } from "../config/errorConfig";
+import { ErrorAlert } from "../config/errorConfig";
 /* eslint strict: [2, "global"] */
 
 export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
-  app.command("/new-club", async ({ ack, body, context, client }) => {
-    ack();
-
-    openModal({
-      client,
-      botToken: context.botToken,
-      triggerId: body.trigger_id,
-      callbackId: Modal.id.CLUB_VIEWS_ID,
-      title: Modal.title.REQUEST,
-      blocks: inputClubModal,
-      submit: Modal.button.REQUEST,
-    });
-  });
-
   // 承認専用チャンネルに創部申請情報を流す処理
   app.view(
-    Modal.id.CLUB_VIEWS_ID,
+    Modal.id.NEW_CLUB_VIEWS_ID,
     async ({
       ack,
       view: {
@@ -69,12 +54,13 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         members,
       };
       const response = await gas.api.callNewClub(clubInfo);
-      if (!response.success) {
+
+      if (!response.success || !response?.club?.id) {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: Error.text.NOTIFICATION,
-            blocks: [sectionPlainText({ title: Club.label.ERROR, text: Error.text.CONTACT_DEVELOPER })],
+            text: ErrorAlert.text.NOTIFICATION,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: ErrorAlert.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             console.error({ error });
@@ -88,18 +74,20 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         text: `*<@${member}>*`,
       }));
 
+      console.log("response?.club?.id", response?.club?.id);
+
       const buttons: ButtonArg[] = [
         {
           text: "却下",
           color: "danger",
           actionId: "reject_modal",
-          value: values.channel_id.channel.selected_channel,
+          value: `${values.channel_id.channel.selected_channel},${response?.club?.id}`,
         },
         {
           text: "承認",
           color: "primary",
           actionId: "approval_modal",
-          value: values.channel_id.channel.selected_channel,
+          value: `${values.channel_id.channel.selected_channel},${response?.club?.id}`,
         },
       ];
 
@@ -152,13 +140,15 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
     }: SlackActionMiddlewareArgs<InteractiveMessage<ButtonClick>> & AllMiddlewareArgs) => {
       ack();
 
+      const [channelId, id] = payload.value.split(",");
+
       openModal({
         client,
         botToken: context.botToken,
         triggerId: body.trigger_id,
         callbackId: Modal.id.APPROVAL_VIEWS_ID,
         title: Modal.title.APPROVAL,
-        blocks: getApprovalBlocks({ text: `<#${payload.value}>`, value: payload.value }),
+        blocks: getApprovalBlocks({ text: `<#${channelId}>`, value: id }),
         submit: Modal.button.APPROVAL,
       });
     }
@@ -176,26 +166,29 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
     }) => {
       ack();
 
-      const clubChannelId = values.approval_input.approval.selected_option.value as string;
+      const id = values.approval_input.approval.selected_option.value as string;
       const authorizer = await slack.user.getById(body.user.id);
 
       /* 16. シートの承認APIをコール */
       const response = await gas.api.callApproveClub({
-        club: {
-          channelId: clubChannelId,
-        },
+        club: { id },
         authorizer: {
           slackId: authorizer.id,
           name: authorizer.real_name,
         },
+        isApproved: true,
       });
 
-      if (!response.success) {
+      const { success, club } = response;
+
+      console.log(JSON.stringify(response, null, 2));
+
+      if (!success || !club || !club.name || /*! club.kibelaUrl || */ !club.members || !club.channelId) {
         await client.chat
           .postMessage({
             channel: approvalChannelId,
-            text: "エラーが発生しました",
-            blocks: [sectionPlainText({ title: Club.label.ERROR, text: "エラーが発生しました。" })],
+            text: ErrorAlert.text.NOTIFICATION,
+            blocks: [sectionPlainText({ title: Club.label.ERROR, text: ErrorAlert.text.CONTACT_DEVELOPER })],
           })
           .catch((error) => {
             console.error({ error });
@@ -203,33 +196,30 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         return;
       }
 
-      const { club } = response;
-      if (!club) return;
-      if (!club.name || !club.kibelaUrl || !club.members) return;
-      const { name, kibelaUrl, members } = club;
+      const { name, kibelaUrl, members, channelId } = club;
 
-      await kibela.mutation.note.moveOfficialFolder({ name, kibelaUrl });
+      // await kibela.mutation.note.moveOfficialFolder({ name, kibelaUrl });
 
-      // NOTE: slack user ids -> user emails
-      const memberEmails = await Promise.all(
-        members.map(async ({ slackId }) => (await slack.user.getById(slackId)).profile!.email)
-      );
-      const group = await kibela.query.group.getByNoteUrl(kibelaUrl);
-      // NOTE: kibela users -> target kibela users
-      kibela.query.user.getAll().then((users) =>
-        memberEmails
-          .map((email) => kibela.query.user.findByEmail(email, users))
-          .map(async (hitUser) => {
-            await kibela.mutation.user.joinGroup(hitUser.id, group.id);
-          })
-      );
+      // // NOTE: slack user ids -> user emails
+      // const memberEmails = await Promise.all(
+      //   members.map(async ({ slackId }) => (await slack.user.getById(slackId)).profile!.email)
+      // );
+      // const group = await kibela.query.group.getByNoteUrl(kibelaUrl);
+      // // NOTE: kibela users -> target kibela users
+      // kibela.query.user.getAll().then((users) =>
+      //   memberEmails
+      //     .map((email) => kibela.query.user.findByEmail(email, users))
+      //     .map(async (hitUser) => {
+      //       await kibela.mutation.user.joinGroup(hitUser.id, group.id);
+      //     })
+      // );
 
       // NOTE: Alert in approval channel
       await client.chat
         .postMessage({
           token: client.token,
           channel: approvalChannelId,
-          text: `<#${clubChannelId}>が承認されました:tada:`,
+          text: `<#${channelId}>が承認されました:tada:`,
         })
         .catch((error) => {
           console.error({ error });
@@ -239,7 +229,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       await client.chat
         .postMessage({
           token: client.token,
-          channel: clubChannelId,
+          channel: channelId,
           text:
             Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL
               ? `@channel 部活申請が承認されました:tada:`

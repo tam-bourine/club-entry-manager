@@ -1,5 +1,7 @@
 export default interface ApproveInterface {
-  slackChannelId: string;
+  club: {
+    id: string;
+  };
   authorizer: {
     slackId: string;
     name: string;

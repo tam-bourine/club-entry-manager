@@ -29,6 +29,7 @@ export default class Constants {
       },
     },
     CLUBS: {
+      ID_COLUMN_NUMBER: 1, // id
       CLUB_NAME_COLUMN_NUMBER: 2, // 部活名
       KIBELA_URL_COLUMN_NUMBER: 5, // Kibela Url
       SLACK_CHANNEL_ID_COLUMN_NUMBER: 6,

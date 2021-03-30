@@ -11,7 +11,7 @@ export const enableNewClubShortcut = (app: App) => {
       client,
       botToken: context.botToken,
       triggerId: body.trigger_id,
-      callbackId: Modal.id.CLUB_VIEWS_ID,
+      callbackId: Modal.id.NEW_CLUB_VIEWS_ID,
       title: Modal.title.REQUEST,
       blocks: inputClubModal,
       submit: Modal.button.REQUEST,
