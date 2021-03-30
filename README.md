@@ -12,21 +12,7 @@
 
 ## セットアップ手順
 
-### リポジトリのインストール
-
-```zsh
-git clone https://github.com/tam-bourine/club-manager.git
-cd club-manager
-npm i & npm run postinstall:types-gas
-```
-
-### Google Apps Script
-
-[ドキュメントはこちら](docs/setup/gas.local.md)
-
-### SlackApp
-
-[ドキュメントはこちら](docs/setup/slack.local.md)
+[こちら](docs/setup/local)
 
 ## Software Design
 
