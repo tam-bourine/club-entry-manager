@@ -3,105 +3,26 @@
 ## 利用技術
 
 -   SlackApp
-    -   Node.js v10
+    -   Node.js v12
     -   [Bolt for JavaScript](https://github.com/slackapi/bolt-js)
+    -   [TypeScript](https://www.typescriptlang.org/)
 -   シート API
     -   [Google Apps Script](https://developers.google.com/gsuite/aspects/appsscript?hl=ja)
     -   [clasp](https://github.com/google/clasp)
--   FaaS
-    -   [Firebase](https://firebase.google.com/?hl=ja)
 
 ## セットアップ手順
 
-### クローン・パッケージのインストール
+### リポジトリのインストール
 
-```shell
+```zsh
 git clone https://github.com/tam-bourine/club-manager.git
 cd club-manager
-cd src/functions
-npm install
-cd ../..
+npm i & npm run postinstall:types-gas
 ```
 
 ### SlackApp
 
-<!-- NOTE: lagacy -->
-
-1. [SlackAPI の your apps](https://api.slack.com/apps)で 任意の名前で Bot を作成
-1. [SlackAPI](https://api.slack.com/)の Permissons で Bot Token Scopes を設定
-   ![image](https://user-images.githubusercontent.com/39648121/90381396-4980bf00-e0b8-11ea-85e4-390d38a41d55.png)
-    - channels:history
-    - chat:write
-    - groups:history
-    - im:history
-    - mpim:history
-    - workflow.steps:execute
-1. ワークスペースにインストール
-1. Basic Information の Singing Secret を src/functions/config.json の signing_secret に設定
-1. Permissions の中にある、Bot User OAuth Access Token を src/functions/config.json の bot_token に設定
-
-1. [Firebase コンソール](https://console.firebase.google.com/u/0/?hl=ja)にアクセス
-1. プロジェクトを作成
-    - <img width="861" alt="スクリーンショット 2020-12-14 10 41 44" src="https://user-images.githubusercontent.com/39648121/102048895-422db000-3e23-11eb-993b-42b5605b168d.png">
-    - <img width="772" alt="スクリーンショット 2020-12-14 10 41 54" src="https://user-images.githubusercontent.com/39648121/102048902-4659cd80-3e23-11eb-9a24-63c78c04b32b.png">
-    - <img width="901" alt="スクリーンショット 2020-12-14 10 42 12" src="https://user-images.githubusercontent.com/39648121/102048907-478afa80-3e23-11eb-9103-e4c6999b8ad3.png">
-    - <img width="734" alt="スクリーンショット 2020-12-14 10 43 10" src="https://user-images.githubusercontent.com/39648121/102048917-49ed5480-3e23-11eb-8f89-e8dbb04a6866.png">
-1. プロジェクトのプランを Blaze に移行
-    - <img width="809" alt="スクリーンショット 2020-12-14 10 50 03" src="https://user-images.githubusercontent.com/39648121/102048925-4c4fae80-3e23-11eb-979c-f4d155f46c14.png">
-    - <img width="646" alt="スクリーンショット 2020-12-14 10 50 17" src="https://user-images.githubusercontent.com/39648121/102048929-4d80db80-3e23-11eb-9dbd-2f2db392b8f4.png">
-    - 必要なら請求先アカウントを作成（ここでは説明は省く）
-    - <img width="535" alt="スクリーンショット 2020-12-14 10 51 07" src="https://user-images.githubusercontent.com/39648121/102048931-4eb20880-3e23-11eb-9a76-b4c176ea8ccb.png">
-    - 必要なら予算アラートを設定（ここでは説明は省く）
-    - <img width="534" alt="スクリーンショット 2020-12-14 10 51 20" src="https://user-images.githubusercontent.com/39648121/102048935-4fe33580-3e23-11eb-9cd6-5c4e0c078efb.png">
-1. アカウントを選択して Firebase にログイン
-    ```shell
-    firebase login
-    ```
-1. projects リストを確認
-    ```shell
-    firebase projects:list
-    ```
-    - 次のようなリストが表示される
-    - <img width="751" alt="スクリーンショット 2020-12-14 10 43 57" src="https://user-images.githubusercontent.com/39648121/102048922-4b1e8180-3e23-11eb-9dae-00449c58db3e.png">
-1. projects を選択
-    ```shell
-    firebase use [Project ID]
-    ```
-    ```shell
-    firebase projects:list
-    ```
-    - Project Id の値のところに current がついていれば OK
-    - <img width="844" alt="スクリーンショット 2020-12-14 10 44 50" src="https://user-images.githubusercontent.com/39648121/102048924-4b1e8180-3e23-11eb-8853-2ef98ecc353a.png">
-1. 環境変数の設定
-    - singing_secret と bot_token の内容は src/functions/config.json の内容に置き換えて実行する
-        ```shell
-        firebase functions:config:set slack.signing_secret='signing_secret' slack.bot_token='bot_token'
-        ```
-    - 例
-        ```shell
-        firebase functions:config:set slack.signing_secret='1a2b3c4d5e6f7g8h9i' slack.bot_token='xoxp-000011112222'
-        ```
-1. デプロイ
-    ```shell
-    firebase deploy --only functions
-    ```
-1. Event Subscriptions の設定
-
-    - SlackApp の設定で Basic Information→Event Subscriptions に行き、次の URL を設定
-
-        - "https://us-central1-[プロジェクト ID].cloudfunctions.net/slack"
-        - 例: https://us-central1-hoge1fuga2.cloudfunctions.net/slack
-        - ![スクリーンショット 2020-12-14 15 36 13](https://user-images.githubusercontent.com/39648121/102048937-51146280-3e23-11eb-982f-1c3241e54a87.png)
-        - ![102048938-51acf900-3e23-11eb-9f54-8148a779604b](https://user-images.githubusercontent.com/39648121/103493791-baadec80-4e76-11eb-90dc-c52f71c92c63.png)
-
-    - Subscribe to bot events を開き、次の Bot User Event を追加
-        - message.channels
-        - message.groups
-        - message.im
-        - message.mpim
-        - workflow_step_execute
-        - ![スクリーンショット 2020-12-14 15 37 06](https://user-images.githubusercontent.com/39648121/102048940-52458f80-3e23-11eb-9e96-b7816c95878a.png)
-        - Save Changes をクリックして保存
+[ドキュメントはこちら](docs/slack/setup.local.md)
 
 ### GAS
 
@@ -169,12 +90,6 @@ cd ../..
       ![image](https://user-images.githubusercontent.com/39648121/101870625-5aa08f00-3bc5-11eb-9c17-18e13ad6d284.png)
 7. Postman などで ↑ の URL を叩いて動作確認
     - ![image](https://user-images.githubusercontent.com/38882716/109268429-69a2ef00-784e-11eb-8004-7eb38079e5b0.png)
-
-### Bolt 側の環境構築
-
-※club-manager の SlackApp に招待してもらっている前提
-
-[ドキュメント](docs/slack/setup.local.md)
 
 ## Software Design
 
