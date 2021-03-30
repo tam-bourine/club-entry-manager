@@ -12,3 +12,4 @@ out/
 codegen*
 nodemon*
 .editorconfig
+*.md
