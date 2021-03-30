@@ -181,8 +181,6 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
 
       const { success, club } = response;
 
-      console.log(JSON.stringify(response, null, 2));
-
       if (!success || !club || !club.name || /*! club.kibelaUrl || */ !club.members || !club.channelId) {
         await client.chat
           .postMessage({
