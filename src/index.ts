@@ -1,4 +1,4 @@
-import { App, ExpressReceiver } from "@slack/bolt";
+import { App } from "@slack/bolt";
 import { ChatPostMessageArguments } from "@slack/web-api";
 import { Config } from "./constant";
 import * as slackAPI from "./api/slack";
@@ -6,21 +6,10 @@ import { enableNewClubCommand } from "./commands/newClub";
 import { enableNewClubShortcut } from "./shortcuts/newClub";
 import { enableJoinClubShortcut } from "./shortcuts/joinClub";
 
-const expressReceiver = new ExpressReceiver({
-  signingSecret: Config.Slack.SIGNING_SECRET,
-  endpoints: "/slack/events",
-  processBeforeResponse: true,
-});
-
 export const app = new App({
-  socketMode: Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL,
-  appToken: Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL ? Config.Slack.APP_TOKEN : undefined,
+  socketMode: true,
+  appToken: Config.Slack.APP_TOKEN,
   token: Config.Slack.BOT_TOKEN,
-  receiver:
-    Config.General.APP_ENV === Config.General.APP_ENV_TYPE.DEV ||
-    Config.General.APP_ENV === Config.General.APP_ENV_TYPE.PRD
-      ? expressReceiver
-      : undefined,
   processBeforeResponse:
     Config.General.APP_ENV === Config.General.APP_ENV_TYPE.DEV ||
     Config.General.APP_ENV === Config.General.APP_ENV_TYPE.PRD,
