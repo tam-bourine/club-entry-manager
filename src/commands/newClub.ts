@@ -162,7 +162,7 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       client,
       body,
     }) => {
-      ack();
+      await ack();
 
       const id = values.approval_input.approval.selected_option.value as string;
       const authorizer = await slack.user.getById(body.user.id);
