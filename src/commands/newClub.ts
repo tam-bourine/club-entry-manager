@@ -74,8 +74,6 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
         text: `*<@${member}>*`,
       }));
 
-      console.log("response?.club?.id", response?.club?.id);
-
       const buttons: ButtonArg[] = [
         {
           text: "却下",
