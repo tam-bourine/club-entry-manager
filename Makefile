@@ -8,7 +8,7 @@
 # docker -------
 buildup:
 	docker-compose -f $(DOCKER_FILE_PATH) up -d --build
-:
+buildup-d:
 	docker-compose -f $(DOCKER_FILE_PATH) up -d
 down:
 	docker-compose -f $(DOCKER_FILE_PATH) down

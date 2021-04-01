@@ -7,8 +7,6 @@ steps:
       - "docker/Dockerfile"
       - "-t"
       - "gcr.io/$PROJECT_ID/${_SERVICE_NAME}-${_STAGE}:latest"
-      - "--build-arg"
-      - "STAGE=${_STAGE}"
       - "."
     timeout: 60s
   # Push the container image to Container Registry
