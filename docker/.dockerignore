@@ -1,6 +1,5 @@
 lib/
 node_modules/
-*.md
 .env*
 .vscode/
 .git
@@ -9,3 +8,8 @@ node_modules/
 docs/
 out/
 .clasp*
+.eslint*
+codegen*
+nodemon*
+.editorconfig
+*.md
