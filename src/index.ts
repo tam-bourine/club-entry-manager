@@ -11,7 +11,7 @@ export const app = new App({
   appToken: Config.Slack.APP_TOKEN,
   token: Config.Slack.BOT_TOKEN,
   processBeforeResponse:
-    Config.General.APP_ENV === Config.General.APP_ENV_TYPE.DEV ||
+    Config.General.APP_ENV === Config.General.APP_ENV_TYPE.STG ||
     Config.General.APP_ENV === Config.General.APP_ENV_TYPE.PRD,
 });
 
