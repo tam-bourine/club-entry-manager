@@ -39,7 +39,7 @@ export namespace Config {
     export const { APP_ENV } = process.env;
     export const APP_ENV_TYPE = {
       LOCAL: "local",
-      DEV: "dev",
+      STG: "stg",
       PRD: "prd",
     };
     // NOTE: Union Types いらないかな？、一旦書いとく（いらないなら消しておk）

@@ -1,0 +1,57 @@
+name: Deploy
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    types: [closed]
+
+jobs:
+  gas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    # see: https://github.com/momumomu/clasp_ci_sample/blob/master/.github/workflows/prd_merged.yml
+    # see: https://qiita.com/iron-smri/items/fdf0def390a160d044c3
+    env:
+      ACCESS_TOKEN: ${{ secrets.GAS_ACCESS_TOKEN }}
+      REFRESH_TOKEN: ${{ secrets.GAS_REFRESH_TOKEN }}
+      SCOPE: ${{ secrets.GAS_SCOPE }}
+      ID_TOKEN: ${{ secrets.GAS_ID_TOKEN }}
+      EXPIRY_DATE: ${{ secrets.GAS_EXPIRY_DATE }}
+      CLIENT_ID: ${{ secrets.GAS_CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.GAS_CLIENT_SECRET }}
+      SCRIPT_ID: ${{ secrets.GAS_SCRIPT_ID }}
+      DEPLOYMENT_ID: ${{ secrets.GAS_DEPLOYMENT_ID }}
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: |
+          npm install
+          npm install -g @google/clasp
+      - run: |
+          npm run lint
+      - run: |
+          sh scripts/setup_clasprc_json.sh
+          sh scripts/setup_clasp_json.sh
+      - run: |
+          clasp push -f
+          clasp deploy --deploymentId $DEPLOYMENT_ID
+        working-directory: "./src/gas"

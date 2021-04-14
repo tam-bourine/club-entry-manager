@@ -164,7 +164,11 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       client,
       body,
     }) => {
-      ack();
+      try {
+        await ack();
+      } catch (error) {
+        throw new Error(error);
+      }
 
       const id = values.approval_input.approval.selected_option.value as string;
       const authorizer = await slack.user.getById(body.user.id);
@@ -180,8 +184,6 @@ export const enableNewClubCommand = (app: App, approvalChannelId: string) => {
       });
 
       const { success, club } = response;
-
-      console.log(JSON.stringify(response, null, 2));
 
       if (!success || !club || !club.name || /*! club.kibelaUrl || */ !club.members || !club.channelId) {
         await client.chat

@@ -7,10 +7,9 @@ import { enableNewClubShortcut } from "./shortcuts/newClub";
 import { enableJoinClubShortcut } from "./shortcuts/joinClub";
 
 export const app = new App({
-  socketMode: Config.General.APP_ENV === Config.General.APP_ENV_TYPE.LOCAL,
+  socketMode: true,
   appToken: Config.Slack.APP_TOKEN,
   token: Config.Slack.BOT_TOKEN,
-  signingSecret: Config.Slack.SIGNING_SECRET,
 });
 
 app.error((err) => {
